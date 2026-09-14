@@ -184,7 +184,7 @@ nav.tabs::-webkit-scrollbar{display:none}
 .tag.c{color:var(--terra);border-color:rgba(194,84,47,.45);background:var(--terra-soft)}
 
 /* ============================================================
-   SIMULADOR 3D - INTEGRALES Y TEOREMAS
+   SIMULADOR 3D
 ============================================================ */
 .panel{background:var(--card);border:1.5px solid var(--ink);border-radius:var(--radius);overflow:hidden}
 .panel-head{display:flex;align-items:center;gap:9px;padding:14px 18px;border-bottom:1px solid var(--line);font-weight:700;font-size:13px;letter-spacing:.06em;text-transform:uppercase}
@@ -379,8 +379,8 @@ footer{border-top:2px solid var(--ink);padding:30px 0 40px;margin-top:20px}
       <span>Cálculo II<small>Aula interactiva — Dr. Adrián Cerda</small></span>
     </div>
     <img class="brand-logo" src="unii_logo_clean.png" alt="Logo UNII" style="width:48px;height:auto;margin-left:auto;">
-    
-  </div><div class="wrap">
+  </div>
+  <div class="wrap">
     <nav class="tabs" id="mainNav">
       <button class="nav-btn active" data-view="inicio"><i data-lucide="home"></i>Inicio</button>
       <button class="nav-btn" data-view="teoria"><i data-lucide="book-open"></i>Teoría</button>
@@ -472,8 +472,6 @@ footer{border-top:2px solid var(--ink);padding:30px 0 40px;margin-top:20px}
       </aside>
 
       <div class="prose">
-
-        <!-- 6.1 -->
         <article class="sec" id="t61">
           <div class="sec-no">6.1</div>
           <h3>Optimización con restricciones</h3>
@@ -491,7 +489,6 @@ footer{border-top:2px solid var(--ink);padding:30px 0 40px;margin-top:20px}
           </div>
         </article>
 
-        <!-- 6.2 -->
         <article class="sec" id="t62">
           <div class="sec-no">6.2</div>
           <h3>Integración múltiple</h3>
@@ -507,7 +504,6 @@ footer{border-top:2px solid var(--ink);padding:30px 0 40px;margin-top:20px}
           </div>
         </article>
 
-        <!-- 6.3 -->
         <article class="sec" id="t63">
           <div class="sec-no">6.3</div>
           <h3>Integrales de línea y superficie</h3>
@@ -525,7 +521,6 @@ footer{border-top:2px solid var(--ink);padding:30px 0 40px;margin-top:20px}
           </div>
         </article>
 
-        <!-- 6.4 -->
         <article class="sec" id="t64">
           <div class="sec-no">6.4</div>
           <h3>Teoremas integrales del cálculo vectorial</h3>
@@ -557,13 +552,12 @@ footer{border-top:2px solid var(--ink);padding:30px 0 40px;margin-top:20px}
             </ul>
           </div>
         </article>
-
       </div>
     </div>
   </div>
 </section>
 
-<!-- ==================== SIMULADOR 3D - INTEGRALES ==================== -->
+<!-- ==================== SIMULADOR 3D ==================== -->
 <section class="view" id="v-simulador" hidden>
   <div class="wrap">
     <div class="view-head">
@@ -583,7 +577,6 @@ footer{border-top:2px solid var(--ink);padding:30px 0 40px;margin-top:20px}
             <button class="sim-tab" data-stab="stokes">Teorema de Stokes</button>
           </div>
 
-          <!-- Pestaña: Integral de línea -->
           <div class="sim-panel active" id="st-linea">
             <div class="field" style="margin-bottom:12px">
               <label for="campoLinea">Campo vectorial \(\mathbf{F}\)</label>
@@ -622,7 +615,6 @@ footer{border-top:2px solid var(--ink);padding:30px 0 40px;margin-top:20px}
             </div>
           </div>
 
-          <!-- Pestaña: Integral de superficie -->
           <div class="sim-panel" id="st-superficie">
             <div class="field" style="margin-bottom:12px">
               <label for="campoSuperficie">Campo \(\mathbf{F}\)</label>
@@ -658,7 +650,6 @@ footer{border-top:2px solid var(--ink);padding:30px 0 40px;margin-top:20px}
             </div>
           </div>
 
-          <!-- Pestaña: Teorema de la divergencia -->
           <div class="sim-panel" id="st-divergencia">
             <div class="field" style="margin-bottom:12px">
               <label for="campoDivergencia">Campo \(\mathbf{F}\)</label>
@@ -695,7 +686,6 @@ footer{border-top:2px solid var(--ink);padding:30px 0 40px;margin-top:20px}
             </div>
           </div>
 
-          <!-- Pestaña: Teorema de Stokes -->
           <div class="sim-panel" id="st-stokes">
             <div class="field" style="margin-bottom:12px">
               <label for="campoStokes">Campo \(\mathbf{F}\)</label>
@@ -756,7 +746,6 @@ footer{border-top:2px solid var(--ink);padding:30px 0 40px;margin-top:20px}
       <p class="sub">Ejercicios guiados, redacción con LaTeX, quiz y problemas del Marsden-Tromba.</p>
     </div>
 
-    <!-- Rúbrica -->
     <div class="act-block">
       <h3>Rúbrica de evaluación</h3>
       <p class="act-desc">Ponderación de cada instrumento sobre la calificación de la unidad (nota final sobre 10).</p>
@@ -766,7 +755,6 @@ footer{border-top:2px solid var(--ink);padding:30px 0 40px;margin-top:20px}
       <div class="rub-row"><span class="rub-name">Tarea: problemas del Marsden-Tromba</span><div class="rub-bar"><div style="width:30%"></div></div><span class="rub-pct">30%</span></div>
     </div>
 
-    <!-- Ejercicios guiados -->
     <div class="act-block" id="ejBlock">
       <h3>Ejercicios guiados con solución</h3>
       <p class="act-desc">Intenta resolverlos por escrito antes de desplegar la solución.</p>
@@ -822,7 +810,6 @@ footer{border-top:2px solid var(--ink);padding:30px 0 40px;margin-top:20px}
       </details>
     </div>
 
-    <!-- Refuerzo con redacción -->
     <div class="act-block" id="redBlock">
       <h3>Refuerzo: redacta tu solución</h3>
       <p class="act-desc">Cuatro problemas adicionales sin solución visible.</p>
@@ -884,7 +871,6 @@ footer{border-top:2px solid var(--ink);padding:30px 0 40px;margin-top:20px}
       </details>
     </div>
 
-    <!-- Quiz -->
     <div class="act-block">
       <h3>Quiz de autoevaluación</h3>
       <p class="act-desc">Seis preguntas de opción múltiple.</p>
@@ -896,7 +882,6 @@ footer{border-top:2px solid var(--ink);padding:30px 0 40px;margin-top:20px}
       </div>
     </div>
 
-    <!-- Tarea -->
     <div class="act-block" style="margin-bottom:0">
       <h3>Tarea — problemas del Marsden-Tromba</h3>
       <p class="act-desc">Resuelve los ejercicios seleccionados de los Capítulos 6-7. Fecha límite: <strong id="taskDeadline"></strong>.</p>
@@ -907,7 +892,7 @@ footer{border-top:2px solid var(--ink);padding:30px 0 40px;margin-top:20px}
             <div style="display:flex;justify-content:space-between;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:8px">
               <span>Progreso</span><span id="taskPct">0 / 8 · 0%</span>
             </div>
-            <div class="conv-bar" style="margin-bottom:18px"><div id="taskBar" style="background:var(--pine)"></div></div>
+            <div class="conv-bar" style="margin-bottom:18px;height:10px;border:1px solid var(--line-strong);border-radius:999px;overflow:hidden"><div id="taskBar" style="background:var(--pine);height:100%;width:0%"></div></div>
             <div id="taskList"></div>
           </div>
         </div>
@@ -1022,14 +1007,22 @@ const $$ = s => [...document.querySelectorAll(s)];
 const INK='#1c2b25', PINE='#1e4636', TERRA='#c2542f', PAPER='#fffdf8';
 
 function esc(s){ return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
-function toast(msg, type='ok'){
-  const box=$('#toasts'), t=document.createElement('div');
-  t.className='toast '+type;
-  t.innerHTML = `<i data-lucide="${type==='ok'?'check-circle-2':'alert-circle'}"></i><span>${msg}</span>`;
-  box.appendChild(t); lucide.createIcons();
-  setTimeout(()=>{ t.classList.add('out'); setTimeout(()=>t.remove(), 320); }, 3200);
+function safe(fn, label){
+  try { return fn(); }
+  catch(err){ console.error('[Error en ' + label + ']', err); }
 }
-function refreshIcons(){ if(window.lucide) lucide.createIcons(); }
+function toast(msg, type='ok'){
+  safe(() => {
+    const box=$('#toasts'); if(!box) return;
+    const t=document.createElement('div');
+    t.className='toast '+type;
+    t.innerHTML = `<i data-lucide="${type==='ok'?'check-circle-2':'alert-circle'}"></i><span>${msg}</span>`;
+    box.appendChild(t);
+    if(window.lucide) safe(() => lucide.createIcons(), 'lucide toast');
+    setTimeout(()=>{ t.classList.add('out'); setTimeout(()=>t.remove(), 320); }, 3200);
+  }, 'toast');
+}
+function refreshIcons(){ if(window.lucide) safe(() => lucide.createIcons(), 'lucide'); }
 
 /* ============================================================
    PERSISTENCIA
@@ -1053,20 +1046,28 @@ function act(){
 function saveAct(a){ localStorage.setItem(LS_ACT, JSON.stringify(a)); }
 
 /* ============================================================
-   NAVEGACIÓN
+   NAVEGACIÓN (delegación de eventos: a prueba de fallos)
 ============================================================ */
 function showView(v){
-  $$('.view').forEach(s => s.hidden = true);
-  $('#v-'+v).hidden = false;
-  $$('.nav-btn').forEach(b => b.classList.toggle('active', b.dataset.view === v));
+  const target = document.getElementById('v-' + v);
+  if(!target){ console.warn('Vista no encontrada:', v); return; }
+  document.querySelectorAll('.view').forEach(s => { s.hidden = true; });
+  target.hidden = false;
+  document.querySelectorAll('.nav-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.view === v);
+  });
   window.scrollTo({top:0, behavior:'smooth'});
-  if(v==='inicio') drawHero();
-  if(v==='simulador') setTimeout(()=>initThree(), 200);
+  if(v === 'inicio') safe(drawHero, 'hero');
+  if(v === 'simulador') setTimeout(() => safe(initThree, 'three'), 200);
 }
-$$('[data-view]').forEach(el => el.addEventListener('click', e => {
-  if(el.tagName==='A'){ e.preventDefault(); }
+
+// Delegación global: funciona aunque el resto del JS falle
+document.addEventListener('click', function(e){
+  const el = e.target.closest('[data-view]');
+  if(!el) return;
+  if(el.tagName === 'A') e.preventDefault();
   showView(el.dataset.view);
-}));
+});
 
 /* ============================================================
    HERO CANVAS
@@ -1080,22 +1081,18 @@ function drawHero(){
   const w=r.width, h=r.height;
   ctx.clearRect(0,0,w,h);
   const cx=w/2, cy=h/2, scale=60;
-  
-  // Ejes
+
   ctx.strokeStyle='rgba(28,43,37,.3)'; ctx.lineWidth=1;
   ctx.beginPath(); ctx.moveTo(30, cy); ctx.lineTo(w-30, cy); ctx.moveTo(cx, 20); ctx.lineTo(cx, h-20); ctx.stroke();
   ctx.font='11px Instrument Sans'; ctx.fillStyle='rgba(28,43,37,.5)';
   ctx.fillText('x', w-25, cy-5); ctx.fillText('y', cx+8, 24);
-  
-  // Stokes: círculo con campo rotacional
+
   const R = 2*scale;
   ctx.strokeStyle=PINE; ctx.lineWidth=2;
   ctx.beginPath(); ctx.arc(cx, cy, R, 0, 2*Math.PI); ctx.stroke();
   ctx.fillStyle='rgba(30,70,54,.1)';
   ctx.fill();
-  
-  // Campo rotacional (-y, x)
-  const step = 25;
+
   for(let i=-6; i<=6; i++){
     for(let j=-5; j<=5; j++){
       const x = i*0.4, y = j*0.4;
@@ -1120,7 +1117,7 @@ function drawHero(){
       }
     }
   }
-  
+
   ctx.fillStyle=INK; ctx.font='11px Instrument Sans';
   ctx.fillText('Teorema de Stokes: circulación = flujo del rotacional', 20, h-12);
 }
@@ -1136,31 +1133,33 @@ let threeObjects = [];
 let currentTab = 'linea';
 
 function initThree(){
+  if(!window.THREE){ console.warn('Three.js no disponible'); return; }
   const container = document.getElementById('threeContainer');
   if(!container) return;
   const w = container.clientWidth || 600;
   const h = container.clientHeight || 420;
-  
+
   if(!threeScene){
     threeScene = new THREE.Scene();
     threeScene.background = new THREE.Color(0xfaf8f4);
-    
+
     threeCamera = new THREE.PerspectiveCamera(45, w/h, 0.1, 30);
     threeCamera.position.set(4, 3, 5);
     threeCamera.lookAt(0, 0, 0);
-    
+
     threeRenderer = new THREE.WebGLRenderer({antialias: true});
     threeRenderer.setSize(w, h);
     threeRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     container.appendChild(threeRenderer.domElement);
-    
-    threeControls = new THREE.OrbitControls(threeCamera, threeRenderer.domElement);
-    threeControls.enableDamping = true;
-    threeControls.dampingFactor = 0.08;
-    threeControls.target.set(0, 0, 0);
-    threeControls.update();
-    
-    // Luces
+
+    if(THREE.OrbitControls){
+      threeControls = new THREE.OrbitControls(threeCamera, threeRenderer.domElement);
+      threeControls.enableDamping = true;
+      threeControls.dampingFactor = 0.08;
+      threeControls.target.set(0, 0, 0);
+      threeControls.update();
+    }
+
     const ambientLight = new THREE.AmbientLight(0x404060, 0.5);
     threeScene.add(ambientLight);
     const dirLight = new THREE.DirectionalLight(0xffffff, 0.9);
@@ -1169,49 +1168,51 @@ function initThree(){
     const dirLight2 = new THREE.DirectionalLight(0xffffff, 0.4);
     dirLight2.position.set(-2, -1, -2);
     threeScene.add(dirLight2);
-    
-    // Grid
+
     const gridHelper = new THREE.GridHelper(6, 6, 0x888888, 0xcccccc);
     gridHelper.position.y = -0.01;
+    gridHelper.userData.isHelper = true;
     threeScene.add(gridHelper);
-    
-    // Ejes etiquetados
+
     createAxesWithLabels();
-    
-    window.addEventListener('resize', ()=>{
+
+    window.addEventListener('resize', () => {
       const w2 = container.clientWidth || 600;
       const h2 = container.clientHeight || 420;
       threeCamera.aspect = w2/h2;
       threeCamera.updateProjectionMatrix();
       threeRenderer.setSize(w2, h2);
     });
+
+    (function animate(){
+      requestAnimationFrame(animate);
+      if(threeControls) threeControls.update();
+      if(threeRenderer && threeScene && threeCamera){
+        threeRenderer.render(threeScene, threeCamera);
+      }
+    })();
   }
-  
-  // Limpiar objetos anteriores
-  const keepObjects = [];
+
+  // Limpieza correcta: eliminar objetos de escena anteriores (no helpers)
+  const toRemove = [];
   threeScene.children.forEach(child => {
-    if(child.type === 'GridHelper' || child.type === 'AxesHelper' || 
-       child.userData?.isAxis || child.userData?.isLabel) {
-      keepObjects.push(child);
+    if(child.userData && (child.userData.isHelper || child.userData.isAxis || child.userData.isLabel)) return;
+    toRemove.push(child);
+  });
+  toRemove.forEach(obj => {
+    threeScene.remove(obj);
+    if(obj.geometry) safe(() => obj.geometry.dispose(), 'dispose geo');
+    if(obj.material){
+      if(Array.isArray(obj.material)) obj.material.forEach(m => safe(() => m.dispose(), 'dispose mat'));
+      else safe(() => obj.material.dispose(), 'dispose mat');
     }
   });
-  threeScene.children = keepObjects;
   threeObjects = [];
-  
-  // Mostrar según pestaña activa
-  if(currentTab === 'linea') drawLinea();
-  else if(currentTab === 'superficie') drawSuperficie();
-  else if(currentTab === 'divergencia') drawDivergencia();
-  else if(currentTab === 'stokes') drawStokes();
-  
-  function animate(){
-    requestAnimationFrame(animate);
-    if(threeControls) threeControls.update();
-    if(threeRenderer && threeScene && threeCamera){
-      threeRenderer.render(threeScene, threeCamera);
-    }
-  }
-  animate();
+
+  if(currentTab === 'linea') safe(drawLinea, 'drawLinea');
+  else if(currentTab === 'superficie') safe(drawSuperficie, 'drawSuperficie');
+  else if(currentTab === 'divergencia') safe(drawDivergencia, 'drawDivergencia');
+  else if(currentTab === 'stokes') safe(drawStokes, 'drawStokes');
 }
 
 function createAxesWithLabels() {
@@ -1223,7 +1224,7 @@ function createAxesWithLabels() {
     new THREE.Vector3(0, 1, 0),
     new THREE.Vector3(0, 0, 1)
   ];
-  
+
   dirs.forEach((dir, i) => {
     const end = dir.clone().multiplyScalar(axisLength);
     const geometry = new THREE.BufferGeometry().setFromPoints([
@@ -1234,18 +1235,17 @@ function createAxesWithLabels() {
     const line = new THREE.Line(geometry, material);
     line.userData.isAxis = true;
     threeScene.add(line);
-    
+
     const cone = new THREE.ConeGeometry(0.1, 0.25, 8);
     const coneMat = new THREE.MeshBasicMaterial({ color: colors[i] });
     const coneMesh = new THREE.Mesh(cone, coneMat);
-    const pos = end.clone();
-    coneMesh.position.copy(pos);
+    coneMesh.position.copy(end);
     const up = new THREE.Vector3(0, 1, 0);
     const quat = new THREE.Quaternion().setFromUnitVectors(up, dir);
     coneMesh.quaternion.copy(quat);
     coneMesh.userData.isAxis = true;
     threeScene.add(coneMesh);
-    
+
     const canvas = document.createElement('canvas');
     canvas.width = 64; canvas.height = 64;
     const ctx = canvas.getContext('2d');
@@ -1256,12 +1256,11 @@ function createAxesWithLabels() {
     ctx.textBaseline = 'middle';
     ctx.fillStyle = '#' + colors[i].toString(16).padStart(6, '0');
     ctx.fillText(labels[i], 32, 34);
-    
+
     const texture = new THREE.CanvasTexture(canvas);
     const spriteMat = new THREE.SpriteMaterial({ map: texture, transparent: true });
     const sprite = new THREE.Sprite(spriteMat);
-    const labelPos = end.clone().multiplyScalar(1.15);
-    sprite.position.copy(labelPos);
+    sprite.position.copy(end.clone().multiplyScalar(1.15));
     sprite.scale.set(0.6, 0.6, 1);
     sprite.userData.isLabel = true;
     threeScene.add(sprite);
@@ -1272,18 +1271,13 @@ function addObject(obj){ threeObjects.push(obj); threeScene.add(obj); }
 
 function updateEquation(text){
   const el = document.getElementById('eqText');
-  if(el){
-    try {
-      el.innerHTML = text;
-      if(typeof renderMathInElement === 'function'){
-        renderMathInElement(el, {delimiters: [
-          {left: '\\(', right: '\\)', display: false},
-          {left: '$$', right: '$$', display: true}
-        ], throwOnError: false});
-      }
-    } catch(e) {
-      el.textContent = text;
-    }
+  if(!el) return;
+  el.innerHTML = text;
+  if(typeof renderMathInElement === 'function'){
+    safe(() => renderMathInElement(el, {delimiters: [
+      {left: '\\(', right: '\\)', display: false},
+      {left: '$$', right: '$$', display: true}
+    ], throwOnError: false}), 'katex eq');
   }
 }
 
@@ -1291,7 +1285,7 @@ function updateEquation(text){
 function drawLinea(){
   const campoName = document.getElementById('campoLinea').value;
   const curvaName = document.getElementById('curvaLinea').value;
-  
+
   const F = (x,y) => {
     switch(campoName){
       case 'rotacion': return [-y, x];
@@ -1301,16 +1295,15 @@ function drawLinea(){
       default: return [-y, x];
     }
   };
-  
+
   const eqs = {
     'rotacion': '\\mathbf{F}=(-y,x)',
     'gradiente': '\\mathbf{F}=(2x,2y)',
     'campo3': '\\mathbf{F}=(\\sin y,\\cos x)',
     'conservativo': '\\mathbf{F}=(y,x)'
   };
-  updateEquation(eqs[campoName] || '\\mathbf{F}=(-y,x)');
-  
-  // Parametrizar curva
+  updateEquation('\\(' + (eqs[campoName] || '\\mathbf{F}=(-y,x)') + '\\)');
+
   const n = 100;
   const pts = [];
   const r = (t) => {
@@ -1319,7 +1312,7 @@ function drawLinea(){
       case 'elipse': return [2*Math.cos(t), Math.sin(t)];
       case 'cuadrado': {
         const s = 2*t/Math.PI;
-        const s2 = s % 4;
+        const s2 = ((s % 4) + 4) % 4;
         if(s2 < 1) return [1 - s2*2, 1];
         else if(s2 < 2) return [-1, 1 - (s2-1)*2];
         else if(s2 < 3) return [-1 + (s2-2)*2, -1];
@@ -1328,20 +1321,18 @@ function drawLinea(){
       default: return [Math.cos(t), Math.sin(t)];
     }
   };
-  
+
   for(let i=0; i<=n; i++){
     const t = 2*Math.PI*i/n;
     const p = r(t);
     pts.push(new THREE.Vector3(p[0], p[1], 0));
   }
-  
-  // Dibujar curva
+
   const geo = new THREE.BufferGeometry().setFromPoints(pts);
-  const mat = new THREE.LineBasicMaterial({ color: PINE, linewidth: 2 });
+  const mat = new THREE.LineBasicMaterial({ color: 0x1e4636, linewidth: 2 });
   const curve = new THREE.Line(geo, mat);
   addObject(curve);
-  
-  // Puntos de muestreo
+
   const ptsGeo = new THREE.BufferGeometry();
   const pos = [];
   for(let i=0; i<=20; i++){
@@ -1350,11 +1341,10 @@ function drawLinea(){
     pos.push(p[0], p[1], 0);
   }
   ptsGeo.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3));
-  const ptsMat = new THREE.PointsMaterial({ color: TERRA, size: 0.05 });
+  const ptsMat = new THREE.PointsMaterial({ color: 0xc2542f, size: 0.05 });
   const ptsMesh = new THREE.Points(ptsGeo, ptsMat);
   addObject(ptsMesh);
-  
-  // Calcular trabajo (aproximación numérica)
+
   let trabajo = 0;
   const nInt = 200;
   for(let i=0; i<nInt; i++){
@@ -1366,37 +1356,29 @@ function drawLinea(){
     const f = F(p[0], p[1]);
     trabajo += f[0]*dr[0] + f[1]*dr[1];
   }
-  
-  document.getElementById('trabajoVal').textContent = trabajo.toFixed(4);
-  document.getElementById('graphCap3D').textContent = `Trabajo: ${trabajo.toFixed(4)}`;
+
+  const tv = document.getElementById('trabajoVal');
+  if(tv) tv.textContent = trabajo.toFixed(4);
+  const cap = document.getElementById('graphCap3D');
+  if(cap) cap.textContent = `Trabajo: ${trabajo.toFixed(4)}`;
 }
 
 /* --- INTEGRAL DE SUPERFICIE --- */
 function drawSuperficie(){
   const campoName = document.getElementById('campoSuperficie').value;
   const supName = document.getElementById('superficieTipo').value;
-  
-  const F = (x,y,z) => {
-    switch(campoName){
-      case 'fuente': return [x, y, z];
-      case 'rotacion3d': return [-y, x, 0];
-      case 'constante': return [0, 0, 1];
-      default: return [x, y, z];
-    }
-  };
-  
+
   const eqs = {
     'fuente': '\\mathbf{F}=(x,y,z)',
     'rotacion3d': '\\mathbf{F}=(-y,x,0)',
     'constante': '\\mathbf{F}=(0,0,1)'
   };
-  updateEquation(eqs[campoName] || '\\mathbf{F}=(x,y,z)');
-  
-  // Crear superficie (esfera simplificada)
+  updateEquation('\\(' + (eqs[campoName] || '\\mathbf{F}=(x,y,z)') + '\\)');
+
   const steps = 30;
   const positions = [];
   const indices = [];
-  
+
   for(let i=0; i<=steps; i++){
     for(let j=0; j<=steps; j++){
       const theta = Math.PI * i / steps;
@@ -1410,7 +1392,7 @@ function drawSuperficie(){
         x = Math.cos(phi);
         y = Math.sin(phi);
         z = 2*(i/steps) - 1;
-      } else { // paraboloide
+      } else {
         const r = 1.5 * (i/steps);
         x = r*Math.cos(phi);
         y = r*Math.sin(phi);
@@ -1419,7 +1401,7 @@ function drawSuperficie(){
       positions.push(x, y, z);
     }
   }
-  
+
   for(let i=0; i<steps; i++){
     for(let j=0; j<steps; j++){
       const a = i*(steps+1) + j;
@@ -1430,24 +1412,22 @@ function drawSuperficie(){
       indices.push(b, d, c);
     }
   }
-  
+
   const geo = new THREE.BufferGeometry();
   geo.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
   geo.setIndex(indices);
   geo.computeVertexNormals();
-  
+
   const mat = new THREE.MeshPhongMaterial({
     color: 0x1e4636,
     transparent: true,
     opacity: 0.4,
     side: THREE.DoubleSide,
-    shininess: 30,
-    wireframe: false
+    shininess: 30
   });
   const mesh = new THREE.Mesh(geo, mat);
   addObject(mesh);
-  
-  // Wireframe
+
   const wireMat = new THREE.MeshBasicMaterial({
     color: 0x2c5e49,
     wireframe: true,
@@ -1456,82 +1436,34 @@ function drawSuperficie(){
   });
   const wireMesh = new THREE.Mesh(geo.clone(), wireMat);
   addObject(wireMesh);
-  
-  // Calcular flujo aproximado
-  let flujo = 0;
-  const eps = 0.001;
-  // Simplificación: flujo ≈ 4π para campo (x,y,z) en esfera
-  if(campoName === 'fuente' && supName === 'esfera'){
-    flujo = 4*Math.PI;
-  } else if(campoName === 'constante' && supName === 'esfera'){
-    flujo = 4*Math.PI/3;
-  } else {
-    flujo = '—';
-  }
-  
-  document.getElementById('flujoVal').textContent = typeof flujo === 'number' ? flujo.toFixed(4) : flujo;
-  document.getElementById('graphCap3D').textContent = `Flujo: ${typeof flujo === 'number' ? flujo.toFixed(4) : '—'}`;
+
+  let flujo = '—';
+  if(campoName === 'fuente' && supName === 'esfera') flujo = 4*Math.PI;
+  else if(campoName === 'constante' && supName === 'esfera') flujo = 4*Math.PI/3;
+
+  const fv = document.getElementById('flujoVal');
+  if(fv) fv.textContent = typeof flujo === 'number' ? flujo.toFixed(4) : flujo;
+  const cap = document.getElementById('graphCap3D');
+  if(cap) cap.textContent = `Flujo: ${typeof flujo === 'number' ? flujo.toFixed(4) : '—'}`;
 }
 
 /* --- TEOREMA DE LA DIVERGENCIA --- */
 function drawDivergencia(){
   const campoName = document.getElementById('campoDivergencia').value;
   const volName = document.getElementById('volumenTipo').value;
-  
-  const F = (x,y,z) => {
-    switch(campoName){
-      case 'fuente': return [x, y, z];
-      case 'rotacion3d': return [-y, x, 0];
-      case 'campo3d': return [x*x, y*y, z*z];
-      default: return [x, y, z];
-    }
-  };
-  
+
   const eqs = {
     'fuente': '\\mathbf{F}=(x,y,z),\\; \\nabla\\cdot\\mathbf{F}=3',
     'rotacion3d': '\\mathbf{F}=(-y,x,0),\\; \\nabla\\cdot\\mathbf{F}=0',
     'campo3d': '\\mathbf{F}=(x^2,y^2,z^2)'
   };
-  updateEquation(eqs[campoName] || '\\mathbf{F}=(x,y,z)');
-  
-  // Crear volumen (esfera o cubo)
-  const steps = 20;
-  const positions = [];
-  const indices = [];
-  const range = 1.5;
-  
-  for(let i=0; i<=steps; i++){
-    for(let j=0; j<=steps; j++){
-      for(let k=0; k<=steps; k++){
-        let x = -range + 2*range*i/steps;
-        let y = -range + 2*range*j/steps;
-        let z = -range + 2*range*k/steps;
-        if(volName === 'esfera'){
-          const r = Math.sqrt(x*x+y*y+z*z);
-          if(r > range) { x*=range/r; y*=range/r; z*=range/r; }
-        }
-        positions.push(x, y, z);
-      }
-    }
-  }
-  
-  for(let i=0; i<steps; i++){
-    for(let j=0; j<steps; j++){
-      for(let k=0; k<steps; k++){
-        const a = i*(steps+1)*(steps+1) + j*(steps+1) + k;
-        const b = (i+1)*(steps+1)*(steps+1) + j*(steps+1) + k;
-        const c = i*(steps+1)*(steps+1) + (j+1)*(steps+1) + k;
-        const d = i*(steps+1)*(steps+1) + j*(steps+1) + (k+1);
-        // Simplificado: mostrar solo la superficie
-      }
-    }
-  }
-  
-  // Mostrar esfera/cubo como superficie
+  updateEquation('\\(' + (eqs[campoName] || '\\mathbf{F}=(x,y,z)') + '\\)');
+
   const surfSteps = 30;
   const surfPos = [];
   const surfIdx = [];
-  
+  const range = 1.5;
+
   for(let i=0; i<=surfSteps; i++){
     for(let j=0; j<=surfSteps; j++){
       const theta = Math.PI * i / surfSteps;
@@ -1545,10 +1477,9 @@ function drawDivergencia(){
         x = range * Math.cos(phi);
         y = range * Math.sin(phi);
         z = 2*range*(i/surfSteps) - range;
-      } else { // cubo
+      } else {
         const t = 2*(i/surfSteps) - 1;
         const s = 2*(j/surfSteps) - 1;
-        const face = 0; // simplificado
         x = range * (i < surfSteps/2 ? -1 : 1);
         y = range * s;
         z = range * t;
@@ -1556,7 +1487,7 @@ function drawDivergencia(){
       surfPos.push(x, y, z);
     }
   }
-  
+
   for(let i=0; i<surfSteps; i++){
     for(let j=0; j<surfSteps; j++){
       const a = i*(surfSteps+1) + j;
@@ -1567,66 +1498,56 @@ function drawDivergencia(){
       surfIdx.push(b, d, c);
     }
   }
-  
+
   const geo = new THREE.BufferGeometry();
   geo.setAttribute('position', new THREE.Float32BufferAttribute(surfPos, 3));
   geo.setIndex(surfIdx);
   geo.computeVertexNormals();
-  
+
   const mat = new THREE.MeshPhongMaterial({
     color: 0x1e4636,
     transparent: true,
     opacity: 0.3,
-    side: THREE.DoubleSide,
-    wireframe: false
+    side: THREE.DoubleSide
   });
   const mesh = new THREE.Mesh(geo, mat);
   addObject(mesh);
-  
-  // Calcular divergencia
-  let div = 0;
+
+  let div = '—';
   switch(campoName){
     case 'fuente': div = 3; break;
     case 'rotacion3d': div = 0; break;
     case 'campo3d': div = '2x+2y+2z'; break;
-    default: div = '—';
   }
-  
+
   const vol = (volName === 'esfera') ? 4*Math.PI/3 * range*range*range : (2*range)*(2*range)*(2*range);
   const flujoDiv = (typeof div === 'number') ? div * vol : '—';
-  
-  document.getElementById('flujoDivVal').textContent = typeof flujoDiv === 'number' ? flujoDiv.toFixed(4) : flujoDiv;
-  document.getElementById('divVolVal').textContent = typeof div === 'number' ? (div*vol).toFixed(4) : div;
-  document.getElementById('graphCap3D').textContent = `Teorema de la divergencia: ${typeof flujoDiv === 'number' ? flujoDiv.toFixed(4) : '—'}`;
+
+  const fdv = document.getElementById('flujoDivVal');
+  const dvv = document.getElementById('divVolVal');
+  if(fdv) fdv.textContent = typeof flujoDiv === 'number' ? flujoDiv.toFixed(4) : flujoDiv;
+  if(dvv) dvv.textContent = typeof div === 'number' ? (div*vol).toFixed(4) : div;
+  const cap = document.getElementById('graphCap3D');
+  if(cap) cap.textContent = `Teorema de la divergencia: ${typeof flujoDiv === 'number' ? flujoDiv.toFixed(4) : '—'}`;
 }
 
 /* --- TEOREMA DE STOKES --- */
 function drawStokes(){
   const campoName = document.getElementById('campoStokes').value;
   const supName = document.getElementById('superficieStokes').value;
-  
-  const F = (x,y,z) => {
-    switch(campoName){
-      case 'rotacion3d': return [-y, x, 0];
-      case 'campo3d2': return [y, z, x];
-      case 'gradiente3d': return [2*x, 2*y, 2*z];
-      default: return [-y, x, 0];
-    }
-  };
-  
+
   const eqs = {
     'rotacion3d': '\\mathbf{F}=(-y,x,0),\\; \\nabla\\times\\mathbf{F}=2\\mathbf{k}',
     'campo3d2': '\\mathbf{F}=(y,z,x)',
     'gradiente3d': '\\mathbf{F}=(2x,2y,2z)'
   };
-  updateEquation(eqs[campoName] || '\\mathbf{F}=(-y,x,0)');
-  
-  // Superficie (disco o hemisferio)
+  updateEquation('\\(' + (eqs[campoName] || '\\mathbf{F}=(-y,x,0)') + '\\)');
+
   const steps = 30;
   const positions = [];
   const indices = [];
   const range = 1.5;
-  
+
   for(let i=0; i<=steps; i++){
     for(let j=0; j<=steps; j++){
       const r = range * i/steps;
@@ -1640,7 +1561,7 @@ function drawStokes(){
       positions.push(x, y, z);
     }
   }
-  
+
   for(let i=0; i<steps; i++){
     for(let j=0; j<steps; j++){
       const a = i*(steps+1) + j;
@@ -1651,178 +1572,122 @@ function drawStokes(){
       indices.push(b, d, c);
     }
   }
-  
+
   const geo = new THREE.BufferGeometry();
   geo.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
   geo.setIndex(indices);
   geo.computeVertexNormals();
-  
+
   const mat = new THREE.MeshPhongMaterial({
     color: 0x1e4636,
     transparent: true,
     opacity: 0.35,
-    side: THREE.DoubleSide,
-    wireframe: false
+    side: THREE.DoubleSide
   });
   const mesh = new THREE.Mesh(geo, mat);
   addObject(mesh);
-  
-  // Borde (curva cerrada)
+
   const bordePts = [];
   const nBorde = 60;
   for(let i=0; i<=nBorde; i++){
     const theta = 2 * Math.PI * i/nBorde;
     const x = range * Math.cos(theta);
     const y = range * Math.sin(theta);
-    const z = (supName === 'hemisferio') ? 0 : 0;
-    bordePts.push(new THREE.Vector3(x, y, z));
+    bordePts.push(new THREE.Vector3(x, y, 0));
   }
-  
+
   const bordeGeo = new THREE.BufferGeometry().setFromPoints(bordePts);
-  const bordeMat = new THREE.LineBasicMaterial({ color: TERRA, linewidth: 2 });
+  const bordeMat = new THREE.LineBasicMaterial({ color: 0xc2542f, linewidth: 2 });
   const borde = new THREE.Line(bordeGeo, bordeMat);
   addObject(borde);
-  
-  // Calcular circulación
-  let circ = 0;
-  if(campoName === 'rotacion3d'){
-    circ = 2 * Math.PI * range * range;
-  } else if(campoName === 'campo3d2'){
-    circ = 0; // simplificado
-  } else {
-    circ = '—';
-  }
-  
+
+  let circ = '—';
+  if(campoName === 'rotacion3d') circ = 2 * Math.PI * range * range;
+  else if(campoName === 'campo3d2') circ = 0;
+
   const rotFlujo = (campoName === 'rotacion3d') ? 2 * Math.PI * range * range : '—';
-  
-  document.getElementById('circVal').textContent = typeof circ === 'number' ? circ.toFixed(4) : circ;
-  document.getElementById('rotFlujoVal').textContent = typeof rotFlujo === 'number' ? rotFlujo.toFixed(4) : rotFlujo;
-  document.getElementById('graphCap3D').textContent = `Stokes: circulación = ${typeof circ === 'number' ? circ.toFixed(4) : '—'}`;
+
+  const cv = document.getElementById('circVal');
+  const rv = document.getElementById('rotFlujoVal');
+  if(cv) cv.textContent = typeof circ === 'number' ? circ.toFixed(4) : circ;
+  if(rv) rv.textContent = typeof rotFlujo === 'number' ? rotFlujo.toFixed(4) : rotFlujo;
+  const cap = document.getElementById('graphCap3D');
+  if(cap) cap.textContent = `Stokes: circulación = ${typeof circ === 'number' ? circ.toFixed(4) : '—'}`;
 }
 
 /* ============================================================
    EVENTOS DEL SIMULADOR
 ============================================================ */
-// Pestañas
-$$('.sim-tab').forEach(tab=>{
+document.querySelectorAll('.sim-tab').forEach(tab=>{
   tab.addEventListener('click', ()=>{
-    $$('.sim-tab').forEach(t=>t.classList.remove('active'));
-    $$('.sim-panel').forEach(p=>p.classList.remove('active'));
+    document.querySelectorAll('.sim-tab').forEach(t=>t.classList.remove('active'));
+    document.querySelectorAll('.sim-panel').forEach(p=>p.classList.remove('active'));
     tab.classList.add('active');
     const id = tab.dataset.stab;
-    document.getElementById('st-'+id).classList.add('active');
+    const panel = document.getElementById('st-'+id);
+    if(panel) panel.classList.add('active');
     currentTab = id;
-    setTimeout(()=>{
-      if(threeScene){
-        const keepObjects = [];
-        threeScene.children.forEach(child => {
-          if(child.userData?.isAxis || child.userData?.isLabel || 
-             child.type === 'GridHelper' || child.type === 'AxesHelper') {
-            keepObjects.push(child);
-          }
-        });
-        threeScene.children = keepObjects;
-        threeObjects = [];
-        if(id === 'linea') drawLinea();
-        else if(id === 'superficie') drawSuperficie();
-        else if(id === 'divergencia') drawDivergencia();
-        else if(id === 'stokes') drawStokes();
-      }
-    }, 100);
+    setTimeout(() => safe(initThree, 'cambiar tab three'), 100);
   });
 });
 
-// Botones de actualización
-document.getElementById('btnLinea').addEventListener('click', ()=>{
-  if(threeScene){
-    const keepObjects = [];
-    threeScene.children.forEach(child => {
-      if(child.userData?.isAxis || child.userData?.isLabel || 
-         child.type === 'GridHelper' || child.type === 'AxesHelper') {
-        keepObjects.push(child);
-      }
-    });
-    threeScene.children = keepObjects;
-    threeObjects = [];
-    drawLinea();
-    toast('Integral de línea actualizada.');
-  }
-});
-
-document.getElementById('btnSuperficie').addEventListener('click', ()=>{
-  if(threeScene){
-    const keepObjects = [];
-    threeScene.children.forEach(child => {
-      if(child.userData?.isAxis || child.userData?.isLabel || 
-         child.type === 'GridHelper' || child.type === 'AxesHelper') {
-        keepObjects.push(child);
-      }
-    });
-    threeScene.children = keepObjects;
-    threeObjects = [];
-    drawSuperficie();
-    toast('Integral de superficie actualizada.');
-  }
-});
-
-document.getElementById('btnDivergencia').addEventListener('click', ()=>{
-  if(threeScene){
-    const keepObjects = [];
-    threeScene.children.forEach(child => {
-      if(child.userData?.isAxis || child.userData?.isLabel || 
-         child.type === 'GridHelper' || child.type === 'AxesHelper') {
-        keepObjects.push(child);
-      }
-    });
-    threeScene.children = keepObjects;
-    threeObjects = [];
-    drawDivergencia();
-    toast('Teorema de la divergencia actualizado.');
-  }
-});
-
-document.getElementById('btnStokes').addEventListener('click', ()=>{
-  if(threeScene){
-    const keepObjects = [];
-    threeScene.children.forEach(child => {
-      if(child.userData?.isAxis || child.userData?.isLabel || 
-         child.type === 'GridHelper' || child.type === 'AxesHelper') {
-        keepObjects.push(child);
-      }
-    });
-    threeScene.children = keepObjects;
-    threeObjects = [];
-    drawStokes();
-    toast('Teorema de Stokes actualizado.');
-  }
-});
+function bindRefresh(btnId, drawFn, label){
+  const btn = document.getElementById(btnId);
+  if(!btn) return;
+  btn.addEventListener('click', () => {
+    if(threeScene){
+      const toRemove = [];
+      threeScene.children.forEach(child => {
+        if(child.userData && (child.userData.isHelper || child.userData.isAxis || child.userData.isLabel)) return;
+        toRemove.push(child);
+      });
+      toRemove.forEach(obj => {
+        threeScene.remove(obj);
+        if(obj.geometry) safe(() => obj.geometry.dispose(), 'dispose');
+        if(obj.material){
+          if(Array.isArray(obj.material)) obj.material.forEach(m => safe(() => m.dispose(), 'dispose'));
+          else safe(() => obj.material.dispose(), 'dispose');
+        }
+      });
+      threeObjects = [];
+    }
+    safe(drawFn, label);
+    toast(label + ' actualizado.');
+  });
+}
+bindRefresh('btnLinea', drawLinea, 'Integral de línea');
+bindRefresh('btnSuperficie', drawSuperficie, 'Integral de superficie');
+bindRefresh('btnDivergencia', drawDivergencia, 'Teorema de la divergencia');
+bindRefresh('btnStokes', drawStokes, 'Teorema de Stokes');
 
 /* ============================================================
-   QUIZ (Unidad 6)
+   QUIZ
 ============================================================ */
 const QUIZ = [
- {q:'¿Qué representa la integral de línea \(\int_C \mathbf{F}\cdot d\mathbf{r}\)?',
+ {q:'¿Qué representa la integral de línea \\(\\int_C \\mathbf{F}\\cdot d\\mathbf{r}\\)?',
   opts:['El flujo a través de una superficie','El trabajo realizado por el campo','La divergencia del campo','El área bajo la curva'],
-  ans:1, why:'La integral de línea de un campo vectorial a lo largo de una curva representa el trabajo realizado por el campo.'],
+  ans:1, why:'La integral de línea de un campo vectorial a lo largo de una curva representa el trabajo realizado por el campo.'},
  {q:'El teorema de Green relaciona:',
   opts:['Una integral de línea con una integral doble','Una integral de superficie con una integral de volumen','Una integral de línea con una integral de superficie','Dos integrales de línea'],
-  ans:0, why:'El teorema de Green relaciona una integral de línea alrededor de una curva cerrada con una integral doble sobre la región encerrada.'],
+  ans:0, why:'El teorema de Green relaciona una integral de línea alrededor de una curva cerrada con una integral doble sobre la región encerrada.'},
  {q:'El teorema de Stokes relaciona:',
   opts:['Circulación con flujo del rotacional','Flujo con divergencia','Trabajo con energía','Área con volumen'],
-  ans:0, why:'Stokes relaciona la circulación de un campo a lo largo de una curva cerrada con el flujo del rotacional a través de una superficie.'],
+  ans:0, why:'Stokes relaciona la circulación de un campo a lo largo de una curva cerrada con el flujo del rotacional a través de una superficie.'},
  {q:'El teorema de la divergencia (Gauss) relaciona:',
   opts:['Flujo a través de una superficie cerrada con divergencia en el volumen','Circulación con rotacional','Trabajo con energía','Dos integrales de línea'],
-  ans:0, why:'El teorema de la divergencia relaciona el flujo a través de una superficie cerrada con la integral de la divergencia en el volumen encerrado.'],
- {q:'En coordenadas polares, el elemento de área \(dA\) es:',
-  opts:['\(dr\,d\theta\)','\(r\,dr\,d\theta\)','\(r^2\,dr\,d\theta\)','\(dr\,d\theta/r\)'],
-  ans:1, why:'En coordenadas polares, \(dA = r\,dr\,d\theta\) (el Jacobiano es \(r\)).'],
+  ans:0, why:'El teorema de la divergencia relaciona el flujo a través de una superficie cerrada con la integral de la divergencia en el volumen encerrado.'},
+ {q:'En coordenadas polares, el elemento de área \\(dA\\) es:',
+  opts:['\\(dr\\,d\\theta\\)','\\(r\\,dr\\,d\\theta\\)','\\(r^2\\,dr\\,d\\theta\\)','\\(dr\\,d\\theta/r\\)'],
+  ans:1, why:'En coordenadas polares, \\(dA = r\\,dr\\,d\\theta\\) (el Jacobiano es \\(r\\)).'},
  {q:'Un campo conservativo satisface:',
-  opts:['\(\nabla\times\mathbf{F}=0\)','\(\nabla\cdot\mathbf{F}=0\)','\(\nabla f=0\)','\(\nabla^2 f=0\)'],
-  ans:0, why:'Un campo conservativo es irrotacional: \(\nabla\times\mathbf{F}=0\), y su integral de línea es independiente de la trayectoria.'}
+  opts:['\\(\\nabla\\times\\mathbf{F}=0\\)','\\(\\nabla\\cdot\\mathbf{F}=0\\)','\\(\\nabla f=0\\)','\\(\\nabla^2 f=0\\)'],
+  ans:0, why:'Un campo conservativo es irrotacional: \\(\\nabla\\times\\mathbf{F}=0\\), y su integral de línea es independiente de la trayectoria.'}
 ];
 
 function renderQuiz(){
-  $('#quizList').innerHTML = QUIZ.map((it,i)=>`
+  const list = document.getElementById('quizList');
+  if(!list) return;
+  list.innerHTML = QUIZ.map((it,i)=>`
     <article class="quiz-q">
       <header><span class="qnum">P${i+1}</span><p class="q-text">${it.q}</p></header>
       <div class="opts">${it.opts.map((o,j)=>`
@@ -1831,16 +1696,20 @@ function renderQuiz(){
       </div>
       <p class="explain" hidden><strong>Retroalimentación:</strong> ${it.why}</p>
     </article>`).join('');
-  $('#quizResult').innerHTML='';
-  try{ renderMathInElement($('#quizList'),{delimiters:[{left:'\\(',right:'\\)',display:false}],throwOnError:false}); }catch(e){}
+  const res = document.getElementById('quizResult');
+  if(res) res.innerHTML='';
+  if(typeof renderMathInElement === 'function'){
+    safe(() => renderMathInElement(list,{delimiters:[{left:'\\(',right:'\\)',display:false}],throwOnError:false}), 'katex quiz');
+  }
 }
 renderQuiz();
 
-$('#btnGrade').addEventListener('click', ()=>{
+const btnGrade = document.getElementById('btnGrade');
+if(btnGrade) btnGrade.addEventListener('click', ()=>{
   const unanswered = QUIZ.some((_,i)=>!document.querySelector(`input[name="q${i}"]:checked`));
   if(unanswered){ toast('Responde todas las preguntas.','err'); return; }
   let score=0;
-  $$('#quizList .quiz-q').forEach((art,i)=>{
+  document.querySelectorAll('#quizList .quiz-q').forEach((art,i)=>{
     const sel=document.querySelector(`input[name="q${i}"]:checked`);
     if(+sel.value===QUIZ[i].ans) score++;
     art.querySelectorAll('.opt').forEach(l=>{
@@ -1848,26 +1717,33 @@ $('#btnGrade').addEventListener('click', ()=>{
       if(+inp.value===QUIZ[i].ans) l.classList.add('is-correct');
       else if(+inp.value===+sel.value) l.classList.add('is-wrong');
     });
-    art.querySelector('.explain').hidden=false;
+    const ex = art.querySelector('.explain');
+    if(ex) ex.hidden=false;
   });
   const a=act(), prev=(a[CURSO].quiz && a[CURSO].quiz.score!=null)? a[CURSO].quiz.score : -1;
-  if(score>prev){ a[CURSO].quiz={score, total:QUIZ.length, ts:Date.now()}; saveAct(a); renderBoleta(); }
+  if(score>prev){ a[CURSO].quiz={score, total:QUIZ.length, ts:Date.now()}; saveAct(a); safe(renderBoleta, 'boleta'); }
   const msg = score===6?'¡Excelente! Dominas los teoremas integrales.':score>=4?'Muy bien: revisa las aplicaciones físicas.':score>=2?'Repasa los teoremas fundamentales.':'Comienza por la teoría y reintenta.';
-  $('#quizResult').innerHTML=`<strong>${score} / ${QUIZ.length}</strong> ${msg}`;
+  const res = document.getElementById('quizResult');
+  if(res) res.innerHTML=`<strong>${score} / ${QUIZ.length}</strong> ${msg}`;
   toast(`Quiz calificado: ${score} de ${QUIZ.length}.`);
 });
-$('#btnQuizReset').addEventListener('click', ()=>{ renderQuiz(); toast('Quiz reiniciado.'); });
+
+const btnQuizReset = document.getElementById('btnQuizReset');
+if(btnQuizReset) btnQuizReset.addEventListener('click', ()=>{ renderQuiz(); toast('Quiz reiniciado.'); });
 
 /* ============================================================
    EJERCICIOS Y TAREA
 ============================================================ */
 const PROBLEMAS = ['6.2','6.7','6.11','6.15','7.2','7.7','7.11','7.15'];
 const dl = new Date(Date.now()+7*864e5);
-$('#taskDeadline').textContent = dl.toLocaleDateString('es-MX',{weekday:'long',day:'numeric',month:'long'});
+const dlEl = document.getElementById('taskDeadline');
+if(dlEl) dlEl.textContent = dl.toLocaleDateString('es-MX',{weekday:'long',day:'numeric',month:'long'});
 
 function renderTaskList(){
-  const T=act()[CURSO].tarea;
-  $('#taskList').innerHTML = PROBLEMAS.map(p=>`
+  const list = document.getElementById('taskList');
+  if(!list) return;
+  const T = act()[CURSO].tarea;
+  list.innerHTML = PROBLEMAS.map(p=>`
     <label class="chk ${T[p]?'done':''}">
       <input type="checkbox" data-p="${p}" ${T[p]?'checked':''}>
       <span>Problema <strong>${p}</strong> (Capítulos 6-7)</span>
@@ -1877,48 +1753,57 @@ function renderTaskList(){
 function updateTaskBar(){
   const T=act()[CURSO].tarea;
   const done=PROBLEMAS.filter(p=>T[p]).length, pct=Math.round(done/PROBLEMAS.length*100);
-  $('#taskBar').style.width=pct+'%';
-  $('#taskPct').textContent=`${done} / ${PROBLEMAS.length} · ${pct}%`;
+  const bar = document.getElementById('taskBar');
+  const pctEl = document.getElementById('taskPct');
+  if(bar) bar.style.width=pct+'%';
+  if(pctEl) pctEl.textContent=`${done} / ${PROBLEMAS.length} · ${pct}%`;
 }
-$('#taskList').addEventListener('change', e=>{
+
+const taskList = document.getElementById('taskList');
+if(taskList) taskList.addEventListener('change', e=>{
   const cb=e.target.closest('input[data-p]'); if(!cb) return;
   const p=cb.dataset.p;
   const a=act(); a[CURSO].tarea[p]=cb.checked; saveAct(a);
-  cb.closest('.chk').classList.toggle('done', cb.checked);
-  updateTaskBar(); renderBoleta();
+  const label = cb.closest('.chk');
+  if(label) label.classList.toggle('done', cb.checked);
+  updateTaskBar(); safe(renderBoleta, 'boleta');
 });
 
 function syncEjChecks(){
   const EJ=act()[CURSO].ej;
-  $$('#ejBlock .chk-ej input').forEach(cb=>{
+  document.querySelectorAll('#ejBlock .chk-ej input').forEach(cb=>{
     cb.checked=!!EJ[cb.dataset.ej];
-    cb.closest('.chk').classList.toggle('done', cb.checked);
+    const label = cb.closest('.chk');
+    if(label) label.classList.toggle('done', cb.checked);
   });
 }
-$('#ejBlock').addEventListener('change', e=>{
+
+const ejBlock = document.getElementById('ejBlock');
+if(ejBlock) ejBlock.addEventListener('change', e=>{
   const cb=e.target.closest('input[data-ej]'); if(!cb) return;
   const a=act(); a[CURSO].ej[cb.dataset.ej]=cb.checked; saveAct(a);
-  cb.closest('.chk').classList.toggle('done', cb.checked);
-  renderBoleta();
+  const label = cb.closest('.chk');
+  if(label) label.classList.toggle('done', cb.checked);
+  safe(renderBoleta, 'boleta');
 });
 
 /* ============================================================
-   EDITOR DE REDACCIÓN (simplificado)
+   EDITOR DE REDACCIÓN
 ============================================================ */
 const REDACS = ['e5','e6','e7','e8'];
 const redTimers = {};
 const MANUAL = [
-  {code:'\\( … \\)', help:'Fórmula en línea', tex:'\\oint_C \\mathbf{F}\\cdot d\\mathbf{r}', snip:String.raw`\(|\)`},
-  {code:'\\oint_C', help:'Integral de línea cerrada', tex:'\\oint_C \\mathbf{F}\\cdot d\\mathbf{r}', snip:String.raw`\oint_C \mathbf{F}\cdot d\mathbf{r}`},
-  {code:'\\iint_S', help:'Integral de superficie', tex:'\\iint_S \\mathbf{F}\\cdot d\\mathbf{S}', snip:String.raw`\iint_S \mathbf{F}\cdot d\mathbf{S}`},
-  {code:'\\iiint_V', help:'Integral de volumen', tex:'\\iiint_V f\\,dV', snip:String.raw`\iiint_V f\,dV`},
-  {code:'\\nabla\\times\\mathbf{F}', help:'Rotacional', tex:'\\nabla\\times\\mathbf{F}=0', snip:String.raw`\nabla\times\mathbf{F}=`},
-  {code:'\\nabla\\cdot\\mathbf{F}', help:'Divergencia', tex:'\\nabla\\cdot\\mathbf{F}=0', snip:String.raw`\nabla\cdot\mathbf{F}=`},
-  {code:'\\boxed{…}', help:'Respuesta final', tex:'\\boxed{0}', snip:String.raw`\boxed{|}`}
+  {code:'\\( … \\)', help:'Fórmula en línea', tex:'\\oint_C \\mathbf{F}\\cdot d\\mathbf{r}', snip:'\\(|\\)'},
+  {code:'\\oint_C', help:'Integral de línea cerrada', tex:'\\oint_C \\mathbf{F}\\cdot d\\mathbf{r}', snip:'\\oint_C \\mathbf{F}\\cdot d\\mathbf{r}'},
+  {code:'\\iint_S', help:'Integral de superficie', tex:'\\iint_S \\mathbf{F}\\cdot d\\mathbf{S}', snip:'\\iint_S \\mathbf{F}\\cdot d\\mathbf{S}'},
+  {code:'\\iiint_V', help:'Integral de volumen', tex:'\\iiint_V f\\,dV', snip:'\\iiint_V f\\,dV'},
+  {code:'\\nabla\\times\\mathbf{F}', help:'Rotacional', tex:'\\nabla\\times\\mathbf{F}=0', snip:'\\nabla\\times\\mathbf{F}='},
+  {code:'\\nabla\\cdot\\mathbf{F}', help:'Divergencia', tex:'\\nabla\\cdot\\mathbf{F}=0', snip:'\\nabla\\cdot\\mathbf{F}='},
+  {code:'\\boxed{…}', help:'Respuesta final', tex:'\\boxed{0}', snip:'\\boxed{|}'}
 ];
 
 function buildEditors(){
-  $$('.ed-box').forEach(box=>{
+  document.querySelectorAll('.ed-box').forEach(box=>{
     const k=box.dataset.ed;
     box.innerHTML=`
       <div class="ed-toolbar">
@@ -1928,7 +1813,7 @@ function buildEditors(){
       <div class="ed-grid">
         <div class="ed-main">
           <textarea id="ta_${k}" class="ed-ta" spellcheck="false"
-            placeholder="Escribe tu solución aquí. Usa LaTeX entre \( ... \)."></textarea>
+            placeholder="Escribe tu solución aquí. Usa LaTeX entre \\( ... \\)."></textarea>
           <div class="ed-preview-wrap">
             <div class="ed-preview-head">Vista previa</div>
             <div class="ed-preview" id="pv_${k}"><em class="ed-ph">La vista previa aparecerá aquí.</em></div>
@@ -1949,7 +1834,7 @@ function buildEditors(){
 }
 
 function buildManuals(){
-  $$('.ed-manual').forEach(box=>{
+  document.querySelectorAll('.ed-manual').forEach(box=>{
     const views=[];
     const rows=MANUAL.map((m,i)=>{
       views.push(m);
@@ -1960,12 +1845,14 @@ function buildManuals(){
         <button type="button" class="cmd-add" data-snip="${esc(m.snip)}">+</button>
       </div>`;
     }).join('');
-    box.innerHTML=`<p class="ed-note"><strong>Fórmulas:</strong> usa \( ... \) o $ ... $.</p>
+    box.innerHTML=`<p class="ed-note"><strong>Fórmulas:</strong> usa \\( ... \\) o $ ... $.</p>
       <p class="ed-cmd-title">Comandos útiles</p>
       ${rows}
-      <p class="ed-note"><strong>Estructura:</strong> define el problema, desarrolla paso a paso, responde con \(\boxed{}\).</p>`;
+      <p class="ed-note"><strong>Estructura:</strong> define el problema, desarrolla paso a paso, responde con \\(\\boxed{}\\).</p>`;
     box.querySelectorAll('.cmd-view').forEach((el,i)=>{
-      try{ katex.render(views[i].tex, el, {throwOnError:false}); }catch(e){ el.textContent=views[i].code; }
+      if(typeof katex !== 'undefined'){
+        safe(() => katex.render(views[i].tex, el, {throwOnError:false}), 'katex manual');
+      } else { el.textContent = views[i].code; }
     });
   });
 }
@@ -1989,32 +1876,34 @@ function insertSnippet(ta, snip){
 }
 
 function setStatus(k, txt, saved){
-  const st=$('#st_'+k); if(!st) return;
+  const st=document.getElementById('st_'+k); if(!st) return;
   st.classList.toggle('saved', !!saved);
   st.innerHTML='<span class="dot"></span>'+txt;
 }
 
 function redPreview(k){
-  const ta=$('#ta_'+k), pv=$('#pv_'+k);
+  const ta=document.getElementById('ta_'+k), pv=document.getElementById('pv_'+k);
+  if(!ta || !pv) return;
   const raw=ta.value;
-  $('#cn_'+k).textContent=(raw.trim()? raw.trim().split(/\s+/).length:0)+' palabras';
+  const cn = document.getElementById('cn_'+k);
+  if(cn) cn.textContent=(raw.trim()? raw.trim().split(/\s+/).length:0)+' palabras';
   if(!raw.trim()){
     pv.innerHTML='<em class="ed-ph">La vista previa aparecerá aquí.</em>';
     return;
   }
   pv.innerHTML=esc(raw).replace(/\n/g,'<br>');
   if(typeof renderMathInElement==='function'){
-    try{
-      renderMathInElement(pv,{delimiters:[
-        {left:'$$',right:'$$',display:true},
-        {left:'\\(',right:'\\)',display:false},
-        {left:'$',right:'$',display:false}],throwOnError:false});
-    }catch(e){}
+    safe(() => renderMathInElement(pv,{delimiters:[
+      {left:'$$',right:'$$',display:true},
+      {left:'\\(',right:'\\)',display:false},
+      {left:'$',right:'$',display:false}],throwOnError:false}), 'katex preview');
   }
 }
 
 function redSave(k, announce){
-  const a=act(); a[CURSO].red[k]=$('#ta_'+k).value; saveAct(a);
+  const ta = document.getElementById('ta_'+k);
+  if(!ta) return;
+  const a=act(); a[CURSO].red[k]=ta.value; saveAct(a);
   setStatus(k,'Guardado '+new Date().toLocaleTimeString('es-MX',{hour:'2-digit',minute:'2-digit'}), true);
   if(announce) toast('Redacción guardada.');
 }
@@ -2030,18 +1919,19 @@ function redInput(k){
 function initRedacs(){
   const R=act()[CURSO].red||{};
   REDACS.forEach(k=>{
-    const ta=$('#ta_'+k); if(!ta) return;
+    const ta=document.getElementById('ta_'+k); if(!ta) return;
     if(R[k]){ ta.value=R[k]; setStatus(k,'Guardado', true); redPreview(k); }
     ta.addEventListener('input',()=>redInput(k));
   });
-  $$('.ed-manual').forEach(m=>m.addEventListener('click',e=>{
+  document.querySelectorAll('.ed-manual').forEach(m=>m.addEventListener('click',e=>{
     const b=e.target.closest('.cmd-add'); if(!b) return;
-    insertSnippet($('#ta_'+m.dataset.for), b.dataset.snip);
+    const ta = document.getElementById('ta_'+m.dataset.for);
+    if(ta) insertSnippet(ta, b.dataset.snip);
   }));
-  $$('[data-redsave]').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('[data-redsave]').forEach(b=>b.addEventListener('click',()=>{
     const k=b.dataset.redsave; redSave(k,true); redPreview(k);
   }));
-  $$('[data-redclear]').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('[data-redclear]').forEach(b=>b.addEventListener('click',()=>{
     const k=b.dataset.redclear;
     if(!b.classList.contains('confirm')){
       b.classList.add('confirm'); b.textContent='¿Borrar todo?';
@@ -2049,14 +1939,16 @@ function initRedacs(){
       return;
     }
     b.classList.remove('confirm'); b.textContent='Limpiar';
-    $('#ta_'+k).value=''; redPreview(k); setStatus(k,'Sin guardar',false);
+    const ta = document.getElementById('ta_'+k);
+    if(ta) ta.value='';
+    redPreview(k); setStatus(k,'Sin guardar',false);
     const a=act(); a[CURSO].red[k]=''; saveAct(a);
     toast('Redacción borrada.');
   }));
 }
 
 /* ============================================================
-   BOLETA (similar a unidades anteriores)
+   BOLETA
 ============================================================ */
 const AV_COLORS=[['#e4ecdf','#1e4636'],['#f3e0d6','#8a3d1e'],['#f2e8c9','#7a6210'],
                  ['#e2e8dd','#3c5a3c'],['#ead9e0','#7a3550'],['#dde7ea','#22505c']];
@@ -2086,19 +1978,23 @@ function notaFinal(){
 }
 function updateHomeStat(){
   const est=loadEst();
-  $('#statNota').textContent = est? notaFinal().toFixed(1) : '—';
+  const el = document.getElementById('statNota');
+  if(el) el.textContent = est? notaFinal().toFixed(1) : '—';
 }
 function renderBoleta(){
   const est=loadEst();
-  $('#regEmpty').hidden = !!est;
-  $('#boletaWrap').hidden = !est;
+  const regEmpty = document.getElementById('regEmpty');
+  const boletaWrap = document.getElementById('boletaWrap');
+  if(regEmpty) regEmpty.hidden = !!est;
+  if(boletaWrap) boletaWrap.hidden = !est;
   updateHomeStat();
   if(!est) return;
   const [bg,fg]=avColor(est.nombre);
-  const av=$('#bAvatar'); av.textContent=initials(est.nombre); av.style.background=bg; av.style.color=fg;
-  $('#bName').textContent=est.nombre;
-  $('#bMeta').textContent=`Matrícula ${est.matricula} · ${est.correo}`;
-  $('#bSince').textContent=new Date(est.ts).toLocaleDateString('es-MX',{day:'numeric',month:'long',year:'numeric'});
+  const av=document.getElementById('bAvatar');
+  if(av){ av.textContent=initials(est.nombre); av.style.background=bg; av.style.color=fg; }
+  const bn = document.getElementById('bName'); if(bn) bn.textContent=est.nombre;
+  const bm = document.getElementById('bMeta'); if(bm) bm.textContent=`Matrícula ${est.matricula} · ${est.correo}`;
+  const bs = document.getElementById('bSince'); if(bs) bs.textContent=new Date(est.ts).toLocaleDateString('es-MX',{day:'numeric',month:'long',year:'numeric'});
   const p=progresoUnidad();
   const defs=[
     {nombre:'Simulador 3D — integrales y teoremas', pct:p.sim, w:1.5, det:'Uso de herramientas completado'},
@@ -2106,28 +2002,34 @@ function renderBoleta(){
     {nombre:'Quiz de autoevaluación', pct:p.quiz, w:3.0, det: p.quizScore==null?'Sin intento':`${p.quizScore} de 6 aciertos`},
     {nombre:'Tarea — problemas Capítulos 6-7', pct:p.tarea, w:3.0, det:`${p.tOk} de ${PROBLEMAS.length} problemas`}
   ];
-  $('#bRows').innerHTML=defs.map(d=>`
+  const rows = document.getElementById('bRows');
+  if(rows) rows.innerHTML=defs.map(d=>`
     <div class="b-row">
       <div><div class="b-rubname">${d.nombre}</div><div class="b-rubdet">${d.det}</div></div>
       <div class="b-bar"><div style="width:${d.pct.toFixed(0)}%"></div></div>
       <div class="b-pts mono">${(d.pct/100*d.w).toFixed(2)} <small>/ ${d.w.toFixed(1)}</small></div>
     </div>`).join('');
-  $('#bNota').textContent=notaFinal().toFixed(1);
-  $('#bEmit').textContent=new Date().toLocaleDateString('es-MX',{day:'numeric',month:'long',year:'numeric'});
+  const bn2 = document.getElementById('bNota'); if(bn2) bn2.textContent=notaFinal().toFixed(1);
+  const be = document.getElementById('bEmit'); if(be) be.textContent=new Date().toLocaleDateString('es-MX',{day:'numeric',month:'long',year:'numeric'});
 }
 
-// Registro
 let editMode=false;
 function setFormMode(edit){
   editMode=edit;
-  $('#btnEstSave').innerHTML = edit? '<i data-lucide="save"></i><span>Guardar cambios</span>'
-                                   : '<i data-lucide="user-plus"></i><span>Registrarme</span>';
-  $('#btnEstCancel').hidden=!edit;
+  const btn = document.getElementById('btnEstSave');
+  if(btn) btn.innerHTML = edit? '<i data-lucide="save"></i><span>Guardar cambios</span>'
+                               : '<i data-lucide="user-plus"></i><span>Registrarme</span>';
+  const cancel = document.getElementById('btnEstCancel');
+  if(cancel) cancel.hidden=!edit;
   refreshIcons();
 }
-$('#formEst').addEventListener('submit', e=>{
+
+const formEst = document.getElementById('formEst');
+if(formEst) formEst.addEventListener('submit', e=>{
   e.preventDefault();
-  const nombre=$('#alNombre').value.trim(), mat=$('#alMat').value.trim(), correo=$('#alMail').value.trim();
+  const nombre=document.getElementById('alNombre').value.trim();
+  const mat=document.getElementById('alMat').value.trim();
+  const correo=document.getElementById('alMail').value.trim();
   if(nombre.length<3){ toast('Escribe el nombre completo.','err'); return; }
   if(mat.length<4){ toast('La matrícula debe tener al menos 4 caracteres.','err'); return; }
   if(!/^\S+@\S+\.\S+$/.test(correo)){ toast('Escribe un correo válido.','err'); return; }
@@ -2137,15 +2039,26 @@ $('#formEst').addEventListener('submit', e=>{
   renderBoleta(); syncEjChecks(); renderTaskList();
   toast(prev? 'Datos actualizados.' : `¡Listo, ${nombre.split(' ')[0]}!`);
 });
-$('#btnEstEdit').addEventListener('click', ()=>{
+
+const btnEstEdit = document.getElementById('btnEstEdit');
+if(btnEstEdit) btnEstEdit.addEventListener('click', ()=>{
   const est=loadEst(); if(!est) return;
-  $('#alNombre').value=est.nombre; $('#alMat').value=est.matricula; $('#alMail').value=est.correo;
-  $('#regEmpty').hidden=false; $('#boletaWrap').hidden=true;
-  setFormMode(true); $('#alNombre').focus();
+  document.getElementById('alNombre').value=est.nombre;
+  document.getElementById('alMat').value=est.matricula;
+  document.getElementById('alMail').value=est.correo;
+  const re = document.getElementById('regEmpty'); if(re) re.hidden=false;
+  const bw = document.getElementById('boletaWrap'); if(bw) bw.hidden=true;
+  setFormMode(true); document.getElementById('alNombre').focus();
 });
-$('#btnEstCancel').addEventListener('click', ()=>{ $('#formEst').reset(); setFormMode(false); renderBoleta(); });
-$('#btnEstDel').addEventListener('click', ()=>{
-  const b=$('#btnEstDel');
+
+const btnEstCancel = document.getElementById('btnEstCancel');
+if(btnEstCancel) btnEstCancel.addEventListener('click', ()=>{
+  document.getElementById('formEst').reset(); setFormMode(false); renderBoleta();
+});
+
+const btnEstDel = document.getElementById('btnEstDel');
+if(btnEstDel) btnEstDel.addEventListener('click', ()=>{
+  const b=btnEstDel;
   if(!b.classList.contains('confirm')){
     b.classList.add('confirm'); b.innerHTML='<i data-lucide="alert-triangle"></i><span>¿Borrar todo?</span>'; refreshIcons();
     setTimeout(()=>{ if(b.isConnected){ b.classList.remove('confirm');
@@ -2153,14 +2066,16 @@ $('#btnEstDel').addEventListener('click', ()=>{
     return;
   }
   localStorage.removeItem(LS_EST); localStorage.removeItem(LS_ACT);
-  $('#formEst').reset(); setFormMode(false);
+  document.getElementById('formEst').reset(); setFormMode(false);
   renderBoleta(); syncEjChecks(); renderTaskList();
   toast('Registro y avance borrados.');
 });
-$('#btnBoletaPng').addEventListener('click', ()=>{
+
+const btnBoletaPng = document.getElementById('btnBoletaPng');
+if(btnBoletaPng) btnBoletaPng.addEventListener('click', ()=>{
   if(typeof html2canvas!=='function'){ toast('No se pudo generar la imagen.','err'); return; }
   toast('Generando imagen…');
-  html2canvas($('#boletaCard'),{scale:2, backgroundColor:null, useCORS:true}).then(cv=>{
+  html2canvas(document.getElementById('boletaCard'),{scale:2, backgroundColor:null, useCORS:true}).then(cv=>{
     const est=loadEst();
     const a=document.createElement('a');
     a.download=`boleta-unidad6-${est? est.matricula : 'alumno'}.png`;
@@ -2170,23 +2085,33 @@ $('#btnBoletaPng').addEventListener('click', ()=>{
 });
 
 /* ============================================================
-   ARRANQUE
+   ARRANQUE ROBUSTO
 ============================================================ */
 function init(){
-  refreshIcons();
-  buildEditors();
-  initRedacs();
-  renderTaskList();
-  syncEjChecks();
-  renderBoleta();
-  drawHero();
-  if(typeof renderMathInElement==='function'){
-    renderMathInElement(document.body,{delimiters:[
-      {left:'$$',right:'$$',display:true},{left:'\\(',right:'\\)',display:false}],throwOnError:false});
-  }
+  safe(refreshIcons, 'iconos');
+  safe(buildEditors, 'editores');
+  safe(initRedacs, 'redacciones');
+  safe(renderTaskList, 'tarea');
+  safe(syncEjChecks, 'checks ejercicios');
+  safe(renderBoleta, 'boleta');
+  safe(drawHero, 'hero canvas');
+  safe(() => {
+    if(typeof renderMathInElement === 'function'){
+      renderMathInElement(document.body, {delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'\\(',right:'\\)',display:false}
+      ], throwOnError:false});
+    }
+  }, 'katex global');
 }
-window.addEventListener('resize', ()=>{ drawHero(); });
-init();
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => safe(init, 'init'));
+} else {
+  safe(init, 'init inmediato');
+}
+
+window.addEventListener('resize', () => safe(drawHero, 'resize hero'));
 </script>
 </body>
-</html>   
+</html>
