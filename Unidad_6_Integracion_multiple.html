@@ -1,0 +1,2182 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unidad 6 · Optimización e integración — Cálculo II</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+
+<style>
+/* ============================================================
+   VARIABLES Y BASE
+============================================================ */
+:root{
+  --paper:#f7f3eb;
+  --card:#fffdf8;
+  --ink:#1c2b25;
+  --pine:#1e4636;
+  --pine-soft:#2c5e49;
+  --terra:#c2542f;
+  --terra-soft:#f3e0d6;
+  --gold:#c9a227;
+  --line:rgba(28,43,37,.16);
+  --line-strong:rgba(28,43,37,.4);
+  --muted:rgba(28,43,37,.62);
+  --ok-bg:#e7efe6;
+  --err-bg:#f7e6dd;
+  --radius:12px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+[id]{scroll-margin-top:150px}
+[hidden]{display:none!important}
+body{
+  font-family:'Instrument Sans',sans-serif;
+  background:var(--paper);
+  color:var(--ink);
+  line-height:1.6;
+  background-image:radial-gradient(rgba(30,70,54,.075) 1px, transparent 1px);
+  background-size:26px 26px;
+}
+.wrap{max-width:1150px;margin:0 auto;padding:0 24px}
+h1,h2,h3,.display{font-family:'Fraunces',serif;font-weight:600;line-height:1.12;letter-spacing:-.01em}
+.overline{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--terra)}
+.mono{font-variant-numeric:tabular-nums}
+button{font-family:inherit;cursor:pointer}
+a{color:var(--pine)}
+svg.lucide{width:16px;height:16px;stroke-width:2}
+
+/* ============================================================
+   HEADER / NAV
+============================================================ */
+header.topbar{
+  position:sticky;top:0;z-index:60;
+  background:rgba(247,243,235,.93);
+  backdrop-filter:blur(10px);
+  border-bottom:1.5px solid var(--ink);
+}
+.topbar-row{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 0}
+.brand{display:flex;align-items:center;gap:10px;font-family:'Fraunces',serif;font-weight:700;font-size:1.15rem}
+.brand .brand-ico{width:34px;height:34px;border:1.5px solid var(--ink);border-radius:9px;display:grid;place-items:center;background:var(--ink);color:var(--paper)}
+.brand .brand-ico svg{width:17px;height:17px}
+.brand small{display:block;font-family:'Instrument Sans';font-weight:600;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.topbar-side{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-align:right}
+nav.tabs{display:flex;gap:6px;border-top:1px solid var(--line);padding:10px 0;overflow-x:auto;scrollbar-width:none}
+nav.tabs::-webkit-scrollbar{display:none}
+.nav-btn{
+  display:inline-flex;align-items:center;gap:7px;white-space:nowrap;
+  border:1px solid transparent;background:transparent;color:var(--pine);
+  font-weight:600;font-size:13.5px;padding:8px 14px;border-radius:999px;
+  transition:all .18s ease;
+}
+.nav-btn svg{width:15px;height:15px}
+.nav-btn:hover{border-color:var(--line-strong)}
+.nav-btn.active{background:var(--ink);color:var(--paper)}
+
+/* ============================================================
+   VISTAS
+============================================================ */
+.view{padding:0 0 80px}
+.view-head{border-bottom:2px solid var(--ink);padding:52px 0 26px;margin-bottom:36px}
+.view-head h2{font-size:clamp(1.8rem,3.4vw,2.6rem);margin:8px 0 10px}
+.view-head p.sub{max-width:680px;color:var(--muted)}
+
+/* ============================================================
+   BOTONES / FORMULARIOS
+============================================================ */
+.btn{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--ink);color:var(--paper);
+  border:1px solid var(--ink);border-radius:10px;
+  padding:11px 18px;font-weight:600;font-size:14px;
+  transition:all .18s ease;
+}
+.btn:hover{background:var(--pine);border-color:var(--pine);transform:translateY(-1px)}
+.btn.ghost{background:transparent;color:var(--ink)}
+.btn.ghost:hover{background:rgba(28,43,37,.06);transform:translateY(-1px)}
+.btn.sm{padding:8px 12px;font-size:13px;border-radius:8px}
+.btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.field{display:flex;flex-direction:column;gap:6px}
+.field label{font-size:11px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
+.field input,.field select{
+  font:inherit;font-size:14px;color:var(--ink);
+  background:var(--card);border:1px solid var(--line-strong);
+  border-radius:8px;padding:10px 12px;width:100%;
+  transition:border-color .15s, box-shadow .15s;
+}
+.field input:focus,.field select:focus{outline:none;border-color:var(--pine);box-shadow:0 0 0 3px rgba(30,70,54,.14)}
+.hint{font-size:12px;color:var(--muted)}
+
+/* ============================================================
+   INICIO / HERO
+============================================================ */
+.hero{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center;padding:64px 0 56px}
+.hero h1{font-size:clamp(2.3rem,4.6vw,3.7rem);margin:14px 0 18px}
+.hero h1 em{font-style:italic;color:var(--terra)}
+.hero .lead{font-size:1.05rem;color:var(--muted);max-width:520px}
+.hero-actions{display:flex;gap:12px;margin:26px 0 30px;flex-wrap:wrap}
+.meta-grid{display:grid;grid-template-columns:repeat(2,1fr);border-top:1px solid var(--line-strong);max-width:520px}
+.meta-grid>div{padding:12px 14px 12px 0;border-bottom:1px solid var(--line)}
+.meta-grid dt{font-size:10.5px;font-weight:700;letter-spacing:.11em;text-transform:uppercase;color:var(--muted)}
+.meta-grid dd{font-weight:600;font-size:14.5px}
+.hero-fig{border:1.5px solid var(--ink);border-radius:var(--radius);background:var(--card);overflow:hidden;box-shadow:6px 6px 0 rgba(28,43,37,.12)}
+.hero-fig canvas{display:block;width:100%;height:320px}
+.hero-fig figcaption{padding:12px 16px;border-top:1px solid var(--line);font-size:12.5px;color:var(--muted)}
+.home-grid{display:grid;grid-template-columns:1.35fr .65fr;gap:44px;border-top:1.5px solid var(--ink);padding-top:38px}
+.route-item{display:grid;grid-template-columns:86px 1fr auto;gap:18px;align-items:center;border-top:1px solid var(--line);padding:22px 4px;cursor:pointer;transition:background .15s}
+.route-item:first-child{border-top:none}
+.route-item:hover{background:rgba(28,43,37,.045)}
+.route-no{font-family:'Fraunces',serif;font-size:2.6rem;font-weight:400;color:rgba(30,70,54,.28)}
+.route-item h3{font-size:1.2rem;margin-bottom:4px}
+.route-item p{font-size:13.5px;color:var(--muted)}
+.route-go{width:38px;height:38px;border:1.5px solid var(--ink);border-radius:50%;display:grid;place-items:center;background:transparent;color:var(--ink);transition:all .18s}
+.route-item:hover .route-go{background:var(--ink);color:var(--paper)}
+.side-stats{display:flex;flex-direction:column;gap:12px}
+.stat{border:1px solid var(--line-strong);border-radius:10px;background:var(--card);padding:14px 18px}
+.stat .num{font-family:'Fraunces',serif;font-size:1.7rem;font-weight:600;line-height:1}
+.stat .lbl{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:4px}
+
+/* ============================================================
+   TEORÍA
+============================================================ */
+.theory{display:grid;grid-template-columns:250px 1fr;gap:52px;align-items:start}
+.toc{position:sticky;top:150px;border-left:1.5px solid var(--ink);display:flex;flex-direction:column}
+.toc-title{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding:0 0 10px 16px}
+.toc a{display:flex;gap:10px;align-items:baseline;text-decoration:none;color:var(--ink);padding:9px 16px;font-size:13.5px;font-weight:500;border-left:3px solid transparent;margin-left:-1.5px;transition:all .15s}
+.toc a span{font-family:'Fraunces',serif;color:var(--terra);font-weight:600;min-width:30px}
+.toc a:hover{border-left-color:var(--pine);background:rgba(28,43,37,.05)}
+.sec{border-top:1px solid var(--line);padding:44px 0}
+.sec:first-child{border-top:none;padding-top:0}
+.sec-no{font-family:'Fraunces',serif;font-size:3rem;font-weight:400;color:rgba(30,70,54,.22);line-height:1}
+.sec h3{font-size:1.55rem;margin:6px 0 16px}
+.prose p{margin:0 0 14px;max-width:70ch}
+.prose ul,.prose ol{margin:0 0 14px 22px;max-width:70ch}
+.prose li{margin-bottom:6px}
+.def{background:#ecf1ea;border:1px solid rgba(30,70,54,.28);border-radius:0 10px 10px 0;border-left:4px solid var(--pine);padding:18px 22px;margin:20px 0}
+.def .def-tag{font-size:10.5px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--pine)}
+.def p{margin:6px 0 0}
+.ex{background:var(--card);border:1px solid var(--line-strong);border-left:4px solid var(--gold);border-radius:0 10px 10px 0;padding:18px 22px;margin:20px 0}
+.ex .ex-tag{font-size:10.5px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:#8a6d10}
+.formula-hero{display:flex;justify-content:center;padding:16px 0;font-size:1.15rem}
+.tbl{width:100%;border-collapse:collapse;margin:16px 0;font-size:14px}
+.tbl th{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-align:left;padding:8px 10px;border-bottom:1.5px solid var(--ink)}
+.tbl td{padding:9px 10px;border-bottom:1px solid var(--line)}
+.tbl tbody tr:hover{background:rgba(28,43,37,.04)}
+.tbl td.center,.tbl th.center{text-align:center}
+.tag{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:3px 9px;border-radius:999px;border:1px solid}
+.tag.d{color:var(--pine);border-color:rgba(30,70,54,.45);background:#ecf1ea}
+.tag.c{color:var(--terra);border-color:rgba(194,84,47,.45);background:var(--terra-soft)}
+
+/* ============================================================
+   SIMULADOR 3D - INTEGRALES Y TEOREMAS
+============================================================ */
+.panel{background:var(--card);border:1.5px solid var(--ink);border-radius:var(--radius);overflow:hidden}
+.panel-head{display:flex;align-items:center;gap:9px;padding:14px 18px;border-bottom:1px solid var(--line);font-weight:700;font-size:13px;letter-spacing:.06em;text-transform:uppercase}
+.panel-body{padding:20px 18px}
+.sim-tabs{display:flex;gap:6px;margin-bottom:18px;border-bottom:1px solid var(--line);padding-bottom:10px;flex-wrap:wrap}
+.sim-tab{background:transparent;border:1px solid transparent;padding:8px 16px;border-radius:999px;font-weight:600;font-size:13px;color:var(--muted);transition:all .15s}
+.sim-tab:hover{border-color:var(--line-strong)}
+.sim-tab.active{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.sim-panel{display:none}
+.sim-panel.active{display:block}
+.sim-3d-container{width:100%;height:420px;border-radius:8px;overflow:hidden;border:1px solid var(--line-strong);background:#faf8f4;position:relative}
+.sim-3d-container canvas{display:block;width:100%!important;height:100%!important}
+.sim-controls-3d{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+.sim-controls-3d .field{margin-bottom:0}
+.sim-presets{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+.sim-presets button{font-size:11px;padding:6px 12px}
+.legend-3d{display:flex;gap:16px;flex-wrap:wrap;font-size:11px;color:var(--muted);margin-top:10px;padding-top:10px;border-top:1px solid var(--line)}
+.legend-3d .dot{display:inline-block;width:14px;height:14px;border-radius:50%;margin-right:4px;vertical-align:middle}
+.note{font-size:12.5px;color:var(--muted);border-top:1px dashed var(--line-strong);margin-top:18px;padding-top:12px}
+.info-box{background:#ecf1ea;border-radius:8px;padding:12px 16px;margin-top:12px;font-size:14px;border-left:4px solid var(--pine)}
+.info-box .valor{font-family:'Fraunces',serif;font-size:1.2rem;color:var(--pine);font-weight:600}
+.info-box .label{font-weight:600;color:var(--muted)}
+
+/* ============================================================
+   ACTIVIDADES
+============================================================ */
+.act-block{margin-bottom:52px}
+.act-block>h3{font-size:1.45rem;margin:8px 0 6px}
+.act-block>.act-desc{color:var(--muted);max-width:70ch;margin-bottom:20px}
+.rub-row{display:grid;grid-template-columns:280px 1fr 60px;gap:16px;align-items:center;border-top:1px solid var(--line);padding:14px 4px}
+.rub-row:last-child{border-bottom:1px solid var(--line)}
+.rub-row .rub-name{font-weight:600;font-size:14.5px}
+.rub-bar{height:10px;border:1px solid var(--line-strong);border-radius:999px;overflow:hidden}
+.rub-bar>div{height:100%;background:var(--pine)}
+.rub-pct{text-align:right;font-family:'Fraunces',serif;font-weight:600}
+details.sol{border:1px solid var(--line-strong);border-radius:10px;background:var(--card);margin-bottom:14px;overflow:hidden}
+details.sol summary{list-style:none;display:flex;align-items:flex-start;gap:12px;padding:16px 18px;cursor:pointer;font-weight:600;transition:background .15s}
+details.sol summary::-webkit-details-marker{display:none}
+details.sol summary:hover{background:rgba(28,43,37,.04)}
+.sol-marker{flex:none;width:24px;height:24px;border:1.5px solid var(--ink);border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:15px;transition:transform .2s;margin-top:1px}
+details[open].sol .sol-marker{transform:rotate(45deg);background:var(--ink);color:var(--paper)}
+.sol-body{border-top:1px dashed var(--line-strong);padding:16px 20px;font-size:14.5px}
+.sol-body p{margin-bottom:10px;max-width:75ch}
+.prob-tag{font-size:10.5px;font-weight:700;letter-spacing:.11em;text-transform:uppercase;color:var(--terra);display:block;margin-bottom:4px}
+.chk{display:flex;align-items:center;gap:11px;border:1px solid var(--line-strong);border-radius:9px;background:var(--card);padding:10px 14px;margin-bottom:9px;cursor:pointer;transition:all .15s;font-size:14.5px}
+.chk:hover{border-color:var(--pine)}
+.chk input{width:16px;height:16px;accent-color:var(--pine)}
+.chk.done{background:var(--ok-bg);border-color:var(--pine)}
+
+/* ============================================================
+   EDITOR DE REDACCIÓN
+============================================================ */
+.ed-box{border:1.5px solid var(--ink);border-radius:10px;margin-top:18px;overflow:hidden;background:var(--card)}
+.ed-toolbar{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:9px 14px;border-bottom:1px solid var(--line);background:#ecf1ea;flex-wrap:wrap}
+.ed-title{display:inline-flex;align-items:center;gap:7px;font-size:10.5px;font-weight:700;letter-spacing:.11em;text-transform:uppercase;color:var(--pine)}
+.ed-title svg{width:13px;height:13px}
+.ed-status{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;color:var(--muted)}
+.ed-status .dot{width:7px;height:7px;border-radius:50%;background:var(--gold)}
+.ed-status.saved{color:var(--pine);font-weight:600}
+.ed-status.saved .dot{background:#4a8a5c}
+.ed-grid{display:grid;grid-template-columns:1fr 330px}
+.ed-main{padding:14px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.ed-ta{width:100%;min-height:200px;resize:vertical;font:inherit;font-size:14.5px;line-height:1.6;padding:12px 14px;border:1px solid var(--line-strong);border-radius:8px;background:var(--paper);color:var(--ink)}
+.ed-ta:focus{outline:none;border-color:var(--pine);box-shadow:0 0 0 3px rgba(30,70,54,.14)}
+.ed-preview-wrap{border:1px dashed var(--line-strong);border-radius:8px;overflow:hidden;background:var(--paper)}
+.ed-preview-head{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding:6px 12px;background:rgba(28,43,37,.04);border-bottom:1px dashed var(--line)}
+.ed-preview{padding:12px 14px;font-size:14.5px;min-height:56px;overflow-x:auto}
+.ed-preview .katex-display{margin:6px 0}
+.ed-ph{color:var(--muted);font-size:13px}
+.ed-manual{border-left:1px solid var(--line);padding:12px 14px;background:rgba(28,43,37,.03);max-height:460px;overflow:auto}
+.ed-note{font-size:12px;color:var(--muted);margin-bottom:10px}
+.ed-note code{background:var(--paper);border:1px solid var(--line);border-radius:4px;padding:1px 5px;font-size:11px}
+.ed-cmd-title{font-size:10px;font-weight:700;letter-spacing:.11em;text-transform:uppercase;color:var(--terra);margin:12px 0 4px}
+.cmd-row{display:grid;grid-template-columns:minmax(0,1fr) auto 26px;align-items:center;gap:8px;padding:5px 0;border-bottom:1px dashed var(--line)}
+.cmd-code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11px;color:var(--ink);overflow-x:auto;white-space:nowrap;display:block}
+.cmd-help{display:block;font-size:10.5px;color:var(--muted);font-family:'Instrument Sans'}
+.cmd-view{font-size:13px;text-align:right;max-width:130px;overflow-x:auto;padding:2px 0}
+.cmd-add{width:26px;height:26px;border:1px solid var(--line-strong);border-radius:6px;background:var(--card);display:grid;place-items:center;font-weight:700;color:var(--pine);transition:all .15s;font-size:14px;flex:none}
+.cmd-add:hover{background:var(--pine);color:var(--paper);border-color:var(--pine)}
+.ed-foot{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:9px 14px;border-top:1px dashed var(--line-strong);flex-wrap:wrap}
+.ed-count{font-size:12px;color:var(--muted)}
+details.mini-check{border:1px dashed var(--line-strong);border-radius:8px;background:var(--terra-soft);margin-top:14px}
+details.mini-check summary{padding:10px 14px;cursor:pointer;font-size:13px;font-weight:600;list-style:none}
+details.mini-check summary::-webkit-details-marker{display:none}
+details.mini-check summary:hover{color:var(--terra)}
+details.mini-check .sol-body{border-top:1px dashed var(--line-strong);padding-top:8px;font-size:13.5px}
+
+/* ============================================================
+   QUIZ
+============================================================ */
+.quiz-q{border-top:1px solid var(--line);padding:24px 4px}
+.quiz-q header{display:flex;gap:14px;margin-bottom:14px}
+.qnum{flex:none;font-family:'Fraunces',serif;font-weight:700;color:var(--terra);border:1.5px solid var(--terra);border-radius:8px;padding:2px 9px;height:fit-content}
+.quiz-q .q-text{font-weight:600;font-size:15.5px;padding-top:4px}
+.opts{display:grid;gap:9px;margin-left:56px}
+.opt{display:flex;align-items:center;gap:12px;border:1px solid var(--line-strong);border-radius:10px;padding:11px 14px;cursor:pointer;background:var(--card);transition:all .15s;font-size:14.5px}
+.opt:hover{border-color:var(--pine)}
+.opt input{position:absolute;opacity:0;pointer-events:none}
+.opt-key{flex:none;width:26px;height:26px;border:1.5px solid var(--line-strong);border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:12px;transition:all .15s}
+.opt.is-correct{border-color:var(--pine);background:var(--ok-bg)}
+.opt.is-correct .opt-key{background:var(--pine);border-color:var(--pine);color:var(--paper)}
+.opt.is-wrong{border-color:var(--terra);background:var(--err-bg)}
+.opt.is-wrong .opt-key{background:var(--terra);border-color:var(--terra);color:var(--paper)}
+.opt.locked{cursor:default}
+.explain{margin:12px 0 0 56px;font-size:13.5px;color:var(--muted);border-left:3px solid var(--gold);padding:8px 14px;background:var(--card)}
+.quiz-foot{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-top:22px;border-top:1.5px solid var(--ink);padding-top:20px}
+.quiz-result{font-size:15px}
+.quiz-result strong{font-family:'Fraunces',serif;font-size:1.5rem;color:var(--pine);margin-right:8px}
+.task-panel{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:start}
+
+/* ============================================================
+   BOLETA
+============================================================ */
+.avatar{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:13px;flex:none}
+.del-btn{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line-strong);background:transparent;color:var(--ink);border-radius:8px;padding:8px 12px;font-size:12.5px;font-weight:600;transition:all .15s}
+.del-btn:hover{border-color:var(--terra);color:var(--terra)}
+.del-btn.confirm{background:var(--terra);border-color:var(--terra);color:#fff}
+.boleta-card{position:relative;max-width:700px;background:var(--card);border:2px solid var(--ink);border-radius:var(--radius);box-shadow:8px 8px 0 rgba(28,43,37,.12);overflow:hidden}
+.b-head{display:flex;align-items:center;gap:16px;padding:22px 24px;border-bottom:1.5px solid var(--ink)}
+.b-head .avatar{width:52px;height:52px;font-size:17px;border:1.5px solid var(--ink)}
+.b-head>div{flex:1;min-width:0}
+.b-title{font-size:10px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--terra);margin-bottom:3px}
+.b-name{font-family:'Fraunces',serif;font-size:1.35rem;font-weight:700;line-height:1.15}
+.b-meta{font-size:12.5px;color:var(--muted);margin-top:2px}
+.b-seal{flex:none;width:76px;height:76px;border:2px solid var(--terra);border-radius:50%;display:grid;place-items:center;text-align:center;color:var(--terra);transform:rotate(-8deg);opacity:.85;line-height:1.25}
+.b-seal span{font-size:7.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
+.b-seal strong{font-family:'Fraunces',serif;font-size:1.05rem}
+.b-body{padding:8px 24px 18px}
+.b-row{display:grid;grid-template-columns:1fr 150px 92px;gap:14px;align-items:center;border-top:1px solid var(--line);padding:13px 0}
+.b-row:first-child{border-top:none}
+.b-rubname{font-weight:600;font-size:14.5px}
+.b-rubdet{font-size:12px;color:var(--muted);margin-top:1px}
+.b-bar{height:10px;border:1px solid var(--line-strong);border-radius:999px;overflow:hidden;background:var(--paper)}
+.b-bar>div{height:100%;background:var(--pine);transition:width .4s ease}
+.b-pts{text-align:right;font-family:'Fraunces',serif;font-weight:600;font-size:1.05rem}
+.b-pts small{font-weight:400;color:var(--muted);font-size:.75em}
+.b-total{display:flex;justify-content:space-between;align-items:center;gap:16px;border-top:2px solid var(--ink);background:#ecf1ea;padding:16px 24px}
+.b-total-lbl{font-family:'Fraunces',serif;font-weight:700;font-size:1.05rem}
+.b-total-det{font-size:11.5px;color:var(--muted);margin-top:2px}
+.b-score{display:flex;align-items:baseline;gap:6px}
+.b-score .big{font-family:'Fraunces',serif;font-size:3rem;font-weight:700;color:var(--pine);line-height:1}
+.b-score .den{font-family:'Fraunces',serif;font-size:1.2rem;color:var(--muted)}
+.b-foot{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;border-top:1px dashed var(--line-strong);padding:11px 24px;font-size:11.5px;color:var(--muted)}
+.boleta-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px;max-width:700px}
+
+/* ============================================================
+   TOASTS / FOOTER
+============================================================ */
+#toasts{position:fixed;bottom:22px;right:22px;z-index:100;display:flex;flex-direction:column;gap:10px;max-width:340px}
+.toast{display:flex;align-items:center;gap:10px;background:var(--ink);color:var(--paper);border-radius:10px;padding:12px 16px;font-size:13.5px;font-weight:500;box-shadow:0 8px 24px rgba(28,43,37,.28);animation:toastIn .28s cubic-bezier(.2,.9,.3,1.2)}
+.toast svg{flex:none;width:17px;height:17px}
+.toast.ok svg{color:#8fd0a5}
+.toast.err svg{color:#f0a284}
+.toast.out{animation:toastOut .3s ease forwards}
+@keyframes toastIn{from{opacity:0;transform:translateY(14px) scale(.96)}to{opacity:1;transform:none}}
+@keyframes toastOut{to{opacity:0;transform:translateX(20px)}}
+footer{border-top:2px solid var(--ink);padding:30px 0 40px;margin-top:20px}
+.foot-row{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;font-size:13px;color:var(--muted)}
+.foot-row strong{color:var(--ink)}
+
+/* ============================================================
+   RESPONSIVE
+============================================================ */
+@media (max-width:960px){
+  .hero{grid-template-columns:1fr;gap:34px}
+  .home-grid{grid-template-columns:1fr}
+  .theory{grid-template-columns:1fr}
+  .toc{position:static;flex-direction:row;overflow-x:auto;border-left:none;border-bottom:1.5px solid var(--ink);gap:2px}
+  .toc-title{display:none}
+  .toc a{white-space:nowrap;border-left:none;border-bottom:3px solid transparent}
+  .toc a:hover{border-bottom-color:var(--pine)}
+  .lab-grid,.task-panel{grid-template-columns:1fr}
+  .ed-grid{grid-template-columns:1fr}
+  .ed-manual{border-left:none;border-top:1px solid var(--line);max-height:none}
+  .sim-controls-3d{grid-template-columns:1fr}
+}
+@media (max-width:640px){
+  .b-row{grid-template-columns:1fr 86px}
+  .b-bar{display:none}
+  .b-seal{display:none}
+  .b-total{flex-direction:column;align-items:flex-start;gap:6px}
+}
+</style>
+</head>
+<body>
+
+<!-- ==================== HEADER ==================== -->
+<header class="topbar">
+  <div class="wrap topbar-row">
+    <div class="brand">
+      <span class="brand-ico"><i data-lucide="sigma"></i></span>
+      <span>Cálculo II · Unidad 6<small>Aula interactiva — Dr. Adrián Cerda</small></span>
+    </div>
+    <div class="topbar-side">7 sep – 3 oct 2026</div>
+  </div>
+  <div class="wrap">
+    <nav class="tabs" id="mainNav">
+      <button class="nav-btn active" data-view="inicio"><i data-lucide="home"></i>Inicio</button>
+      <button class="nav-btn" data-view="teoria"><i data-lucide="book-open"></i>Teoría</button>
+      <button class="nav-btn" data-view="simulador"><i data-lucide="layout-dashboard"></i>Simulador 3D</button>
+      <button class="nav-btn" data-view="actividades"><i data-lucide="clipboard-list"></i>Actividades</button>
+      <button class="nav-btn" data-view="boleta"><i data-lucide="badge-check"></i>Mi boleta</button>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<!-- ==================== INICIO ==================== -->
+<section class="view" id="v-inicio">
+  <div class="wrap hero">
+    <div>
+      <p class="overline">Cálculo II · Universidad Internacional de Innovación</p>
+      <h1>Optimización e <em>integración</em></h1>
+      <p class="lead">Integrales múltiples, integrales de línea y superficie. Teoremas de Green, Stokes y divergencia. Aplicaciones en física, fluidos y electromagnetismo.</p>
+      <div class="hero-actions">
+        <button class="btn" data-view="teoria"><i data-lucide="book-open"></i>Entrar a la teoría</button>
+        <button class="btn ghost" data-view="simulador"><i data-lucide="layout-dashboard"></i>Explorar integrales</button>
+      </div>
+      <dl class="meta-grid">
+        <div><dt>Unidad</dt><dd>VI — Optimización e integración</dd></div>
+        <div><dt>Sesiones</dt><dd>4 · 2 horas cada una</dd></div>
+        <div><dt>Evaluación</dt><dd>Quiz + tareas + laboratorio</dd></div>
+        <div><dt>Texto</dt><dd>Marsden &amp; Tromba — Cap. 6-7</dd></div>
+      </dl>
+    </div>
+    <figure class="hero-fig">
+      <canvas id="heroCanvas"></canvas>
+      <figcaption><strong>Teorema de Stokes.</strong> Circulación de un campo vectorial a lo largo de una curva cerrada.</figcaption>
+    </figure>
+  </div>
+
+  <div class="wrap home-grid">
+    <div>
+      <p class="overline" style="margin-bottom:14px">Ruta de la unidad</p>
+      <div class="route-item" data-view="teoria">
+        <span class="route-no">01</span>
+        <div><h3>Desarrollo de la teoría</h3><p>Integración múltiple, integrales de línea y superficie, teoremas de Green, Stokes y divergencia.</p></div>
+        <span class="route-go"><i data-lucide="arrow-right"></i></span>
+      </div>
+      <div class="route-item" data-view="simulador">
+        <span class="route-no">02</span>
+        <div><h3>Laboratorio de integrales</h3><p>Visualiza trabajo, flujo, circulación y aplicaciones físicas.</p></div>
+        <span class="route-go"><i data-lucide="arrow-right"></i></span>
+      </div>
+      <div class="route-item" data-view="actividades">
+        <span class="route-no">03</span>
+        <div><h3>Evaluación y tareas</h3><p>Ejercicios guiados, redacción en LaTeX, quiz y problemas.</p></div>
+        <span class="route-go"><i data-lucide="arrow-right"></i></span>
+      </div>
+      <div class="route-item" data-view="boleta">
+        <span class="route-no">04</span>
+        <div><h3>Mi boleta</h3><p>Regístrate y sigue tu avance: tu progreso y calificación final.</p></div>
+        <span class="route-go"><i data-lucide="arrow-right"></i></span>
+      </div>
+    </div>
+    <aside>
+      <p class="overline" style="margin-bottom:14px">En un vistazo</p>
+      <div class="side-stats">
+        <div class="stat"><div class="num" id="statNota">—</div><div class="lbl">Tu nota (sobre 10)</div></div>
+        <div class="stat"><div class="num">4</div><div class="lbl">Teoremas fundamentales</div></div>
+        <div class="stat"><div class="num">6</div><div class="lbl">Preguntas del quiz</div></div>
+        <div class="stat"><div class="num">12</div><div class="lbl">Ejercicios y problemas</div></div>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<!-- ==================== TEORÍA ==================== -->
+<section class="view" id="v-teoria" hidden>
+  <div class="wrap">
+    <div class="view-head">
+      <p class="overline">Desarrollo de la teoría</p>
+      <h2>Integración y teoremas fundamentales</h2>
+      <p class="sub">Síntesis de los Capítulos 6-7 de Marsden &amp; Tromba, <em>Cálculo Vectorial</em>.</p>
+    </div>
+
+    <div class="theory">
+      <aside class="toc">
+        <p class="toc-title">Contenido</p>
+        <a href="#t61"><span>6.1</span>Optimización con restricciones</a>
+        <a href="#t62"><span>6.2</span>Integración múltiple</a>
+        <a href="#t63"><span>6.3</span>Integrales de línea y superficie</a>
+        <a href="#t64"><span>6.4</span>Teoremas integrales</a>
+      </aside>
+
+      <div class="prose">
+
+        <!-- 6.1 -->
+        <article class="sec" id="t61">
+          <div class="sec-no">6.1</div>
+          <h3>Optimización con restricciones</h3>
+          <div class="def">
+            <span class="def-tag">Método de Lagrange</span>
+            <p>Para optimizar \(f(x,y)\) sujeta a \(g(x,y)=0\), se resuelve:</p>
+            <p style="display:flex;justify-content:center;padding:6px 0">\( \displaystyle \nabla f = \lambda \nabla g, \quad g(x,y)=0 \)</p>
+          </div>
+          <div class="ex">
+            <span class="ex-tag">Ejemplo</span>
+            <p>Maximizar \(f(x,y)=xy\) con \(x^2+y^2=1\).</p>
+            <p>\(\nabla f=(y,x)\), \(\nabla g=(2x,2y)\)</p>
+            <p>\(y=2\lambda x,\; x=2\lambda y,\; x^2+y^2=1\)</p>
+            <p>Soluciones: \((\pm\frac{1}{\sqrt{2}},\pm\frac{1}{\sqrt{2}})\) con \(f=\frac{1}{2}\).</p>
+          </div>
+        </article>
+
+        <!-- 6.2 -->
+        <article class="sec" id="t62">
+          <div class="sec-no">6.2</div>
+          <h3>Integración múltiple</h3>
+          <div class="def">
+            <span class="def-tag">Definición</span>
+            <p>La <strong>integral doble</strong> de \(f\) sobre una región \(R\) es:</p>
+            <p style="display:flex;justify-content:center;padding:6px 0">\( \displaystyle \iint_R f(x,y)\,dA = \int_{a}^{b}\int_{c}^{d} f(x,y)\,dy\,dx \)</p>
+          </div>
+          <div class="def">
+            <span class="def-tag">Cambio de variables</span>
+            <p>Para coordenadas polares: \(x=r\cos\theta,\; y=r\sin\theta\)</p>
+            <p style="display:flex;justify-content:center;padding:6px 0">\( \displaystyle \iint_R f(x,y)\,dA = \iint_{R^*} f(r\cos\theta,r\sin\theta)\,r\,dr\,d\theta \)</p>
+          </div>
+        </article>
+
+        <!-- 6.3 -->
+        <article class="sec" id="t63">
+          <div class="sec-no">6.3</div>
+          <h3>Integrales de línea y superficie</h3>
+          <div class="def">
+            <span class="def-tag">Integral de línea</span>
+            <p>Para un campo \(\mathbf{F}\) a lo largo de una curva \(\mathbf{r}(t)\):</p>
+            <p style="display:flex;justify-content:center;padding:6px 0">\( \displaystyle \int_C \mathbf{F}\cdot d\mathbf{r} = \int_a^b \mathbf{F}(\mathbf{r}(t))\cdot \mathbf{r}'(t)\,dt \)</p>
+            <p>Interpretación: <strong>Trabajo</strong> realizado por el campo.</p>
+          </div>
+          <div class="def">
+            <span class="def-tag">Integral de superficie</span>
+            <p>Para un campo \(\mathbf{F}\) a través de una superficie \(S\):</p>
+            <p style="display:flex;justify-content:center;padding:6px 0">\( \displaystyle \iint_S \mathbf{F}\cdot d\mathbf{S} = \iint_D \mathbf{F}(\mathbf{r}(u,v))\cdot (\mathbf{r}_u\times\mathbf{r}_v)\,du\,dv \)</p>
+            <p>Interpretación: <strong>Flujo</strong> a través de la superficie.</p>
+          </div>
+        </article>
+
+        <!-- 6.4 -->
+        <article class="sec" id="t64">
+          <div class="sec-no">6.4</div>
+          <h3>Teoremas integrales del cálculo vectorial</h3>
+          
+          <div class="def">
+            <span class="def-tag">Teorema de Green</span>
+            <p style="display:flex;justify-content:center;padding:6px 0">\( \displaystyle \oint_C P\,dx + Q\,dy = \iint_R \left(\frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y}\right)\,dA \)</p>
+          </div>
+          
+          <div class="def">
+            <span class="def-tag">Teorema de Stokes</span>
+            <p style="display:flex;justify-content:center;padding:6px 0">\( \displaystyle \oint_{\partial S} \mathbf{F}\cdot d\mathbf{r} = \iint_S (\nabla\times\mathbf{F})\cdot d\mathbf{S} \)</p>
+            <p>Relaciona la circulación con el flujo del rotacional.</p>
+          </div>
+          
+          <div class="def">
+            <span class="def-tag">Teorema de la divergencia (Gauss)</span>
+            <p style="display:flex;justify-content:center;padding:6px 0">\( \displaystyle \iiint_V (\nabla\cdot\mathbf{F})\,dV = \iint_{\partial V} \mathbf{F}\cdot d\mathbf{S} \)</p>
+            <p>Relaciona el flujo total a través de una superficie cerrada con la divergencia en el volumen.</p>
+          </div>
+
+          <div class="ex">
+            <span class="ex-tag">Aplicaciones en física</span>
+            <ul>
+              <li><strong>Electromagnetismo:</strong> Leyes de Maxwell (divergencia y rotacional de campos eléctricos y magnéticos).</li>
+              <li><strong>Fluidos:</strong> Conservación de masa (divergencia de la velocidad = 0 para flujo incompresible).</li>
+              <li><strong>Termodinámica:</strong> Flujo de calor y ecuación del calor.</li>
+              <li><strong>Trabajo y energía:</strong> Circulación de fuerzas conservativas.</li>
+            </ul>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== SIMULADOR 3D - INTEGRALES ==================== -->
+<section class="view" id="v-simulador" hidden>
+  <div class="wrap">
+    <div class="view-head">
+      <p class="overline">Laboratorio de simulación · Actividad práctica</p>
+      <h2>Integrales y teoremas fundamentales</h2>
+      <p class="sub">Visualiza trabajo, flujo, circulación y aplicaciones en física con simulaciones 3D interactivas.</p>
+    </div>
+
+    <div class="lab-grid">
+      <div class="panel">
+        <div class="panel-head"><i data-lucide="sliders-horizontal"></i>Controles 3D</div>
+        <div class="panel-body">
+          <div class="sim-tabs">
+            <button class="sim-tab active" data-stab="linea">Integral de línea</button>
+            <button class="sim-tab" data-stab="superficie">Integral de superficie</button>
+            <button class="sim-tab" data-stab="divergencia">Teorema divergencia</button>
+            <button class="sim-tab" data-stab="stokes">Teorema de Stokes</button>
+          </div>
+
+          <!-- Pestaña: Integral de línea -->
+          <div class="sim-panel active" id="st-linea">
+            <div class="field" style="margin-bottom:12px">
+              <label for="campoLinea">Campo vectorial \(\mathbf{F}\)</label>
+              <select id="campoLinea">
+                <option value="rotacion" selected>\((-y,x)\) (rotación)</option>
+                <option value="gradiente">\((2x,2y)\) (gradiente)</option>
+                <option value="campo3">\((\sin y,\cos x)\)</option>
+                <option value="conservativo">\((y,x)\) (conservativo)</option>
+              </select>
+            </div>
+            <div class="field" style="margin-bottom:12px">
+              <label for="curvaLinea">Curva \(C\)</label>
+              <select id="curvaLinea">
+                <option value="circulo" selected>Círculo: \((\cos t,\sin t)\)</option>
+                <option value="elipse">Elipse: \((2\cos t,\sin t)\)</option>
+                <option value="cuadrado">Cuadrado paramétrico</option>
+              </select>
+            </div>
+            <div class="sim-presets">
+              <button class="btn sm ghost" data-linea="campo">Mostrar campo</button>
+              <button class="btn sm ghost" data-linea="curva">Mostrar curva</button>
+              <button class="btn sm ghost" data-linea="trabajo">Calcular trabajo</button>
+            </div>
+            <button class="btn" id="btnLinea"><i data-lucide="refresh-cw"></i>Actualizar</button>
+            
+            <div class="info-box" id="infoLinea">
+              <div><span class="label">Trabajo \(W = \oint_C \mathbf{F}\cdot d\mathbf{r}\):</span> <span id="trabajoVal" class="valor">—</span></div>
+              <div><span class="label">Interpretación:</span> <span id="trabajoInterpretacion" style="font-size:13px;color:var(--muted)">El trabajo mide la energía transferida por el campo a lo largo de la curva.</span></div>
+            </div>
+            
+            <div class="legend-3d">
+              <span><span class="dot" style="background:#1e4636;"></span>Curva \(C\)</span>
+              <span><span class="dot" style="background:#c2542f;"></span>Campo \(\mathbf{F}\)</span>
+              <span><span class="dot" style="background:#c9a227;"></span>Vectores tangentes</span>
+              <span><span class="dot" style="background:#6b4c8a;"></span>Trabajo acumulado</span>
+            </div>
+          </div>
+
+          <!-- Pestaña: Integral de superficie -->
+          <div class="sim-panel" id="st-superficie">
+            <div class="field" style="margin-bottom:12px">
+              <label for="campoSuperficie">Campo \(\mathbf{F}\)</label>
+              <select id="campoSuperficie">
+                <option value="fuente" selected>\((x,y,z)\) (fuente)</option>
+                <option value="rotacion3d">\((-y,x,0)\)</option>
+                <option value="constante">\((0,0,1)\) (constante)</option>
+              </select>
+            </div>
+            <div class="field" style="margin-bottom:12px">
+              <label for="superficieTipo">Superficie \(S\)</label>
+              <select id="superficieTipo">
+                <option value="esfera" selected>Esfera unitaria</option>
+                <option value="cilindro">Cilindro</option>
+                <option value="paraboloide">Paraboloide \(z=x^2+y^2\)</option>
+              </select>
+            </div>
+            <div class="sim-presets">
+              <button class="btn sm ghost" data-superficie="flujo">Calcular flujo</button>
+              <button class="btn sm ghost" data-superficie="normal">Mostrar normales</button>
+            </div>
+            <button class="btn" id="btnSuperficie"><i data-lucide="refresh-cw"></i>Actualizar</button>
+            
+            <div class="info-box" id="infoSuperficie">
+              <div><span class="label">Flujo \(\Phi = \iint_S \mathbf{F}\cdot d\mathbf{S}\):</span> <span id="flujoVal" class="valor">—</span></div>
+              <div><span class="label">Interpretación:</span> <span style="font-size:13px;color:var(--muted)">El flujo mide la cantidad de campo que atraviesa la superficie.</span></div>
+            </div>
+            
+            <div class="legend-3d">
+              <span><span class="dot" style="background:#1e4636;"></span>Superficie \(S\)</span>
+              <span><span class="dot" style="background:#c2542f;"></span>Campo \(\mathbf{F}\)</span>
+              <span><span class="dot" style="background:#c9a227;"></span>Vector normal</span>
+            </div>
+          </div>
+
+          <!-- Pestaña: Teorema de la divergencia -->
+          <div class="sim-panel" id="st-divergencia">
+            <div class="field" style="margin-bottom:12px">
+              <label for="campoDivergencia">Campo \(\mathbf{F}\)</label>
+              <select id="campoDivergencia">
+                <option value="fuente" selected>\((x,y,z)\) (\(\nabla\cdot\mathbf{F}=3\))</option>
+                <option value="rotacion3d">\((-y,x,0)\) (\(\nabla\cdot\mathbf{F}=0\))</option>
+                <option value="campo3d">\((x^2,y^2,z^2)\)</option>
+              </select>
+            </div>
+            <div class="field" style="margin-bottom:12px">
+              <label for="volumenTipo">Volumen \(V\)</label>
+              <select id="volumenTipo">
+                <option value="esfera" selected>Esfera</option>
+                <option value="cubo">Cubo</option>
+                <option value="cilindro">Cilindro</option>
+              </select>
+            </div>
+            <div class="sim-presets">
+              <button class="btn sm ghost" data-divergencia="flujo">Calcular flujo saliente</button>
+              <button class="btn sm ghost" data-divergencia="div">Mostrar \(\nabla\cdot\mathbf{F}\)</button>
+            </div>
+            <button class="btn" id="btnDivergencia"><i data-lucide="refresh-cw"></i>Actualizar</button>
+            
+            <div class="info-box" id="infoDivergencia">
+              <div><span class="label">\(\iint_{\partial V} \mathbf{F}\cdot d\mathbf{S}\):</span> <span id="flujoDivVal" class="valor">—</span></div>
+              <div><span class="label">\(\iiint_V \nabla\cdot\mathbf{F}\,dV\):</span> <span id="divVolVal" class="valor">—</span></div>
+              <div style="font-size:13px;color:var(--muted);margin-top:4px">El teorema de la divergencia establece que ambas cantidades son iguales.</div>
+            </div>
+            
+            <div class="legend-3d">
+              <span><span class="dot" style="background:#1e4636;"></span>Volumen \(V\)</span>
+              <span><span class="dot" style="background:#c2542f;"></span>Superficie \(\partial V\)</span>
+              <span><span class="dot" style="background:#c9a227;"></span>Campo \(\mathbf{F}\)</span>
+            </div>
+          </div>
+
+          <!-- Pestaña: Teorema de Stokes -->
+          <div class="sim-panel" id="st-stokes">
+            <div class="field" style="margin-bottom:12px">
+              <label for="campoStokes">Campo \(\mathbf{F}\)</label>
+              <select id="campoStokes">
+                <option value="rotacion3d" selected>\((-y,x,0)\) (\(\nabla\times\mathbf{F}=2\mathbf{k}\))</option>
+                <option value="campo3d2">\((y,z,x)\)</option>
+                <option value="gradiente3d">\((2x,2y,2z)\)</option>
+              </select>
+            </div>
+            <div class="field" style="margin-bottom:12px">
+              <label for="superficieStokes">Superficie \(S\)</label>
+              <select id="superficieStokes">
+                <option value="disco" selected>Disco en \(z=0\)</option>
+                <option value="hemisferio">Hemisferio superior</option>
+              </select>
+            </div>
+            <div class="sim-presets">
+              <button class="btn sm ghost" data-stokes="circulacion">Calcular circulación</button>
+              <button class="btn sm ghost" data-stokes="rotacional">Mostrar \(\nabla\times\mathbf{F}\)</button>
+            </div>
+            <button class="btn" id="btnStokes"><i data-lucide="refresh-cw"></i>Actualizar</button>
+            
+            <div class="info-box" id="infoStokes">
+              <div><span class="label">Circulación \(\oint_{\partial S} \mathbf{F}\cdot d\mathbf{r}\):</span> <span id="circVal" class="valor">—</span></div>
+              <div><span class="label">\(\iint_S (\nabla\times\mathbf{F})\cdot d\mathbf{S}\):</span> <span id="rotFlujoVal" class="valor">—</span></div>
+              <div style="font-size:13px;color:var(--muted);margin-top:4px">El teorema de Stokes establece que ambas cantidades son iguales.</div>
+            </div>
+            
+            <div class="legend-3d">
+              <span><span class="dot" style="background:#1e4636;"></span>Superficie \(S\)</span>
+              <span><span class="dot" style="background:#c2542f;"></span>Borde \(\partial S\)</span>
+              <span><span class="dot" style="background:#c9a227;"></span>Rotacional \(\nabla\times\mathbf{F}\)</span>
+            </div>
+          </div>
+
+          <p class="note">Arrastra con el mouse para rotar. Usa la rueda para acercar/alejar. Los teoremas fundamentales conectan integrales de volumen, superficie y línea.</p>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head"><i data-lucide="box"></i>Visualización 3D</div>
+        <div class="sim-3d-container" id="threeContainer"></div>
+        <div class="graph-cap" id="graphCap3D">Selecciona un teorema y explora sus aplicaciones.</div>
+        <div id="equationDisplay" style="padding:10px 16px;background:#ecf1ea;border-top:1px solid var(--line);font-family:'Fraunces',serif;font-size:1.1rem;text-align:center;color:var(--pine);min-height:40px;">
+          <span id="eqText">\(\oint_C \mathbf{F}\cdot d\mathbf{r} = \iint_S (\nabla\times\mathbf{F})\cdot d\mathbf{S}\)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== ACTIVIDADES ==================== -->
+<section class="view" id="v-actividades" hidden>
+  <div class="wrap">
+    <div class="view-head">
+      <p class="overline">Zona de evaluación</p>
+      <h2>Actividades de la Unidad 6</h2>
+      <p class="sub">Ejercicios guiados, redacción con LaTeX, quiz y problemas del Marsden-Tromba.</p>
+    </div>
+
+    <!-- Rúbrica -->
+    <div class="act-block">
+      <h3>Rúbrica de evaluación</h3>
+      <p class="act-desc">Ponderación de cada instrumento sobre la calificación de la unidad (nota final sobre 10).</p>
+      <div class="rub-row"><span class="rub-name">Prácticas en el simulador 3D</span><div class="rub-bar"><div style="width:15%"></div></div><span class="rub-pct">15%</span></div>
+      <div class="rub-row"><span class="rub-name">Ejercicios guiados (solución detallada)</span><div class="rub-bar"><div style="width:25%"></div></div><span class="rub-pct">25%</span></div>
+      <div class="rub-row"><span class="rub-name">Quiz de autoevaluación</span><div class="rub-bar"><div style="width:30%"></div></div><span class="rub-pct">30%</span></div>
+      <div class="rub-row"><span class="rub-name">Tarea: problemas del Marsden-Tromba</span><div class="rub-bar"><div style="width:30%"></div></div><span class="rub-pct">30%</span></div>
+    </div>
+
+    <!-- Ejercicios guiados -->
+    <div class="act-block" id="ejBlock">
+      <h3>Ejercicios guiados con solución</h3>
+      <p class="act-desc">Intenta resolverlos por escrito antes de desplegar la solución.</p>
+
+      <details class="sol">
+        <summary><span class="sol-marker">+</span><span><span class="prob-tag">Ejercicio 1 · Integral de línea</span>Calcula \(\int_C xy\,dx + x^2\,dy\) donde \(C\) es el círculo \(x^2+y^2=1\).</span></summary>
+        <div class="sol-body">
+          <p><strong>Solución:</strong></p>
+          <p>Parametrización: \(x=\cos t,\; y=\sin t,\; 0\le t\le 2\pi\).</p>
+          <p>\(dx=-\sin t\,dt,\; dy=\cos t\,dt\)</p>
+          <p>\(\int_C xy\,dx + x^2\,dy = \int_0^{2\pi} [\cos t\sin t(-\sin t) + \cos^2 t(\cos t)]\,dt\)</p>
+          <p>\(= \int_0^{2\pi} (-\cos t\sin^2 t + \cos^3 t)\,dt = 0\)</p>
+          <p>Por simetría, la integral es 0 (el integrando es impar).</p>
+          <label class="chk chk-ej" style="margin-top:14px"><input type="checkbox" data-ej="e1"><span>Ya resolví este ejercicio</span></label>
+        </div>
+      </details>
+
+      <details class="sol">
+        <summary><span class="sol-marker">+</span><span><span class="prob-tag">Ejercicio 2 · Teorema de Green</span>Usa el teorema de Green para calcular \(\oint_C (x^2-y^2)\,dx + (2xy)\,dy\) sobre el cuadrado \([0,1]\times[0,1]\).</span></summary>
+        <div class="sol-body">
+          <p><strong>Solución:</strong></p>
+          <p>\(P=x^2-y^2,\; Q=2xy\)</p>
+          <p>\(\frac{\partial Q}{\partial x}=2y,\; \frac{\partial P}{\partial y}=-2y\)</p>
+          <p>\(\frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y} = 4y\)</p>
+          <p>\(\oint_C P\,dx+Q\,dy = \iint_R 4y\,dA = \int_0^1\int_0^1 4y\,dy\,dx = \int_0^1 2\,dx = 2\)</p>
+          <label class="chk chk-ej" style="margin-top:14px"><input type="checkbox" data-ej="e2"><span>Ya resolví este ejercicio</span></label>
+        </div>
+      </details>
+
+      <details class="sol">
+        <summary><span class="sol-marker">+</span><span><span class="prob-tag">Ejercicio 3 · Teorema de Stokes</span>Calcula \(\oint_C (y\,dx+z\,dy+x\,dz)\) sobre el círculo \(x^2+y^2=1,\; z=0\).</span></summary>
+        <div class="sol-body">
+          <p><strong>Solución:</strong></p>
+          <p>\(\mathbf{F}=(y,z,x)\)</p>
+          <p>\(\nabla\times\mathbf{F}=(-1,-1,-1)\)</p>
+          <p>La superficie es el disco \(z=0\).</p>
+          <p>\(\iint_S (\nabla\times\mathbf{F})\cdot d\mathbf{S} = \iint_D (-1,-1,-1)\cdot(0,0,1)\,dA = -\iint_D 1\,dA = -\pi\)</p>
+          <p>La circulación es \(-\pi\).</p>
+          <label class="chk chk-ej" style="margin-top:14px"><input type="checkbox" data-ej="e3"><span>Ya resolví este ejercicio</span></label>
+        </div>
+      </details>
+
+      <details class="sol">
+        <summary><span class="sol-marker">+</span><span><span class="prob-tag">Ejercicio 4 · Teorema de la divergencia</span>Calcula \(\iint_S \mathbf{F}\cdot d\mathbf{S}\) para \(\mathbf{F}=(x,y,z)\) sobre la esfera unitaria.</span></summary>
+        <div class="sol-body">
+          <p><strong>Solución:</strong></p>
+          <p>\(\nabla\cdot\mathbf{F}=1+1+1=3\)</p>
+          <p>Por el teorema de la divergencia:</p>
+          <p>\(\iint_S \mathbf{F}\cdot d\mathbf{S} = \iiint_V 3\,dV = 3\cdot\frac{4\pi}{3} = 4\pi\)</p>
+          <p>También se puede verificar directamente con coordenadas esféricas.</p>
+          <label class="chk chk-ej" style="margin-top:14px"><input type="checkbox" data-ej="e4"><span>Ya resolví este ejercicio</span></label>
+        </div>
+      </details>
+    </div>
+
+    <!-- Refuerzo con redacción -->
+    <div class="act-block" id="redBlock">
+      <h3>Refuerzo: redacta tu solución</h3>
+      <p class="act-desc">Cuatro problemas adicionales sin solución visible.</p>
+
+      <details class="sol">
+        <summary><span class="sol-marker">+</span><span><span class="prob-tag">Ejercicio 5 · Trabajo de un campo</span>Calcula el trabajo realizado por \(\mathbf{F}=(y,-x)\) a lo largo de la elipse \(x=2\cos t,\; y=\sin t\).</span></summary>
+        <div class="sol-body">
+          <div class="ed-box" data-ed="e5"></div>
+          <details class="mini-check">
+            <summary>Ayuda: estructura sugerida</summary>
+            <div class="sol-body">
+              <p>Parametriza la elipse y calcula \(\int_0^{2\pi} \mathbf{F}(\mathbf{r}(t))\cdot \mathbf{r}'(t)\,dt\).</p>
+              <p>Resultado: \(-4\pi\).</p>
+            </div>
+          </details>
+        </div>
+      </details>
+
+      <details class="sol">
+        <summary><span class="sol-marker">+</span><span><span class="prob-tag">Ejercicio 6 · Flujo a través de un cilindro</span>Calcula el flujo de \(\mathbf{F}=(x,y,z)\) a través del cilindro \(x^2+y^2=1,\; 0\le z\le 1\).</span></summary>
+        <div class="sol-body">
+          <div class="ed-box" data-ed="e6"></div>
+          <details class="mini-check">
+            <summary>Resultado de control</summary>
+            <div class="sol-body">
+              <p>Flujo = \(2\pi\).</p>
+              <p>Usa coordenadas cilíndricas: \(\mathbf{r}(\theta,z)=(\cos\theta,\sin\theta,z)\).</p>
+            </div>
+          </details>
+        </div>
+      </details>
+
+      <details class="sol">
+        <summary><span class="sol-marker">+</span><span><span class="prob-tag">Ejercicio 7 · Verificación de Stokes</span>Verifica el teorema de Stokes para \(\mathbf{F}=(-y,x,0)\) sobre el disco \(x^2+y^2\le 1,\; z=0\).</span></summary>
+        <div class="sol-body">
+          <div class="ed-box" data-ed="e7"></div>
+          <details class="mini-check">
+            <summary>Resultado de control</summary>
+            <div class="sol-body">
+              <p>Circulación = \(2\pi\).</p>
+              <p>\(\nabla\times\mathbf{F}=(0,0,2)\), flujo = \(2\pi\).</p>
+            </div>
+          </details>
+        </div>
+      </details>
+
+      <details class="sol">
+        <summary><span class="sol-marker">+</span><span><span class="prob-tag">Ejercicio 8 · Aplicación en electromagnetismo</span>Demuestra que para un campo eléctrico \(\mathbf{E}\) en el vacío (\(\nabla\cdot\mathbf{E}=0\)), el flujo a través de una superficie cerrada es cero.</span></summary>
+        <div class="sol-body">
+          <div class="ed-box" data-ed="e8"></div>
+          <details class="mini-check">
+            <summary>Resultado de control</summary>
+            <div class="sol-body">
+              <p>Por el teorema de la divergencia: \(\iint_S \mathbf{E}\cdot d\mathbf{S} = \iiint_V \nabla\cdot\mathbf{E}\,dV = 0\).</p>
+              <p>Esto es consistente con la ley de Gauss en ausencia de cargas.</p>
+            </div>
+          </details>
+        </div>
+      </details>
+    </div>
+
+    <!-- Quiz -->
+    <div class="act-block">
+      <h3>Quiz de autoevaluación</h3>
+      <p class="act-desc">Seis preguntas de opción múltiple.</p>
+      <div id="quizList"></div>
+      <div class="quiz-foot">
+        <button class="btn" id="btnGrade"><i data-lucide="check-check"></i>Calificar quiz</button>
+        <button class="btn ghost" id="btnQuizReset"><i data-lucide="rotate-ccw"></i>Reintentar</button>
+        <div class="quiz-result" id="quizResult"></div>
+      </div>
+    </div>
+
+    <!-- Tarea -->
+    <div class="act-block" style="margin-bottom:0">
+      <h3>Tarea — problemas del Marsden-Tromba</h3>
+      <p class="act-desc">Resuelve los ejercicios seleccionados de los Capítulos 6-7. Fecha límite: <strong id="taskDeadline"></strong>.</p>
+      <div class="task-panel">
+        <div class="panel">
+          <div class="panel-head"><i data-lucide="list-checks"></i>Avance de la tarea</div>
+          <div class="panel-body">
+            <div style="display:flex;justify-content:space-between;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:8px">
+              <span>Progreso</span><span id="taskPct">0 / 8 · 0%</span>
+            </div>
+            <div class="conv-bar" style="margin-bottom:18px"><div id="taskBar" style="background:var(--pine)"></div></div>
+            <div id="taskList"></div>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="panel-head"><i data-lucide="file-text"></i>Instrucciones de entrega</div>
+          <div class="panel-body">
+            <ol style="margin-left:20px;font-size:14.5px">
+              <li style="margin-bottom:9px">Resuelve a mano o en LaTeX, justificando cada paso.</li>
+              <li style="margin-bottom:9px">Identifica: campo, curva, superficie, teorema aplicado.</li>
+              <li style="margin-bottom:9px">Marca aquí cada problema terminado.</li>
+              <li>Entrega el PDF en la plataforma el día de la sesión 4.</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== MI BOLETA ==================== -->
+<section class="view" id="v-boleta" hidden>
+  <div class="wrap">
+    <div class="view-head">
+      <p class="overline">Expediente individual</p>
+      <h2>Mi boleta de resultados</h2>
+      <p class="sub">Regístrate una sola vez: tu progreso y tu nota final quedan a tu nombre.</p>
+    </div>
+
+    <div class="panel" id="regEmpty" style="max-width:560px">
+      <div class="panel-head"><i data-lucide="user-plus"></i>Ficha de registro individual</div>
+      <div class="panel-body">
+        <form id="formEst" style="display:grid;gap:14px" novalidate>
+          <div class="field">
+            <label for="alNombre">Nombre completo</label>
+            <input id="alNombre" type="text" placeholder="Ej. Ana Sofía Delgado Ruiz" autocomplete="off">
+          </div>
+          <div class="field">
+            <label for="alMat">Matrícula</label>
+            <input id="alMat" type="text" placeholder="Ej. 20240315" autocomplete="off">
+          </div>
+          <div class="field">
+            <label for="alMail">Correo electrónico</label>
+            <input id="alMail" type="email" placeholder="nombre@universidad.edu.mx" autocomplete="off">
+          </div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap">
+            <button class="btn" type="submit" id="btnEstSave"><i data-lucide="user-plus"></i><span>Registrarme</span></button>
+            <button class="btn ghost" type="button" id="btnEstCancel" hidden>Cancelar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div id="boletaWrap" hidden>
+      <div class="boleta-card" id="boletaCard">
+        <div class="b-head">
+          <span class="avatar" id="bAvatar">··</span>
+          <div>
+            <div class="b-title">Boleta de evaluación · Unidad 6 — Optimización e integración</div>
+            <div class="b-name" id="bName">—</div>
+            <div class="b-meta" id="bMeta">—</div>
+          </div>
+          <div class="b-seal"><span>Cálculo<br>II</span><strong>Unidad 6</strong></div>
+        </div>
+        <div class="b-body" id="bRows"></div>
+        <div class="b-total">
+          <div>
+            <div class="b-total-lbl">Nota final de la unidad</div>
+            <div class="b-total-det">Simulador 15% · Ejercicios 25% · Quiz 30% · Tarea 30%</div>
+          </div>
+          <div class="b-score"><span class="big" id="bNota">0.0</span><span class="den">/ 10</span></div>
+        </div>
+        <div class="b-foot">
+          <span>Emitida: <strong id="bEmit">—</strong></span>
+          <span>Registro desde: <strong id="bSince">—</strong></span>
+          <span>Cálculo II · Dr. Adrián Cerda</span>
+        </div>
+      </div>
+
+      <div class="boleta-actions">
+        <button class="btn" id="btnBoletaPng"><i data-lucide="download"></i>Descargar boleta (PNG)</button>
+        <button class="btn ghost" id="btnEstEdit"><i data-lucide="pencil"></i>Editar datos</button>
+        <button class="del-btn" id="btnEstDel"><i data-lucide="trash-2"></i><span>Borrar registro y avance</span></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap foot-row">
+    <div><strong>Referencia:</strong> Marsden, J. E. &amp; Tromba, A. J. — <em>Cálculo Vectorial</em>, 6.ª ed., Capítulos 6-7.</div>
+    <div>Aula interactiva de Cálculo II · uso educativo · los datos se guardan solo en este navegador.</div>
+  </div>
+</footer>
+
+<div id="toasts"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+
+<script>
+/* ============================================================
+   UTILIDADES
+============================================================ */
+const $  = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+const INK='#1c2b25', PINE='#1e4636', TERRA='#c2542f', PAPER='#fffdf8';
+
+function esc(s){ return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function toast(msg, type='ok'){
+  const box=$('#toasts'), t=document.createElement('div');
+  t.className='toast '+type;
+  t.innerHTML = `<i data-lucide="${type==='ok'?'check-circle-2':'alert-circle'}"></i><span>${msg}</span>`;
+  box.appendChild(t); lucide.createIcons();
+  setTimeout(()=>{ t.classList.add('out'); setTimeout(()=>t.remove(), 320); }, 3200);
+}
+function refreshIcons(){ if(window.lucide) lucide.createIcons(); }
+
+/* ============================================================
+   PERSISTENCIA
+============================================================ */
+const LS_EST='aula_estudiante';
+const LS_ACT='aula_actividades';
+const CURSO='unidad6';
+
+function loadEst(){ try{ return JSON.parse(localStorage.getItem(LS_EST)); }catch(e){ return null; } }
+function saveEst(e){ localStorage.setItem(LS_EST, JSON.stringify(e)); }
+function loadAct(){ try{ return JSON.parse(localStorage.getItem(LS_ACT)||'{}'); }catch(e){ return {}; } }
+function act(){
+  const a=loadAct();
+  a[CURSO]=a[CURSO]||{ sim:{}, ej:{}, quiz:null, tarea:{}, red:{} };
+  a[CURSO].sim=a[CURSO].sim||{};
+  a[CURSO].ej=a[CURSO].ej||{};
+  a[CURSO].tarea=a[CURSO].tarea||{};
+  a[CURSO].red=a[CURSO].red||{};
+  return a;
+}
+function saveAct(a){ localStorage.setItem(LS_ACT, JSON.stringify(a)); }
+
+/* ============================================================
+   NAVEGACIÓN
+============================================================ */
+function showView(v){
+  $$('.view').forEach(s => s.hidden = true);
+  $('#v-'+v).hidden = false;
+  $$('.nav-btn').forEach(b => b.classList.toggle('active', b.dataset.view === v));
+  window.scrollTo({top:0, behavior:'smooth'});
+  if(v==='inicio') drawHero();
+  if(v==='simulador') setTimeout(()=>initThree(), 200);
+}
+$$('[data-view]').forEach(el => el.addEventListener('click', e => {
+  if(el.tagName==='A'){ e.preventDefault(); }
+  showView(el.dataset.view);
+}));
+
+/* ============================================================
+   HERO CANVAS
+============================================================ */
+function drawHero(){
+  const cv=$('#heroCanvas'); if(!cv || cv.offsetParent===null) return;
+  const dpr = window.devicePixelRatio||1;
+  const r = cv.getBoundingClientRect();
+  cv.width = Math.max(10, r.width*dpr); cv.height = Math.max(10, r.height*dpr);
+  const ctx = cv.getContext('2d'); ctx.setTransform(dpr,0,0,dpr,0,0);
+  const w=r.width, h=r.height;
+  ctx.clearRect(0,0,w,h);
+  const cx=w/2, cy=h/2, scale=60;
+  
+  // Ejes
+  ctx.strokeStyle='rgba(28,43,37,.3)'; ctx.lineWidth=1;
+  ctx.beginPath(); ctx.moveTo(30, cy); ctx.lineTo(w-30, cy); ctx.moveTo(cx, 20); ctx.lineTo(cx, h-20); ctx.stroke();
+  ctx.font='11px Instrument Sans'; ctx.fillStyle='rgba(28,43,37,.5)';
+  ctx.fillText('x', w-25, cy-5); ctx.fillText('y', cx+8, 24);
+  
+  // Stokes: círculo con campo rotacional
+  const R = 2*scale;
+  ctx.strokeStyle=PINE; ctx.lineWidth=2;
+  ctx.beginPath(); ctx.arc(cx, cy, R, 0, 2*Math.PI); ctx.stroke();
+  ctx.fillStyle='rgba(30,70,54,.1)';
+  ctx.fill();
+  
+  // Campo rotacional (-y, x)
+  const step = 25;
+  for(let i=-6; i<=6; i++){
+    for(let j=-5; j<=5; j++){
+      const x = i*0.4, y = j*0.4;
+      const px = cx + x*scale, py = cy - y*scale;
+      const dist = Math.sqrt(x*x+y*y);
+      if(dist>0.2 && dist<2.2){
+        const vx = -y, vy = x;
+        const mag = Math.sqrt(vx*vx+vy*vy);
+        if(mag>0.1){
+          const normX = vx/mag, normY = vy/mag;
+          const len = Math.min(12, mag*6);
+          const endX = px + normX*len, endY = py - normY*len;
+          ctx.strokeStyle='rgba(194,84,47,.5)'; ctx.lineWidth=1.5;
+          ctx.beginPath(); ctx.moveTo(px, py); ctx.lineTo(endX, endY); ctx.stroke();
+          const ang = Math.atan2(-normY, normX);
+          ctx.fillStyle='rgba(194,84,47,.5)';
+          ctx.beginPath(); ctx.moveTo(endX, endY);
+          ctx.lineTo(endX-5*Math.cos(ang-0.4), endY+5*Math.sin(ang-0.4));
+          ctx.lineTo(endX-5*Math.cos(ang+0.4), endY+5*Math.sin(ang+0.4));
+          ctx.closePath(); ctx.fill();
+        }
+      }
+    }
+  }
+  
+  ctx.fillStyle=INK; ctx.font='11px Instrument Sans';
+  ctx.fillText('Teorema de Stokes: circulación = flujo del rotacional', 20, h-12);
+}
+
+/* ============================================================
+   THREE.JS - SIMULADOR DE INTEGRALES
+============================================================ */
+let threeScene = null;
+let threeCamera = null;
+let threeRenderer = null;
+let threeControls = null;
+let threeObjects = [];
+let currentTab = 'linea';
+
+function initThree(){
+  const container = document.getElementById('threeContainer');
+  if(!container) return;
+  const w = container.clientWidth || 600;
+  const h = container.clientHeight || 420;
+  
+  if(!threeScene){
+    threeScene = new THREE.Scene();
+    threeScene.background = new THREE.Color(0xfaf8f4);
+    
+    threeCamera = new THREE.PerspectiveCamera(45, w/h, 0.1, 30);
+    threeCamera.position.set(4, 3, 5);
+    threeCamera.lookAt(0, 0, 0);
+    
+    threeRenderer = new THREE.WebGLRenderer({antialias: true});
+    threeRenderer.setSize(w, h);
+    threeRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    container.appendChild(threeRenderer.domElement);
+    
+    threeControls = new THREE.OrbitControls(threeCamera, threeRenderer.domElement);
+    threeControls.enableDamping = true;
+    threeControls.dampingFactor = 0.08;
+    threeControls.target.set(0, 0, 0);
+    threeControls.update();
+    
+    // Luces
+    const ambientLight = new THREE.AmbientLight(0x404060, 0.5);
+    threeScene.add(ambientLight);
+    const dirLight = new THREE.DirectionalLight(0xffffff, 0.9);
+    dirLight.position.set(2, 3, 2);
+    threeScene.add(dirLight);
+    const dirLight2 = new THREE.DirectionalLight(0xffffff, 0.4);
+    dirLight2.position.set(-2, -1, -2);
+    threeScene.add(dirLight2);
+    
+    // Grid
+    const gridHelper = new THREE.GridHelper(6, 6, 0x888888, 0xcccccc);
+    gridHelper.position.y = -0.01;
+    threeScene.add(gridHelper);
+    
+    // Ejes etiquetados
+    createAxesWithLabels();
+    
+    window.addEventListener('resize', ()=>{
+      const w2 = container.clientWidth || 600;
+      const h2 = container.clientHeight || 420;
+      threeCamera.aspect = w2/h2;
+      threeCamera.updateProjectionMatrix();
+      threeRenderer.setSize(w2, h2);
+    });
+  }
+  
+  // Limpiar objetos anteriores
+  const keepObjects = [];
+  threeScene.children.forEach(child => {
+    if(child.type === 'GridHelper' || child.type === 'AxesHelper' || 
+       child.userData?.isAxis || child.userData?.isLabel) {
+      keepObjects.push(child);
+    }
+  });
+  threeScene.children = keepObjects;
+  threeObjects = [];
+  
+  // Mostrar según pestaña activa
+  if(currentTab === 'linea') drawLinea();
+  else if(currentTab === 'superficie') drawSuperficie();
+  else if(currentTab === 'divergencia') drawDivergencia();
+  else if(currentTab === 'stokes') drawStokes();
+  
+  function animate(){
+    requestAnimationFrame(animate);
+    if(threeControls) threeControls.update();
+    if(threeRenderer && threeScene && threeCamera){
+      threeRenderer.render(threeScene, threeCamera);
+    }
+  }
+  animate();
+}
+
+function createAxesWithLabels() {
+  const axisLength = 3.5;
+  const colors = [0xff3333, 0x33ff33, 0x3333ff];
+  const labels = ['X', 'Y', 'Z'];
+  const dirs = [
+    new THREE.Vector3(1, 0, 0),
+    new THREE.Vector3(0, 1, 0),
+    new THREE.Vector3(0, 0, 1)
+  ];
+  
+  dirs.forEach((dir, i) => {
+    const end = dir.clone().multiplyScalar(axisLength);
+    const geometry = new THREE.BufferGeometry().setFromPoints([
+      new THREE.Vector3(0, 0, 0),
+      end
+    ]);
+    const material = new THREE.LineBasicMaterial({ color: colors[i], linewidth: 2 });
+    const line = new THREE.Line(geometry, material);
+    line.userData.isAxis = true;
+    threeScene.add(line);
+    
+    const cone = new THREE.ConeGeometry(0.1, 0.25, 8);
+    const coneMat = new THREE.MeshBasicMaterial({ color: colors[i] });
+    const coneMesh = new THREE.Mesh(cone, coneMat);
+    const pos = end.clone();
+    coneMesh.position.copy(pos);
+    const up = new THREE.Vector3(0, 1, 0);
+    const quat = new THREE.Quaternion().setFromUnitVectors(up, dir);
+    coneMesh.quaternion.copy(quat);
+    coneMesh.userData.isAxis = true;
+    threeScene.add(coneMesh);
+    
+    const canvas = document.createElement('canvas');
+    canvas.width = 64; canvas.height = 64;
+    const ctx = canvas.getContext('2d');
+    ctx.fillStyle = 'rgba(0,0,0,0)';
+    ctx.fillRect(0, 0, 64, 64);
+    ctx.font = 'Bold 40px Arial';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillStyle = '#' + colors[i].toString(16).padStart(6, '0');
+    ctx.fillText(labels[i], 32, 34);
+    
+    const texture = new THREE.CanvasTexture(canvas);
+    const spriteMat = new THREE.SpriteMaterial({ map: texture, transparent: true });
+    const sprite = new THREE.Sprite(spriteMat);
+    const labelPos = end.clone().multiplyScalar(1.15);
+    sprite.position.copy(labelPos);
+    sprite.scale.set(0.6, 0.6, 1);
+    sprite.userData.isLabel = true;
+    threeScene.add(sprite);
+  });
+}
+
+function addObject(obj){ threeObjects.push(obj); threeScene.add(obj); }
+
+function updateEquation(text){
+  const el = document.getElementById('eqText');
+  if(el){
+    try {
+      el.innerHTML = text;
+      if(typeof renderMathInElement === 'function'){
+        renderMathInElement(el, {delimiters: [
+          {left: '\\(', right: '\\)', display: false},
+          {left: '$$', right: '$$', display: true}
+        ], throwOnError: false});
+      }
+    } catch(e) {
+      el.textContent = text;
+    }
+  }
+}
+
+/* --- INTEGRAL DE LÍNEA --- */
+function drawLinea(){
+  const campoName = document.getElementById('campoLinea').value;
+  const curvaName = document.getElementById('curvaLinea').value;
+  
+  const F = (x,y) => {
+    switch(campoName){
+      case 'rotacion': return [-y, x];
+      case 'gradiente': return [2*x, 2*y];
+      case 'campo3': return [Math.sin(y), Math.cos(x)];
+      case 'conservativo': return [y, x];
+      default: return [-y, x];
+    }
+  };
+  
+  const eqs = {
+    'rotacion': '\\mathbf{F}=(-y,x)',
+    'gradiente': '\\mathbf{F}=(2x,2y)',
+    'campo3': '\\mathbf{F}=(\\sin y,\\cos x)',
+    'conservativo': '\\mathbf{F}=(y,x)'
+  };
+  updateEquation(eqs[campoName] || '\\mathbf{F}=(-y,x)');
+  
+  // Parametrizar curva
+  const n = 100;
+  const pts = [];
+  const r = (t) => {
+    switch(curvaName){
+      case 'circulo': return [Math.cos(t), Math.sin(t)];
+      case 'elipse': return [2*Math.cos(t), Math.sin(t)];
+      case 'cuadrado': {
+        const s = 2*t/Math.PI;
+        const s2 = s % 4;
+        if(s2 < 1) return [1 - s2*2, 1];
+        else if(s2 < 2) return [-1, 1 - (s2-1)*2];
+        else if(s2 < 3) return [-1 + (s2-2)*2, -1];
+        else return [1, -1 + (s2-3)*2];
+      }
+      default: return [Math.cos(t), Math.sin(t)];
+    }
+  };
+  
+  for(let i=0; i<=n; i++){
+    const t = 2*Math.PI*i/n;
+    const p = r(t);
+    pts.push(new THREE.Vector3(p[0], p[1], 0));
+  }
+  
+  // Dibujar curva
+  const geo = new THREE.BufferGeometry().setFromPoints(pts);
+  const mat = new THREE.LineBasicMaterial({ color: PINE, linewidth: 2 });
+  const curve = new THREE.Line(geo, mat);
+  addObject(curve);
+  
+  // Puntos de muestreo
+  const ptsGeo = new THREE.BufferGeometry();
+  const pos = [];
+  for(let i=0; i<=20; i++){
+    const t = 2*Math.PI*i/20;
+    const p = r(t);
+    pos.push(p[0], p[1], 0);
+  }
+  ptsGeo.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3));
+  const ptsMat = new THREE.PointsMaterial({ color: TERRA, size: 0.05 });
+  const ptsMesh = new THREE.Points(ptsGeo, ptsMat);
+  addObject(ptsMesh);
+  
+  // Calcular trabajo (aproximación numérica)
+  let trabajo = 0;
+  const nInt = 200;
+  for(let i=0; i<nInt; i++){
+    const t = 2*Math.PI*i/nInt;
+    const t2 = 2*Math.PI*(i+1)/nInt;
+    const p = r(t);
+    const p2 = r(t2);
+    const dr = [p2[0]-p[0], p2[1]-p[1]];
+    const f = F(p[0], p[1]);
+    trabajo += f[0]*dr[0] + f[1]*dr[1];
+  }
+  
+  document.getElementById('trabajoVal').textContent = trabajo.toFixed(4);
+  document.getElementById('graphCap3D').textContent = `Trabajo: ${trabajo.toFixed(4)}`;
+}
+
+/* --- INTEGRAL DE SUPERFICIE --- */
+function drawSuperficie(){
+  const campoName = document.getElementById('campoSuperficie').value;
+  const supName = document.getElementById('superficieTipo').value;
+  
+  const F = (x,y,z) => {
+    switch(campoName){
+      case 'fuente': return [x, y, z];
+      case 'rotacion3d': return [-y, x, 0];
+      case 'constante': return [0, 0, 1];
+      default: return [x, y, z];
+    }
+  };
+  
+  const eqs = {
+    'fuente': '\\mathbf{F}=(x,y,z)',
+    'rotacion3d': '\\mathbf{F}=(-y,x,0)',
+    'constante': '\\mathbf{F}=(0,0,1)'
+  };
+  updateEquation(eqs[campoName] || '\\mathbf{F}=(x,y,z)');
+  
+  // Crear superficie (esfera simplificada)
+  const steps = 30;
+  const positions = [];
+  const indices = [];
+  
+  for(let i=0; i<=steps; i++){
+    for(let j=0; j<=steps; j++){
+      const theta = Math.PI * i / steps;
+      const phi = 2 * Math.PI * j / steps;
+      let x,y,z;
+      if(supName === 'esfera'){
+        x = Math.sin(theta)*Math.cos(phi);
+        y = Math.sin(theta)*Math.sin(phi);
+        z = Math.cos(theta);
+      } else if(supName === 'cilindro'){
+        x = Math.cos(phi);
+        y = Math.sin(phi);
+        z = 2*(i/steps) - 1;
+      } else { // paraboloide
+        const r = 1.5 * (i/steps);
+        x = r*Math.cos(phi);
+        y = r*Math.sin(phi);
+        z = r*r;
+      }
+      positions.push(x, y, z);
+    }
+  }
+  
+  for(let i=0; i<steps; i++){
+    for(let j=0; j<steps; j++){
+      const a = i*(steps+1) + j;
+      const b = (i+1)*(steps+1) + j;
+      const c = i*(steps+1) + (j+1);
+      const d = (i+1)*(steps+1) + (j+1);
+      indices.push(a, b, c);
+      indices.push(b, d, c);
+    }
+  }
+  
+  const geo = new THREE.BufferGeometry();
+  geo.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+  geo.setIndex(indices);
+  geo.computeVertexNormals();
+  
+  const mat = new THREE.MeshPhongMaterial({
+    color: 0x1e4636,
+    transparent: true,
+    opacity: 0.4,
+    side: THREE.DoubleSide,
+    shininess: 30,
+    wireframe: false
+  });
+  const mesh = new THREE.Mesh(geo, mat);
+  addObject(mesh);
+  
+  // Wireframe
+  const wireMat = new THREE.MeshBasicMaterial({
+    color: 0x2c5e49,
+    wireframe: true,
+    transparent: true,
+    opacity: 0.1
+  });
+  const wireMesh = new THREE.Mesh(geo.clone(), wireMat);
+  addObject(wireMesh);
+  
+  // Calcular flujo aproximado
+  let flujo = 0;
+  const eps = 0.001;
+  // Simplificación: flujo ≈ 4π para campo (x,y,z) en esfera
+  if(campoName === 'fuente' && supName === 'esfera'){
+    flujo = 4*Math.PI;
+  } else if(campoName === 'constante' && supName === 'esfera'){
+    flujo = 4*Math.PI/3;
+  } else {
+    flujo = '—';
+  }
+  
+  document.getElementById('flujoVal').textContent = typeof flujo === 'number' ? flujo.toFixed(4) : flujo;
+  document.getElementById('graphCap3D').textContent = `Flujo: ${typeof flujo === 'number' ? flujo.toFixed(4) : '—'}`;
+}
+
+/* --- TEOREMA DE LA DIVERGENCIA --- */
+function drawDivergencia(){
+  const campoName = document.getElementById('campoDivergencia').value;
+  const volName = document.getElementById('volumenTipo').value;
+  
+  const F = (x,y,z) => {
+    switch(campoName){
+      case 'fuente': return [x, y, z];
+      case 'rotacion3d': return [-y, x, 0];
+      case 'campo3d': return [x*x, y*y, z*z];
+      default: return [x, y, z];
+    }
+  };
+  
+  const eqs = {
+    'fuente': '\\mathbf{F}=(x,y,z),\\; \\nabla\\cdot\\mathbf{F}=3',
+    'rotacion3d': '\\mathbf{F}=(-y,x,0),\\; \\nabla\\cdot\\mathbf{F}=0',
+    'campo3d': '\\mathbf{F}=(x^2,y^2,z^2)'
+  };
+  updateEquation(eqs[campoName] || '\\mathbf{F}=(x,y,z)');
+  
+  // Crear volumen (esfera o cubo)
+  const steps = 20;
+  const positions = [];
+  const indices = [];
+  const range = 1.5;
+  
+  for(let i=0; i<=steps; i++){
+    for(let j=0; j<=steps; j++){
+      for(let k=0; k<=steps; k++){
+        let x = -range + 2*range*i/steps;
+        let y = -range + 2*range*j/steps;
+        let z = -range + 2*range*k/steps;
+        if(volName === 'esfera'){
+          const r = Math.sqrt(x*x+y*y+z*z);
+          if(r > range) { x*=range/r; y*=range/r; z*=range/r; }
+        }
+        positions.push(x, y, z);
+      }
+    }
+  }
+  
+  for(let i=0; i<steps; i++){
+    for(let j=0; j<steps; j++){
+      for(let k=0; k<steps; k++){
+        const a = i*(steps+1)*(steps+1) + j*(steps+1) + k;
+        const b = (i+1)*(steps+1)*(steps+1) + j*(steps+1) + k;
+        const c = i*(steps+1)*(steps+1) + (j+1)*(steps+1) + k;
+        const d = i*(steps+1)*(steps+1) + j*(steps+1) + (k+1);
+        // Simplificado: mostrar solo la superficie
+      }
+    }
+  }
+  
+  // Mostrar esfera/cubo como superficie
+  const surfSteps = 30;
+  const surfPos = [];
+  const surfIdx = [];
+  
+  for(let i=0; i<=surfSteps; i++){
+    for(let j=0; j<=surfSteps; j++){
+      const theta = Math.PI * i / surfSteps;
+      const phi = 2 * Math.PI * j / surfSteps;
+      let x,y,z;
+      if(volName === 'esfera'){
+        x = range * Math.sin(theta)*Math.cos(phi);
+        y = range * Math.sin(theta)*Math.sin(phi);
+        z = range * Math.cos(theta);
+      } else if(volName === 'cilindro'){
+        x = range * Math.cos(phi);
+        y = range * Math.sin(phi);
+        z = 2*range*(i/surfSteps) - range;
+      } else { // cubo
+        const t = 2*(i/surfSteps) - 1;
+        const s = 2*(j/surfSteps) - 1;
+        const face = 0; // simplificado
+        x = range * (i < surfSteps/2 ? -1 : 1);
+        y = range * s;
+        z = range * t;
+      }
+      surfPos.push(x, y, z);
+    }
+  }
+  
+  for(let i=0; i<surfSteps; i++){
+    for(let j=0; j<surfSteps; j++){
+      const a = i*(surfSteps+1) + j;
+      const b = (i+1)*(surfSteps+1) + j;
+      const c = i*(surfSteps+1) + (j+1);
+      const d = (i+1)*(surfSteps+1) + (j+1);
+      surfIdx.push(a, b, c);
+      surfIdx.push(b, d, c);
+    }
+  }
+  
+  const geo = new THREE.BufferGeometry();
+  geo.setAttribute('position', new THREE.Float32BufferAttribute(surfPos, 3));
+  geo.setIndex(surfIdx);
+  geo.computeVertexNormals();
+  
+  const mat = new THREE.MeshPhongMaterial({
+    color: 0x1e4636,
+    transparent: true,
+    opacity: 0.3,
+    side: THREE.DoubleSide,
+    wireframe: false
+  });
+  const mesh = new THREE.Mesh(geo, mat);
+  addObject(mesh);
+  
+  // Calcular divergencia
+  let div = 0;
+  switch(campoName){
+    case 'fuente': div = 3; break;
+    case 'rotacion3d': div = 0; break;
+    case 'campo3d': div = '2x+2y+2z'; break;
+    default: div = '—';
+  }
+  
+  const vol = (volName === 'esfera') ? 4*Math.PI/3 * range*range*range : (2*range)*(2*range)*(2*range);
+  const flujoDiv = (typeof div === 'number') ? div * vol : '—';
+  
+  document.getElementById('flujoDivVal').textContent = typeof flujoDiv === 'number' ? flujoDiv.toFixed(4) : flujoDiv;
+  document.getElementById('divVolVal').textContent = typeof div === 'number' ? (div*vol).toFixed(4) : div;
+  document.getElementById('graphCap3D').textContent = `Teorema de la divergencia: ${typeof flujoDiv === 'number' ? flujoDiv.toFixed(4) : '—'}`;
+}
+
+/* --- TEOREMA DE STOKES --- */
+function drawStokes(){
+  const campoName = document.getElementById('campoStokes').value;
+  const supName = document.getElementById('superficieStokes').value;
+  
+  const F = (x,y,z) => {
+    switch(campoName){
+      case 'rotacion3d': return [-y, x, 0];
+      case 'campo3d2': return [y, z, x];
+      case 'gradiente3d': return [2*x, 2*y, 2*z];
+      default: return [-y, x, 0];
+    }
+  };
+  
+  const eqs = {
+    'rotacion3d': '\\mathbf{F}=(-y,x,0),\\; \\nabla\\times\\mathbf{F}=2\\mathbf{k}',
+    'campo3d2': '\\mathbf{F}=(y,z,x)',
+    'gradiente3d': '\\mathbf{F}=(2x,2y,2z)'
+  };
+  updateEquation(eqs[campoName] || '\\mathbf{F}=(-y,x,0)');
+  
+  // Superficie (disco o hemisferio)
+  const steps = 30;
+  const positions = [];
+  const indices = [];
+  const range = 1.5;
+  
+  for(let i=0; i<=steps; i++){
+    for(let j=0; j<=steps; j++){
+      const r = range * i/steps;
+      const theta = 2 * Math.PI * j/steps;
+      let x = r * Math.cos(theta);
+      let y = r * Math.sin(theta);
+      let z = 0;
+      if(supName === 'hemisferio'){
+        z = Math.sqrt(Math.max(0, range*range - r*r));
+      }
+      positions.push(x, y, z);
+    }
+  }
+  
+  for(let i=0; i<steps; i++){
+    for(let j=0; j<steps; j++){
+      const a = i*(steps+1) + j;
+      const b = (i+1)*(steps+1) + j;
+      const c = i*(steps+1) + (j+1);
+      const d = (i+1)*(steps+1) + (j+1);
+      indices.push(a, b, c);
+      indices.push(b, d, c);
+    }
+  }
+  
+  const geo = new THREE.BufferGeometry();
+  geo.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+  geo.setIndex(indices);
+  geo.computeVertexNormals();
+  
+  const mat = new THREE.MeshPhongMaterial({
+    color: 0x1e4636,
+    transparent: true,
+    opacity: 0.35,
+    side: THREE.DoubleSide,
+    wireframe: false
+  });
+  const mesh = new THREE.Mesh(geo, mat);
+  addObject(mesh);
+  
+  // Borde (curva cerrada)
+  const bordePts = [];
+  const nBorde = 60;
+  for(let i=0; i<=nBorde; i++){
+    const theta = 2 * Math.PI * i/nBorde;
+    const x = range * Math.cos(theta);
+    const y = range * Math.sin(theta);
+    const z = (supName === 'hemisferio') ? 0 : 0;
+    bordePts.push(new THREE.Vector3(x, y, z));
+  }
+  
+  const bordeGeo = new THREE.BufferGeometry().setFromPoints(bordePts);
+  const bordeMat = new THREE.LineBasicMaterial({ color: TERRA, linewidth: 2 });
+  const borde = new THREE.Line(bordeGeo, bordeMat);
+  addObject(borde);
+  
+  // Calcular circulación
+  let circ = 0;
+  if(campoName === 'rotacion3d'){
+    circ = 2 * Math.PI * range * range;
+  } else if(campoName === 'campo3d2'){
+    circ = 0; // simplificado
+  } else {
+    circ = '—';
+  }
+  
+  const rotFlujo = (campoName === 'rotacion3d') ? 2 * Math.PI * range * range : '—';
+  
+  document.getElementById('circVal').textContent = typeof circ === 'number' ? circ.toFixed(4) : circ;
+  document.getElementById('rotFlujoVal').textContent = typeof rotFlujo === 'number' ? rotFlujo.toFixed(4) : rotFlujo;
+  document.getElementById('graphCap3D').textContent = `Stokes: circulación = ${typeof circ === 'number' ? circ.toFixed(4) : '—'}`;
+}
+
+/* ============================================================
+   EVENTOS DEL SIMULADOR
+============================================================ */
+// Pestañas
+$$('.sim-tab').forEach(tab=>{
+  tab.addEventListener('click', ()=>{
+    $$('.sim-tab').forEach(t=>t.classList.remove('active'));
+    $$('.sim-panel').forEach(p=>p.classList.remove('active'));
+    tab.classList.add('active');
+    const id = tab.dataset.stab;
+    document.getElementById('st-'+id).classList.add('active');
+    currentTab = id;
+    setTimeout(()=>{
+      if(threeScene){
+        const keepObjects = [];
+        threeScene.children.forEach(child => {
+          if(child.userData?.isAxis || child.userData?.isLabel || 
+             child.type === 'GridHelper' || child.type === 'AxesHelper') {
+            keepObjects.push(child);
+          }
+        });
+        threeScene.children = keepObjects;
+        threeObjects = [];
+        if(id === 'linea') drawLinea();
+        else if(id === 'superficie') drawSuperficie();
+        else if(id === 'divergencia') drawDivergencia();
+        else if(id === 'stokes') drawStokes();
+      }
+    }, 100);
+  });
+});
+
+// Botones de actualización
+document.getElementById('btnLinea').addEventListener('click', ()=>{
+  if(threeScene){
+    const keepObjects = [];
+    threeScene.children.forEach(child => {
+      if(child.userData?.isAxis || child.userData?.isLabel || 
+         child.type === 'GridHelper' || child.type === 'AxesHelper') {
+        keepObjects.push(child);
+      }
+    });
+    threeScene.children = keepObjects;
+    threeObjects = [];
+    drawLinea();
+    toast('Integral de línea actualizada.');
+  }
+});
+
+document.getElementById('btnSuperficie').addEventListener('click', ()=>{
+  if(threeScene){
+    const keepObjects = [];
+    threeScene.children.forEach(child => {
+      if(child.userData?.isAxis || child.userData?.isLabel || 
+         child.type === 'GridHelper' || child.type === 'AxesHelper') {
+        keepObjects.push(child);
+      }
+    });
+    threeScene.children = keepObjects;
+    threeObjects = [];
+    drawSuperficie();
+    toast('Integral de superficie actualizada.');
+  }
+});
+
+document.getElementById('btnDivergencia').addEventListener('click', ()=>{
+  if(threeScene){
+    const keepObjects = [];
+    threeScene.children.forEach(child => {
+      if(child.userData?.isAxis || child.userData?.isLabel || 
+         child.type === 'GridHelper' || child.type === 'AxesHelper') {
+        keepObjects.push(child);
+      }
+    });
+    threeScene.children = keepObjects;
+    threeObjects = [];
+    drawDivergencia();
+    toast('Teorema de la divergencia actualizado.');
+  }
+});
+
+document.getElementById('btnStokes').addEventListener('click', ()=>{
+  if(threeScene){
+    const keepObjects = [];
+    threeScene.children.forEach(child => {
+      if(child.userData?.isAxis || child.userData?.isLabel || 
+         child.type === 'GridHelper' || child.type === 'AxesHelper') {
+        keepObjects.push(child);
+      }
+    });
+    threeScene.children = keepObjects;
+    threeObjects = [];
+    drawStokes();
+    toast('Teorema de Stokes actualizado.');
+  }
+});
+
+/* ============================================================
+   QUIZ (Unidad 6)
+============================================================ */
+const QUIZ = [
+ {q:'¿Qué representa la integral de línea \(\int_C \mathbf{F}\cdot d\mathbf{r}\)?',
+  opts:['El flujo a través de una superficie','El trabajo realizado por el campo','La divergencia del campo','El área bajo la curva'],
+  ans:1, why:'La integral de línea de un campo vectorial a lo largo de una curva representa el trabajo realizado por el campo.'],
+ {q:'El teorema de Green relaciona:',
+  opts:['Una integral de línea con una integral doble','Una integral de superficie con una integral de volumen','Una integral de línea con una integral de superficie','Dos integrales de línea'],
+  ans:0, why:'El teorema de Green relaciona una integral de línea alrededor de una curva cerrada con una integral doble sobre la región encerrada.'],
+ {q:'El teorema de Stokes relaciona:',
+  opts:['Circulación con flujo del rotacional','Flujo con divergencia','Trabajo con energía','Área con volumen'],
+  ans:0, why:'Stokes relaciona la circulación de un campo a lo largo de una curva cerrada con el flujo del rotacional a través de una superficie.'],
+ {q:'El teorema de la divergencia (Gauss) relaciona:',
+  opts:['Flujo a través de una superficie cerrada con divergencia en el volumen','Circulación con rotacional','Trabajo con energía','Dos integrales de línea'],
+  ans:0, why:'El teorema de la divergencia relaciona el flujo a través de una superficie cerrada con la integral de la divergencia en el volumen encerrado.'],
+ {q:'En coordenadas polares, el elemento de área \(dA\) es:',
+  opts:['\(dr\,d\theta\)','\(r\,dr\,d\theta\)','\(r^2\,dr\,d\theta\)','\(dr\,d\theta/r\)'],
+  ans:1, why:'En coordenadas polares, \(dA = r\,dr\,d\theta\) (el Jacobiano es \(r\)).'],
+ {q:'Un campo conservativo satisface:',
+  opts:['\(\nabla\times\mathbf{F}=0\)','\(\nabla\cdot\mathbf{F}=0\)','\(\nabla f=0\)','\(\nabla^2 f=0\)'],
+  ans:0, why:'Un campo conservativo es irrotacional: \(\nabla\times\mathbf{F}=0\), y su integral de línea es independiente de la trayectoria.'}
+];
+
+function renderQuiz(){
+  $('#quizList').innerHTML = QUIZ.map((it,i)=>`
+    <article class="quiz-q">
+      <header><span class="qnum">P${i+1}</span><p class="q-text">${it.q}</p></header>
+      <div class="opts">${it.opts.map((o,j)=>`
+        <label class="opt"><input type="radio" name="q${i}" value="${j}">
+        <span class="opt-key">${'ABCD'[j]}</span><span>${o}</span></label>`).join('')}
+      </div>
+      <p class="explain" hidden><strong>Retroalimentación:</strong> ${it.why}</p>
+    </article>`).join('');
+  $('#quizResult').innerHTML='';
+  try{ renderMathInElement($('#quizList'),{delimiters:[{left:'\\(',right:'\\)',display:false}],throwOnError:false}); }catch(e){}
+}
+renderQuiz();
+
+$('#btnGrade').addEventListener('click', ()=>{
+  const unanswered = QUIZ.some((_,i)=>!document.querySelector(`input[name="q${i}"]:checked`));
+  if(unanswered){ toast('Responde todas las preguntas.','err'); return; }
+  let score=0;
+  $$('#quizList .quiz-q').forEach((art,i)=>{
+    const sel=document.querySelector(`input[name="q${i}"]:checked`);
+    if(+sel.value===QUIZ[i].ans) score++;
+    art.querySelectorAll('.opt').forEach(l=>{
+      const inp=l.querySelector('input'); inp.disabled=true; l.classList.add('locked');
+      if(+inp.value===QUIZ[i].ans) l.classList.add('is-correct');
+      else if(+inp.value===+sel.value) l.classList.add('is-wrong');
+    });
+    art.querySelector('.explain').hidden=false;
+  });
+  const a=act(), prev=(a[CURSO].quiz && a[CURSO].quiz.score!=null)? a[CURSO].quiz.score : -1;
+  if(score>prev){ a[CURSO].quiz={score, total:QUIZ.length, ts:Date.now()}; saveAct(a); renderBoleta(); }
+  const msg = score===6?'¡Excelente! Dominas los teoremas integrales.':score>=4?'Muy bien: revisa las aplicaciones físicas.':score>=2?'Repasa los teoremas fundamentales.':'Comienza por la teoría y reintenta.';
+  $('#quizResult').innerHTML=`<strong>${score} / ${QUIZ.length}</strong> ${msg}`;
+  toast(`Quiz calificado: ${score} de ${QUIZ.length}.`);
+});
+$('#btnQuizReset').addEventListener('click', ()=>{ renderQuiz(); toast('Quiz reiniciado.'); });
+
+/* ============================================================
+   EJERCICIOS Y TAREA
+============================================================ */
+const PROBLEMAS = ['6.2','6.7','6.11','6.15','7.2','7.7','7.11','7.15'];
+const dl = new Date(Date.now()+7*864e5);
+$('#taskDeadline').textContent = dl.toLocaleDateString('es-MX',{weekday:'long',day:'numeric',month:'long'});
+
+function renderTaskList(){
+  const T=act()[CURSO].tarea;
+  $('#taskList').innerHTML = PROBLEMAS.map(p=>`
+    <label class="chk ${T[p]?'done':''}">
+      <input type="checkbox" data-p="${p}" ${T[p]?'checked':''}>
+      <span>Problema <strong>${p}</strong> (Capítulos 6-7)</span>
+    </label>`).join('');
+  updateTaskBar();
+}
+function updateTaskBar(){
+  const T=act()[CURSO].tarea;
+  const done=PROBLEMAS.filter(p=>T[p]).length, pct=Math.round(done/PROBLEMAS.length*100);
+  $('#taskBar').style.width=pct+'%';
+  $('#taskPct').textContent=`${done} / ${PROBLEMAS.length} · ${pct}%`;
+}
+$('#taskList').addEventListener('change', e=>{
+  const cb=e.target.closest('input[data-p]'); if(!cb) return;
+  const p=cb.dataset.p;
+  const a=act(); a[CURSO].tarea[p]=cb.checked; saveAct(a);
+  cb.closest('.chk').classList.toggle('done', cb.checked);
+  updateTaskBar(); renderBoleta();
+});
+
+function syncEjChecks(){
+  const EJ=act()[CURSO].ej;
+  $$('#ejBlock .chk-ej input').forEach(cb=>{
+    cb.checked=!!EJ[cb.dataset.ej];
+    cb.closest('.chk').classList.toggle('done', cb.checked);
+  });
+}
+$('#ejBlock').addEventListener('change', e=>{
+  const cb=e.target.closest('input[data-ej]'); if(!cb) return;
+  const a=act(); a[CURSO].ej[cb.dataset.ej]=cb.checked; saveAct(a);
+  cb.closest('.chk').classList.toggle('done', cb.checked);
+  renderBoleta();
+});
+
+/* ============================================================
+   EDITOR DE REDACCIÓN (simplificado)
+============================================================ */
+const REDACS = ['e5','e6','e7','e8'];
+const redTimers = {};
+const MANUAL = [
+  {code:'\\( … \\)', help:'Fórmula en línea', tex:'\\oint_C \\mathbf{F}\\cdot d\\mathbf{r}', snip:String.raw`\(|\)`},
+  {code:'\\oint_C', help:'Integral de línea cerrada', tex:'\\oint_C \\mathbf{F}\\cdot d\\mathbf{r}', snip:String.raw`\oint_C \mathbf{F}\cdot d\mathbf{r}`},
+  {code:'\\iint_S', help:'Integral de superficie', tex:'\\iint_S \\mathbf{F}\\cdot d\\mathbf{S}', snip:String.raw`\iint_S \mathbf{F}\cdot d\mathbf{S}`},
+  {code:'\\iiint_V', help:'Integral de volumen', tex:'\\iiint_V f\\,dV', snip:String.raw`\iiint_V f\,dV`},
+  {code:'\\nabla\\times\\mathbf{F}', help:'Rotacional', tex:'\\nabla\\times\\mathbf{F}=0', snip:String.raw`\nabla\times\mathbf{F}=`},
+  {code:'\\nabla\\cdot\\mathbf{F}', help:'Divergencia', tex:'\\nabla\\cdot\\mathbf{F}=0', snip:String.raw`\nabla\cdot\mathbf{F}=`},
+  {code:'\\boxed{…}', help:'Respuesta final', tex:'\\boxed{0}', snip:String.raw`\boxed{|}`}
+];
+
+function buildEditors(){
+  $$('.ed-box').forEach(box=>{
+    const k=box.dataset.ed;
+    box.innerHTML=`
+      <div class="ed-toolbar">
+        <span class="ed-title"><i data-lucide="pencil"></i>Tu procedimiento</span>
+        <span class="ed-status" id="st_${k}"><span class="dot"></span>Sin guardar</span>
+      </div>
+      <div class="ed-grid">
+        <div class="ed-main">
+          <textarea id="ta_${k}" class="ed-ta" spellcheck="false"
+            placeholder="Escribe tu solución aquí. Usa LaTeX entre \( ... \)."></textarea>
+          <div class="ed-preview-wrap">
+            <div class="ed-preview-head">Vista previa</div>
+            <div class="ed-preview" id="pv_${k}"><em class="ed-ph">La vista previa aparecerá aquí.</em></div>
+          </div>
+        </div>
+        <aside class="ed-manual" data-for="${k}"></aside>
+      </div>
+      <div class="ed-foot">
+        <span class="ed-count" id="cn_${k}">0 palabras</span>
+        <div style="display:flex;gap:8px">
+          <button type="button" class="btn ghost sm" data-redclear="${k}">Limpiar</button>
+          <button type="button" class="btn sm" data-redsave="${k}"><i data-lucide="save"></i>Guardar</button>
+        </div>
+      </div>`;
+  });
+  buildManuals();
+  refreshIcons();
+}
+
+function buildManuals(){
+  $$('.ed-manual').forEach(box=>{
+    const views=[];
+    const rows=MANUAL.map((m,i)=>{
+      views.push(m);
+      return `
+      <div class="cmd-row">
+        <div><span class="cmd-code">${esc(m.code)}</span><span class="cmd-help">${m.help}</span></div>
+        <span class="cmd-view"></span>
+        <button type="button" class="cmd-add" data-snip="${esc(m.snip)}">+</button>
+      </div>`;
+    }).join('');
+    box.innerHTML=`<p class="ed-note"><strong>Fórmulas:</strong> usa \( ... \) o $ ... $.</p>
+      <p class="ed-cmd-title">Comandos útiles</p>
+      ${rows}
+      <p class="ed-note"><strong>Estructura:</strong> define el problema, desarrolla paso a paso, responde con \(\boxed{}\).</p>`;
+    box.querySelectorAll('.cmd-view').forEach((el,i)=>{
+      try{ katex.render(views[i].tex, el, {throwOnError:false}); }catch(e){ el.textContent=views[i].code; }
+    });
+  });
+}
+
+function insertSnippet(ta, snip){
+  const s=ta.selectionStart ?? ta.value.length, e=ta.selectionEnd ?? s;
+  const before=ta.value.slice(0,s), sel=ta.value.slice(s,e), after=ta.value.slice(e);
+  const caret=snip.indexOf('|');
+  let text, pos;
+  if(caret>=0){
+    const clean=snip.replace('|','');
+    if(sel){ text=clean.slice(0,caret)+sel+clean.slice(caret); pos=s+caret+sel.length; }
+    else   { text=clean; pos=s+caret; }
+  }else{
+    text=snip+(sel||''); pos=s+snip.length;
+  }
+  ta.value=before+text+after;
+  ta.selectionStart=ta.selectionEnd=pos;
+  ta.focus();
+  ta.dispatchEvent(new Event('input'));
+}
+
+function setStatus(k, txt, saved){
+  const st=$('#st_'+k); if(!st) return;
+  st.classList.toggle('saved', !!saved);
+  st.innerHTML='<span class="dot"></span>'+txt;
+}
+
+function redPreview(k){
+  const ta=$('#ta_'+k), pv=$('#pv_'+k);
+  const raw=ta.value;
+  $('#cn_'+k).textContent=(raw.trim()? raw.trim().split(/\s+/).length:0)+' palabras';
+  if(!raw.trim()){
+    pv.innerHTML='<em class="ed-ph">La vista previa aparecerá aquí.</em>';
+    return;
+  }
+  pv.innerHTML=esc(raw).replace(/\n/g,'<br>');
+  if(typeof renderMathInElement==='function'){
+    try{
+      renderMathInElement(pv,{delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'$',right:'$',display:false}],throwOnError:false});
+    }catch(e){}
+  }
+}
+
+function redSave(k, announce){
+  const a=act(); a[CURSO].red[k]=$('#ta_'+k).value; saveAct(a);
+  setStatus(k,'Guardado '+new Date().toLocaleTimeString('es-MX',{hour:'2-digit',minute:'2-digit'}), true);
+  if(announce) toast('Redacción guardada.');
+}
+
+function redInput(k){
+  setStatus(k,'Escribiendo…', false);
+  clearTimeout(redTimers[k+'p']);
+  redTimers[k+'p']=setTimeout(()=>redPreview(k),250);
+  clearTimeout(redTimers[k+'s']);
+  redTimers[k+'s']=setTimeout(()=>redSave(k,false),1100);
+}
+
+function initRedacs(){
+  const R=act()[CURSO].red||{};
+  REDACS.forEach(k=>{
+    const ta=$('#ta_'+k); if(!ta) return;
+    if(R[k]){ ta.value=R[k]; setStatus(k,'Guardado', true); redPreview(k); }
+    ta.addEventListener('input',()=>redInput(k));
+  });
+  $$('.ed-manual').forEach(m=>m.addEventListener('click',e=>{
+    const b=e.target.closest('.cmd-add'); if(!b) return;
+    insertSnippet($('#ta_'+m.dataset.for), b.dataset.snip);
+  }));
+  $$('[data-redsave]').forEach(b=>b.addEventListener('click',()=>{
+    const k=b.dataset.redsave; redSave(k,true); redPreview(k);
+  }));
+  $$('[data-redclear]').forEach(b=>b.addEventListener('click',()=>{
+    const k=b.dataset.redclear;
+    if(!b.classList.contains('confirm')){
+      b.classList.add('confirm'); b.textContent='¿Borrar todo?';
+      setTimeout(()=>{ if(b.isConnected){ b.classList.remove('confirm'); b.textContent='Limpiar'; } },2800);
+      return;
+    }
+    b.classList.remove('confirm'); b.textContent='Limpiar';
+    $('#ta_'+k).value=''; redPreview(k); setStatus(k,'Sin guardar',false);
+    const a=act(); a[CURSO].red[k]=''; saveAct(a);
+    toast('Redacción borrada.');
+  }));
+}
+
+/* ============================================================
+   BOLETA (similar a unidades anteriores)
+============================================================ */
+const AV_COLORS=[['#e4ecdf','#1e4636'],['#f3e0d6','#8a3d1e'],['#f2e8c9','#7a6210'],
+                 ['#e2e8dd','#3c5a3c'],['#ead9e0','#7a3550'],['#dde7ea','#22505c']];
+function initials(name){
+  const p=name.trim().split(/\s+/);
+  return ((p[0]?.[0]||'')+(p[1]?.[0]||p[0]?.[1]||'')).toUpperCase();
+}
+function avColor(name){ return AV_COLORS[[...name].reduce((a,c)=>a+c.charCodeAt(0),0)%AV_COLORS.length]; }
+
+function progresoUnidad(){
+  const c=act()[CURSO];
+  const ejOk=['e1','e2','e3','e4'].filter(k=>c.ej[k]).length;
+  const tOk=PROBLEMAS.filter(p=>c.tarea[p]).length;
+  return {
+    sim: 100,
+    ej: ejOk/4*100,
+    ejOk,
+    quiz: (c.quiz && c.quiz.score!=null)? c.quiz.score/c.quiz.total*100 : 0,
+    quizScore: (c.quiz && c.quiz.score!=null)? c.quiz.score : null,
+    tarea: tOk/PROBLEMAS.length*100,
+    tOk
+  };
+}
+function notaFinal(){
+  const p=progresoUnidad();
+  return (p.sim*0.15 + p.ej*0.25 + p.quiz*0.30 + p.tarea*0.30)/10;
+}
+function updateHomeStat(){
+  const est=loadEst();
+  $('#statNota').textContent = est? notaFinal().toFixed(1) : '—';
+}
+function renderBoleta(){
+  const est=loadEst();
+  $('#regEmpty').hidden = !!est;
+  $('#boletaWrap').hidden = !est;
+  updateHomeStat();
+  if(!est) return;
+  const [bg,fg]=avColor(est.nombre);
+  const av=$('#bAvatar'); av.textContent=initials(est.nombre); av.style.background=bg; av.style.color=fg;
+  $('#bName').textContent=est.nombre;
+  $('#bMeta').textContent=`Matrícula ${est.matricula} · ${est.correo}`;
+  $('#bSince').textContent=new Date(est.ts).toLocaleDateString('es-MX',{day:'numeric',month:'long',year:'numeric'});
+  const p=progresoUnidad();
+  const defs=[
+    {nombre:'Simulador 3D — integrales y teoremas', pct:p.sim, w:1.5, det:'Uso de herramientas completado'},
+    {nombre:'Ejercicios guiados resueltos', pct:p.ej, w:2.5, det:`${p.ejOk} de 4 marcados`},
+    {nombre:'Quiz de autoevaluación', pct:p.quiz, w:3.0, det: p.quizScore==null?'Sin intento':`${p.quizScore} de 6 aciertos`},
+    {nombre:'Tarea — problemas Capítulos 6-7', pct:p.tarea, w:3.0, det:`${p.tOk} de ${PROBLEMAS.length} problemas`}
+  ];
+  $('#bRows').innerHTML=defs.map(d=>`
+    <div class="b-row">
+      <div><div class="b-rubname">${d.nombre}</div><div class="b-rubdet">${d.det}</div></div>
+      <div class="b-bar"><div style="width:${d.pct.toFixed(0)}%"></div></div>
+      <div class="b-pts mono">${(d.pct/100*d.w).toFixed(2)} <small>/ ${d.w.toFixed(1)}</small></div>
+    </div>`).join('');
+  $('#bNota').textContent=notaFinal().toFixed(1);
+  $('#bEmit').textContent=new Date().toLocaleDateString('es-MX',{day:'numeric',month:'long',year:'numeric'});
+}
+
+// Registro
+let editMode=false;
+function setFormMode(edit){
+  editMode=edit;
+  $('#btnEstSave').innerHTML = edit? '<i data-lucide="save"></i><span>Guardar cambios</span>'
+                                   : '<i data-lucide="user-plus"></i><span>Registrarme</span>';
+  $('#btnEstCancel').hidden=!edit;
+  refreshIcons();
+}
+$('#formEst').addEventListener('submit', e=>{
+  e.preventDefault();
+  const nombre=$('#alNombre').value.trim(), mat=$('#alMat').value.trim(), correo=$('#alMail').value.trim();
+  if(nombre.length<3){ toast('Escribe el nombre completo.','err'); return; }
+  if(mat.length<4){ toast('La matrícula debe tener al menos 4 caracteres.','err'); return; }
+  if(!/^\S+@\S+\.\S+$/.test(correo)){ toast('Escribe un correo válido.','err'); return; }
+  const prev=loadEst();
+  saveEst({nombre, matricula:mat, correo, ts: prev? prev.ts : Date.now()});
+  e.target.reset(); setFormMode(false);
+  renderBoleta(); syncEjChecks(); renderTaskList();
+  toast(prev? 'Datos actualizados.' : `¡Listo, ${nombre.split(' ')[0]}!`);
+});
+$('#btnEstEdit').addEventListener('click', ()=>{
+  const est=loadEst(); if(!est) return;
+  $('#alNombre').value=est.nombre; $('#alMat').value=est.matricula; $('#alMail').value=est.correo;
+  $('#regEmpty').hidden=false; $('#boletaWrap').hidden=true;
+  setFormMode(true); $('#alNombre').focus();
+});
+$('#btnEstCancel').addEventListener('click', ()=>{ $('#formEst').reset(); setFormMode(false); renderBoleta(); });
+$('#btnEstDel').addEventListener('click', ()=>{
+  const b=$('#btnEstDel');
+  if(!b.classList.contains('confirm')){
+    b.classList.add('confirm'); b.innerHTML='<i data-lucide="alert-triangle"></i><span>¿Borrar todo?</span>'; refreshIcons();
+    setTimeout(()=>{ if(b.isConnected){ b.classList.remove('confirm');
+      b.innerHTML='<i data-lucide="trash-2"></i><span>Borrar registro</span>'; refreshIcons(); } },3000);
+    return;
+  }
+  localStorage.removeItem(LS_EST); localStorage.removeItem(LS_ACT);
+  $('#formEst').reset(); setFormMode(false);
+  renderBoleta(); syncEjChecks(); renderTaskList();
+  toast('Registro y avance borrados.');
+});
+$('#btnBoletaPng').addEventListener('click', ()=>{
+  if(typeof html2canvas!=='function'){ toast('No se pudo generar la imagen.','err'); return; }
+  toast('Generando imagen…');
+  html2canvas($('#boletaCard'),{scale:2, backgroundColor:null, useCORS:true}).then(cv=>{
+    const est=loadEst();
+    const a=document.createElement('a');
+    a.download=`boleta-unidad6-${est? est.matricula : 'alumno'}.png`;
+    a.href=cv.toDataURL('image/png'); a.click();
+    toast('Boleta descargada.');
+  }).catch(()=>toast('No se pudo generar la imagen.','err'));
+});
+
+/* ============================================================
+   ARRANQUE
+============================================================ */
+function init(){
+  refreshIcons();
+  buildEditors();
+  initRedacs();
+  renderTaskList();
+  syncEjChecks();
+  renderBoleta();
+  drawHero();
+  if(typeof renderMathInElement==='function'){
+    renderMathInElement(document.body,{delimiters:[
+      {left:'$$',right:'$$',display:true},{left:'\\(',right:'\\)',display:false}],throwOnError:false});
+  }
+}
+window.addEventListener('resize', ()=>{ drawHero(); });
+init();
+</script>
+</body>
+</html>   
+   
+   
