@@ -1,0 +1,1943 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unidad 1 · Fundamentos y espacio euclídeo — Cálculo II</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+
+<style>
+/* ============================================================
+   VARIABLES — colores oficiales UNII (azul #1670C8 / #2E9BF0,
+   negro del escudo #0B0D10) + base
+============================================================ */
+:root{
+  --paper:#F5F9FD;
+  --card:#FFFFFF;
+  --ink:#0B0D10;
+  --pine:#1670C8;
+  --pine-soft:#2E9BF0;
+  --terra:#0B4E8F;
+  --terra-soft:#E4F0FB;
+  --gold:#2E9BF0;
+  --line:rgba(11,13,16,.12);
+  --line-strong:rgba(11,13,16,.26);
+  --muted:rgba(11,13,16,.62);
+  --ok-bg:#E4F1FC;
+  --err:#C24E36;
+  --err-bg:#F9E9E4;
+  --radius:12px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+[id]{scroll-margin-top:150px}
+[hidden]{display:none!important}
+body{
+  font-family:'Instrument Sans',sans-serif;
+  background:var(--paper);
+  color:var(--ink);
+  line-height:1.6;
+  background-image:radial-gradient(rgba(22,112,200,.08) 1px, transparent 1px);
+  background-size:26px 26px;
+}
+.wrap{max-width:1150px;margin:0 auto;padding:0 24px}
+h1,h2,h3,.display{font-family:'Fraunces',serif;font-weight:600;line-height:1.12;letter-spacing:-.01em}
+.overline{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--terra)}
+.mono{font-variant-numeric:tabular-nums}
+button{font-family:inherit;cursor:pointer}
+a{color:var(--pine)}
+svg.lucide{width:16px;height:16px;stroke-width:2}
+
+/* ============================================================
+   HEADER / NAV
+============================================================ */
+.topbar-logo{
+  position:absolute;top:14px;right:24px;
+  width:64px;height:64px;object-fit:contain;
+  filter:drop-shadow(0 2px 4px rgba(11,13,16,.15));
+}
+.topbar-row{position:relative}
+@media (max-width:640px){
+  .topbar-logo{width:44px;height:44px;top:12px;right:16px}
+  .topbar-side{padding-right:56px}
+}
+header.topbar{
+  position:sticky;top:0;z-index:60;
+  background:rgba(245,249,253,.94);
+  backdrop-filter:blur(10px);
+  border-bottom:1.5px solid var(--ink);
+}
+.topbar-row{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 0}
+.brand{display:flex;align-items:center;gap:10px;font-family:'Fraunces',serif;font-weight:700;font-size:1.15rem}
+.brand .brand-ico{width:38px;height:38px;border-radius:9px;display:grid;place-items:center;background:transparent;border:none;color:var(--pine)}
+.brand .brand-ico img{width:36px;height:36px;object-fit:contain;display:block}
+.brand .brand-ico svg{width:20px;height:20px}
+.brand small{display:block;font-family:'Instrument Sans';font-weight:600;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.topbar-side{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-align:right}
+nav.tabs{display:flex;gap:6px;border-top:1px solid var(--line);padding:10px 0;overflow-x:auto;scrollbar-width:none}
+nav.tabs::-webkit-scrollbar{display:none}
+.nav-btn{
+  display:inline-flex;align-items:center;gap:7px;white-space:nowrap;
+  border:1px solid transparent;background:transparent;color:var(--pine);
+  font-weight:600;font-size:13.5px;padding:8px 14px;border-radius:999px;
+  transition:all .18s ease;
+}
+.nav-btn svg{width:15px;height:15px}
+.nav-btn:hover{border-color:var(--line-strong)}
+.nav-btn.active{background:var(--ink);color:var(--paper)}
+
+/* ============================================================
+   VISTAS
+============================================================ */
+.view{padding:0 0 80px}
+.view-head{border-bottom:2px solid var(--ink);padding:52px 0 26px;margin-bottom:36px}
+.view-head h2{font-size:clamp(1.8rem,3.4vw,2.6rem);margin:8px 0 10px}
+.view-head p.sub{max-width:680px;color:var(--muted)}
+
+/* ============================================================
+   BOTONES / FORMULARIOS
+============================================================ */
+.btn{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--ink);color:var(--paper);
+  border:1px solid var(--ink);border-radius:10px;
+  padding:11px 18px;font-weight:600;font-size:14px;
+  transition:all .18s ease;
+}
+.btn:hover{background:var(--pine);border-color:var(--pine);transform:translateY(-1px)}
+.btn.ghost{background:transparent;color:var(--ink)}
+.btn.ghost:hover{background:rgba(11,13,16,.06);transform:translateY(-1px)}
+.btn.sm{padding:8px 12px;font-size:13px;border-radius:8px}
+.btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.field{display:flex;flex-direction:column;gap:6px}
+.field label{font-size:11px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
+.field input,.field select{
+  font:inherit;font-size:14px;color:var(--ink);
+  background:var(--card);border:1px solid var(--line-strong);
+  border-radius:8px;padding:10px 12px;width:100%;
+  transition:border-color .15s, box-shadow .15s;
+}
+.field input:focus,.field select:focus{outline:none;border-color:var(--pine);box-shadow:0 0 0 3px rgba(22,112,200,.16)}
+.hint{font-size:12px;color:var(--muted)}
+
+/* ============================================================
+   INICIO / HERO
+============================================================ */
+.hero{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center;padding:64px 0 56px}
+.hero h1{font-size:clamp(2.3rem,4.6vw,3.7rem);margin:14px 0 18px}
+.hero h1 em{font-style:italic;color:var(--terra)}
+.hero .lead{font-size:1.05rem;color:var(--muted);max-width:520px}
+.hero-actions{display:flex;gap:12px;margin:26px 0 30px;flex-wrap:wrap}
+.meta-grid{display:grid;grid-template-columns:repeat(2,1fr);border-top:1px solid var(--line-strong);max-width:520px}
+.meta-grid>div{padding:12px 14px 12px 0;border-bottom:1px solid var(--line)}
+.meta-grid dt{font-size:10.5px;font-weight:700;letter-spacing:.11em;text-transform:uppercase;color:var(--muted)}
+.meta-grid dd{font-weight:600;font-size:14.5px}
+.hero-fig{border:1.5px solid var(--ink);border-radius:var(--radius);background:var(--card);overflow:hidden;box-shadow:6px 6px 0 rgba(11,13,16,.10)}
+.hero-fig canvas{display:block;width:100%;height:320px}
+.hero-fig figcaption{padding:12px 16px;border-top:1px solid var(--line);font-size:12.5px;color:var(--muted)}
+.home-grid{display:grid;grid-template-columns:1.35fr .65fr;gap:44px;border-top:1.5px solid var(--ink);padding-top:38px}
+.route-item{display:grid;grid-template-columns:86px 1fr auto;gap:18px;align-items:center;border-top:1px solid var(--line);padding:22px 4px;cursor:pointer;transition:background .15s}
+.route-item:first-child{border-top:none}
+.route-item:hover{background:rgba(22,112,200,.05)}
+.route-no{font-family:'Fraunces',serif;font-size:2.6rem;font-weight:400;color:rgba(22,112,200,.25)}
+.route-item h3{font-size:1.2rem;margin-bottom:4px}
+.route-item p{font-size:13.5px;color:var(--muted)}
+.route-go{width:38px;height:38px;border:1.5px solid var(--ink);border-radius:50%;display:grid;place-items:center;background:transparent;color:var(--ink);transition:all .18s}
+.route-item:hover .route-go{background:var(--ink);color:var(--paper)}
+.side-stats{display:flex;flex-direction:column;gap:12px}
+.stat{border:1px solid var(--line-strong);border-radius:10px;background:var(--card);padding:14px 18px}
+.stat .num{font-family:'Fraunces',serif;font-size:1.7rem;font-weight:600;line-height:1}
+.stat .lbl{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:4px}
+
+/* ============================================================
+   TEORÍA
+============================================================ */
+.theory{display:grid;grid-template-columns:250px 1fr;gap:52px;align-items:start}
+.toc{position:sticky;top:150px;border-left:1.5px solid var(--ink);display:flex;flex-direction:column}
+.toc-title{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding:0 0 10px 16px}
+.toc a{display:flex;gap:10px;align-items:baseline;text-decoration:none;color:var(--ink);padding:9px 16px;font-size:13.5px;font-weight:500;border-left:3px solid transparent;margin-left:-1.5px;transition:all .15s}
+.toc a span{font-family:'Fraunces',serif;color:var(--terra);font-weight:600;min-width:30px}
+.toc a:hover{border-left-color:var(--pine);background:rgba(11,13,16,.05)}
+.sec{border-top:1px solid var(--line);padding:44px 0}
+.sec:first-child{border-top:none;padding-top:0}
+.sec-no{font-family:'Fraunces',serif;font-size:3rem;font-weight:400;color:rgba(22,112,200,.20);line-height:1}
+.sec h3{font-size:1.55rem;margin:6px 0 16px}
+.prose p{margin:0 0 14px;max-width:70ch}
+.prose ul,.prose ol{margin:0 0 14px 22px;max-width:70ch}
+.prose li{margin-bottom:6px}
+.def{background:#E9F2FC;border:1px solid rgba(22,112,200,.30);border-radius:0 10px 10px 0;border-left:4px solid var(--pine);padding:18px 22px;margin:20px 0}
+.def .def-tag{font-size:10.5px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--pine)}
+.def p{margin:6px 0 0}
+.ex{background:var(--card);border:1px solid var(--line-strong);border-left:4px solid var(--gold);border-radius:0 10px 10px 0;padding:18px 22px;margin:20px 0}
+.ex .ex-tag{font-size:10.5px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:#0B4E8F}
+.formula-hero{display:flex;justify-content:center;padding:16px 0;font-size:1.15rem}
+.tbl{width:100%;border-collapse:collapse;margin:16px 0;font-size:14px}
+.tbl th{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-align:left;padding:8px 10px;border-bottom:1.5px solid var(--ink)}
+.tbl td{padding:9px 10px;border-bottom:1px solid var(--line)}
+.tbl tbody tr:hover{background:rgba(11,13,16,.04)}
+.tbl td.center,.tbl th.center{text-align:center}
+.tag{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:3px 9px;border-radius:999px;border:1px solid}
+.tag.d{color:#0B4E8F;border-color:rgba(11,78,143,.40);background:#E9F2FC}
+.tag.c{color:var(--terra);border-color:rgba(11,78,143,.45);background:var(--terra-soft)}
+.spec-row{display:grid;grid-template-columns:120px 1fr 1fr;gap:18px;align-items:center;border-top:1px solid var(--line);padding:18px 6px;transition:background .15s}
+.spec-row:hover{background:rgba(11,13,16,.04)}
+.spec-row:last-child{border-bottom:1px solid var(--line)}
+.spec-id{display:flex;flex-direction:column;gap:6px;align-items:flex-start}
+.spec-id .no{font-family:'Fraunces',serif;font-size:1.15rem;color:var(--muted)}
+.spec-name{font-family:'Fraunces',serif;font-size:1.15rem;font-weight:600}
+.spec-use{font-size:13px;color:var(--muted);margin-top:2px}
+.spec-math{text-align:right;font-size:1rem;overflow-x:auto}
+
+/* ============================================================
+   PANELES / SIMULADOR
+============================================================ */
+.panel{background:var(--card);border:1.5px solid var(--ink);border-radius:var(--radius);overflow:hidden}
+.panel-head{display:flex;align-items:center;gap:9px;padding:14px 18px;border-bottom:1px solid var(--line);font-weight:700;font-size:13px;letter-spacing:.06em;text-transform:uppercase}
+.panel-body{padding:20px 18px}
+.sim-tabs{display:flex;gap:6px;margin-bottom:18px;border-bottom:1px solid var(--line);padding-bottom:10px}
+.sim-tab{background:transparent;border:1px solid transparent;padding:8px 16px;border-radius:999px;font-weight:600;font-size:13px;color:var(--muted);transition:all .15s}
+.sim-tab:hover{border-color:var(--line-strong)}
+.sim-tab.active{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.sim-panel{display:none}
+.sim-panel.active{display:block}
+.lab-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:22px;align-items:start}
+.lab-grid .graph-frame canvas{height:420px}
+.vec-input{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:12px}
+.vec-input.cols2{grid-template-columns:1fr 1fr}
+.vec-input .field{margin-bottom:0}
+.vec-input .field label{font-size:9px}
+.vec-actions{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+.vec-result{border-top:1px solid var(--line);padding-top:12px;margin-top:12px}
+.vec-result .res-row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px dashed var(--line);font-size:14px;gap:12px}
+.vec-result .res-row:last-child{border-bottom:none}
+.region-result{border-top:1px solid var(--line);padding-top:12px;margin-top:12px}
+.region-result .info{font-size:13px;color:var(--muted);margin-top:6px}
+.graph-frame canvas{display:block;width:100%;height:340px}
+.graph-cap{padding:11px 16px;border-top:1px solid var(--line);font-size:12.5px;color:var(--muted)}
+.note{font-size:12.5px;color:var(--muted);border-top:1px dashed var(--line-strong);margin-top:18px;padding-top:12px}
+
+/* ============================================================
+   ACTIVIDADES
+============================================================ */
+.act-block{margin-bottom:52px}
+.act-block>h3{font-size:1.45rem;margin:8px 0 6px}
+.act-block>.act-desc{color:var(--muted);max-width:70ch;margin-bottom:20px}
+.rub-row{display:grid;grid-template-columns:280px 1fr 60px;gap:16px;align-items:center;border-top:1px solid var(--line);padding:14px 4px}
+.rub-row:last-child{border-bottom:1px solid var(--line)}
+.rub-row .rub-name{font-weight:600;font-size:14.5px}
+.rub-bar{height:10px;border:1px solid var(--line-strong);border-radius:999px;overflow:hidden}
+.rub-bar>div{height:100%;background:var(--pine)}
+.rub-pct{text-align:right;font-family:'Fraunces',serif;font-weight:600}
+details.sol{border:1px solid var(--line-strong);border-radius:10px;background:var(--card);margin-bottom:14px;overflow:hidden}
+details.sol summary{list-style:none;display:flex;align-items:flex-start;gap:12px;padding:16px 18px;cursor:pointer;font-weight:600;transition:background .15s}
+details.sol summary::-webkit-details-marker{display:none}
+details.sol summary:hover{background:rgba(11,13,16,.04)}
+.sol-marker{flex:none;width:24px;height:24px;border:1.5px solid var(--ink);border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:15px;transition:transform .2s;margin-top:1px}
+details[open].sol .sol-marker{transform:rotate(45deg);background:var(--ink);color:var(--paper)}
+.sol-body{border-top:1px dashed var(--line-strong);padding:16px 20px;font-size:14.5px}
+.sol-body p{margin-bottom:10px;max-width:75ch}
+.prob-tag{font-size:10.5px;font-weight:700;letter-spacing:.11em;text-transform:uppercase;color:var(--terra);display:block;margin-bottom:4px}
+.chk{display:flex;align-items:center;gap:11px;border:1px solid var(--line-strong);border-radius:9px;background:var(--card);padding:10px 14px;margin-bottom:9px;cursor:pointer;transition:all .15s;font-size:14.5px}
+.chk:hover{border-color:var(--pine)}
+.chk input{width:16px;height:16px;accent-color:var(--pine)}
+.chk.done{background:var(--ok-bg);border-color:var(--pine)}
+
+/* ============================================================
+   EDITOR DE REDACCIÓN
+============================================================ */
+.ed-box{border:1.5px solid var(--ink);border-radius:10px;margin-top:18px;overflow:hidden;background:var(--card)}
+.ed-toolbar{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:9px 14px;border-bottom:1px solid var(--line);background:#E9F2FC;flex-wrap:wrap}
+.ed-title{display:inline-flex;align-items:center;gap:7px;font-size:10.5px;font-weight:700;letter-spacing:.11em;text-transform:uppercase;color:var(--pine)}
+.ed-title svg{width:13px;height:13px}
+.ed-status{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;color:var(--muted)}
+.ed-status .dot{width:7px;height:7px;border-radius:50%;background:rgba(11,13,16,.25)}
+.ed-status.saved{color:var(--pine);font-weight:600}
+.ed-status.saved .dot{background:#2E9BF0}
+.ed-grid{display:grid;grid-template-columns:1fr 330px}
+.ed-main{padding:14px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.ed-ta{width:100%;min-height:200px;resize:vertical;font:inherit;font-size:14.5px;line-height:1.6;padding:12px 14px;border:1px solid var(--line-strong);border-radius:8px;background:var(--paper);color:var(--ink)}
+.ed-ta:focus{outline:none;border-color:var(--pine);box-shadow:0 0 0 3px rgba(22,112,200,.16)}
+.ed-preview-wrap{border:1px dashed var(--line-strong);border-radius:8px;overflow:hidden;background:var(--paper)}
+.ed-preview-head{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding:6px 12px;background:rgba(11,13,16,.04);border-bottom:1px dashed var(--line)}
+.ed-preview{padding:12px 14px;font-size:14.5px;min-height:56px;overflow-x:auto}
+.ed-preview .katex-display{margin:6px 0}
+.ed-ph{color:var(--muted);font-size:13px}
+.ed-manual{border-left:1px solid var(--line);padding:12px 14px;background:rgba(11,13,16,.03);max-height:460px;overflow:auto}
+.ed-note{font-size:12px;color:var(--muted);margin-bottom:10px}
+.ed-note code{background:var(--paper);border:1px solid var(--line);border-radius:4px;padding:1px 5px;font-size:11px}
+.ed-cmd-title{font-size:10px;font-weight:700;letter-spacing:.11em;text-transform:uppercase;color:var(--terra);margin:12px 0 4px}
+.cmd-row{display:grid;grid-template-columns:minmax(0,1fr) auto 26px;align-items:center;gap:8px;padding:5px 0;border-bottom:1px dashed var(--line)}
+.cmd-code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11px;color:var(--ink);overflow-x:auto;white-space:nowrap;display:block}
+.cmd-help{display:block;font-size:10.5px;color:var(--muted);font-family:'Instrument Sans'}
+.cmd-view{font-size:13px;text-align:right;max-width:130px;overflow-x:auto;padding:2px 0}
+.cmd-add{width:26px;height:26px;border:1px solid var(--line-strong);border-radius:6px;background:var(--card);display:grid;place-items:center;font-weight:700;color:var(--pine);transition:all .15s;font-size:14px;flex:none}
+.cmd-add:hover{background:var(--pine);color:var(--paper);border-color:var(--pine)}
+.ed-foot{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:9px 14px;border-top:1px dashed var(--line-strong);flex-wrap:wrap}
+.ed-count{font-size:12px;color:var(--muted)}
+details.mini-check{border:1px dashed var(--line-strong);border-radius:8px;background:var(--terra-soft);margin-top:14px}
+details.mini-check summary{padding:10px 14px;cursor:pointer;font-size:13px;font-weight:600;list-style:none}
+details.mini-check summary::-webkit-details-marker{display:none}
+details.mini-check summary:hover{color:var(--terra)}
+details.mini-check .sol-body{border-top:1px dashed var(--line-strong);padding-top:8px;font-size:13.5px}
+
+/* ============================================================
+   QUIZ
+============================================================ */
+.quiz-q{border-top:1px solid var(--line);padding:24px 4px}
+.quiz-q header{display:flex;gap:14px;margin-bottom:14px}
+.qnum{flex:none;font-family:'Fraunces',serif;font-weight:700;color:var(--terra);border:1.5px solid var(--terra);border-radius:8px;padding:2px 9px;height:fit-content}
+.quiz-q .q-text{font-weight:600;font-size:15.5px;padding-top:4px}
+.opts{display:grid;gap:9px;margin-left:56px}
+.opt{display:flex;align-items:center;gap:12px;border:1px solid var(--line-strong);border-radius:10px;padding:11px 14px;cursor:pointer;background:var(--card);transition:all .15s;font-size:14.5px}
+.opt:hover{border-color:var(--pine)}
+.opt input{position:absolute;opacity:0;pointer-events:none}
+.opt-key{flex:none;width:26px;height:26px;border:1.5px solid var(--line-strong);border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:12px;transition:all .15s}
+.opt.is-correct{border-color:var(--pine);background:var(--ok-bg)}
+.opt.is-correct .opt-key{background:var(--pine);border-color:var(--pine);color:var(--paper)}
+.opt.is-wrong{border-color:var(--err);background:var(--err-bg)}
+.opt.is-wrong .opt-key{background:var(--err);border-color:var(--err);color:#fff}
+.opt.locked{cursor:default}
+.explain{margin:12px 0 0 56px;font-size:13.5px;color:var(--muted);border-left:3px solid var(--gold);padding:8px 14px;background:var(--card)}
+.quiz-foot{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-top:22px;border-top:1.5px solid var(--ink);padding-top:20px}
+.quiz-result{font-size:15px}
+.quiz-result strong{font-family:'Fraunces',serif;font-size:1.5rem;color:var(--pine);margin-right:8px}
+.task-panel{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:start}
+
+/* ============================================================
+   BOLETA
+============================================================ */
+.avatar{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:13px;flex:none}
+.del-btn{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line-strong);background:transparent;color:var(--ink);border-radius:8px;padding:8px 12px;font-size:12.5px;font-weight:600;transition:all .15s}
+.del-btn:hover{border-color:var(--err);color:var(--err)}
+.del-btn.confirm{background:var(--err);border-color:var(--err);color:#fff}
+.boleta-card{position:relative;max-width:700px;background:var(--card);border:2px solid var(--ink);border-radius:var(--radius);box-shadow:8px 8px 0 rgba(11,13,16,.10);overflow:hidden}
+.b-head{display:flex;align-items:center;gap:16px;padding:22px 24px;border-bottom:1.5px solid var(--ink)}
+.b-head .avatar{width:52px;height:52px;font-size:17px;border:1.5px solid var(--ink)}
+.b-head>div{flex:1;min-width:0}
+.b-title{font-size:10px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--terra);margin-bottom:3px}
+.b-name{font-family:'Fraunces',serif;font-size:1.35rem;font-weight:700;line-height:1.15}
+.b-meta{font-size:12.5px;color:var(--muted);margin-top:2px}
+.b-seal{flex:none;width:76px;height:76px;border:2px solid var(--terra);border-radius:50%;display:grid;place-items:center;text-align:center;color:var(--terra);transform:rotate(-8deg);opacity:.85;line-height:1.25}
+.b-seal span{font-size:7.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
+.b-seal strong{font-family:'Fraunces',serif;font-size:1.05rem}
+.b-body{padding:8px 24px 18px}
+.b-row{display:grid;grid-template-columns:1fr 150px 92px;gap:14px;align-items:center;border-top:1px solid var(--line);padding:13px 0}
+.b-row:first-child{border-top:none}
+.b-rubname{font-weight:600;font-size:14.5px}
+.b-rubdet{font-size:12px;color:var(--muted);margin-top:1px}
+.b-bar{height:10px;border:1px solid var(--line-strong);border-radius:999px;overflow:hidden;background:var(--paper)}
+.b-bar>div{height:100%;background:var(--pine);transition:width .4s ease}
+.b-pts{text-align:right;font-family:'Fraunces',serif;font-weight:600;font-size:1.05rem}
+.b-pts small{font-weight:400;color:var(--muted);font-size:.75em}
+.b-total{display:flex;justify-content:space-between;align-items:center;gap:16px;border-top:2px solid var(--ink);background:#E9F2FC;padding:16px 24px}
+.b-total-lbl{font-family:'Fraunces',serif;font-weight:700;font-size:1.05rem}
+.b-total-det{font-size:11.5px;color:var(--muted);margin-top:2px}
+.b-score{display:flex;align-items:baseline;gap:6px}
+.b-score .big{font-family:'Fraunces',serif;font-size:3rem;font-weight:700;color:var(--pine);line-height:1}
+.b-score .den{font-family:'Fraunces',serif;font-size:1.2rem;color:var(--muted)}
+.b-foot{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;border-top:1px dashed var(--line-strong);padding:11px 24px;font-size:11.5px;color:var(--muted)}
+.boleta-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px;max-width:700px}
+
+/* ============================================================
+   TOASTS / FOOTER
+============================================================ */
+#toasts{position:fixed;bottom:22px;right:22px;z-index:100;display:flex;flex-direction:column;gap:10px;max-width:340px}
+.toast{display:flex;align-items:center;gap:10px;background:var(--ink);color:var(--paper);border-radius:10px;padding:12px 16px;font-size:13.5px;font-weight:500;box-shadow:0 8px 24px rgba(11,13,16,.28);animation:toastIn .28s cubic-bezier(.2,.9,.3,1.2)}
+.toast svg{flex:none;width:17px;height:17px}
+.toast.ok svg{color:#7CC4F8}
+.toast.err svg{color:#F0A284}
+.toast.out{animation:toastOut .3s ease forwards}
+@keyframes toastIn{from{opacity:0;transform:translateY(14px) scale(.96)}to{opacity:1;transform:none}}
+@keyframes toastOut{to{opacity:0;transform:translateX(20px)}}
+footer{border-top:2px solid var(--ink);padding:30px 0 40px;margin-top:20px}
+.foot-row{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;font-size:13px;color:var(--muted)}
+.foot-row strong{color:var(--ink)}
+.conv-bar{height:12px;border:1px solid var(--line-strong);border-radius:999px;overflow:hidden;background:var(--paper)}
+.conv-bar>div{height:100%;width:0;background:var(--pine);transition:width .4s ease}
+
+/* ============================================================
+   RESPONSIVE
+============================================================ */
+@media (max-width:960px){
+  .hero{grid-template-columns:1fr;gap:34px}
+  .home-grid{grid-template-columns:1fr}
+  .theory{grid-template-columns:1fr}
+  .toc{position:static;flex-direction:row;overflow-x:auto;border-left:none;border-bottom:1.5px solid var(--ink);gap:2px}
+  .toc-title{display:none}
+  .toc a{white-space:nowrap;border-left:none;border-bottom:3px solid transparent}
+  .toc a:hover{border-bottom-color:var(--pine)}
+  .lab-grid,.task-panel{grid-template-columns:1fr}
+  .spec-row{grid-template-columns:1fr;gap:8px}
+  .spec-math{text-align:left}
+  .rub-row{grid-template-columns:1fr;gap:8px}
+  .rub-pct{text-align:left}
+  .meta-grid{max-width:none}
+  .ed-grid{grid-template-columns:1fr}
+  .ed-manual{border-left:none;border-top:1px solid var(--line);max-height:none}
+  .vec-input{grid-template-columns:1fr}
+  .vec-input.cols2{grid-template-columns:1fr 1fr}
+}
+@media (max-width:640px){
+  .b-row{grid-template-columns:1fr 86px}
+  .b-bar{display:none}
+  .b-seal{display:none}
+  .b-total{flex-direction:column;align-items:flex-start;gap:6px}
+  .vec-input.cols2{grid-template-columns:1fr}
+}
+
+/* ===================== MEJORAS ZOOM + HERO INTERACTIVO ===================== */
+.graph-frame{ position:relative; }
+.zoom-ctrls{ position:absolute; top:10px; right:10px; display:flex; flex-direction:column; gap:4px; z-index:10; }
+.zoom-ctrls button{ width:32px; height:32px; border:1px solid var(--line); border-radius:8px; background:rgba(255,255,255,.92); color:var(--pine); font-size:18px; font-weight:700; line-height:1; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:background .15s, color .15s; box-shadow:0 2px 6px rgba(0,0,0,.10); }
+.zoom-ctrls button:hover{ background:var(--pine); color:#fff; }
+.zoom-indicator{ position:absolute; bottom:40px; right:10px; background:rgba(255,255,255,.90); border:1px solid var(--line); border-radius:6px; padding:2px 9px; font-size:11px; color:var(--muted); pointer-events:none; font-family:'Instrument Sans',sans-serif; }
+.hero-controls{ display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-top:8px; }
+.hero-badge{ display:inline-flex; align-items:center; gap:6px; background:rgba(22,112,200,.10); border:1px solid rgba(22,112,200,.30); border-radius:8px; padding:4px 12px; font-size:12px; font-family:'Instrument Sans',sans-serif; color:var(--pine); }
+.hero-badge strong{ font-weight:700; color:var(--ink); }
+.hero-drag-hint{ text-align:center; font-size:11px; color:var(--muted); margin-top:4px; font-style:italic; }
+.hero-op-btn{ padding:4px 12px; border:1.5px solid var(--pine); border-radius:20px; background:transparent; color:var(--pine); font-size:11px; font-family:'Instrument Sans',sans-serif; cursor:pointer; transition:all .15s; }
+.hero-op-btn.active, .hero-op-btn:hover{ background:var(--pine); color:#fff; }
+</style>
+</head>
+<body>
+
+<!-- ==================== HEADER ==================== -->
+<header class="topbar">
+  <div class="wrap topbar-row">
+    <div class="brand">
+      <span class="brand-ico">
+        <img src="unii-logo.png" alt="UNII"
+             onerror="this.style.display='none';this.nextElementSibling.style.display=''">
+        <i data-lucide="sigma" style="display:none"></i>
+      </span>
+      <span>Cálculo II · Unidad 1<small>Aula interactiva — Dr. Adrián Cerda</small></span>
+    </div>
+    <div class="topbar-side">UNII<br>7 sep – 3 oct 2026</div>
+    <img class="topbar-logo" src="unii-logo.png" alt="Logotipo UNII" onerror="this.style.display='none'">
+  </div>
+  <div class="wrap">
+    <nav class="tabs" id="mainNav">
+      <button class="nav-btn active" data-view="inicio"><i data-lucide="home"></i>Inicio</button>
+      <button class="nav-btn" data-view="teoria"><i data-lucide="book-open"></i>Teoría</button>
+      <button class="nav-btn" data-view="simulador"><i data-lucide="layout-dashboard"></i>Simulador</button>
+      <button class="nav-btn" data-view="actividades"><i data-lucide="clipboard-list"></i>Actividades</button>
+      <button class="nav-btn" data-view="boleta"><i data-lucide="badge-check"></i>Mi registro y nota</button>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<!-- ==================== INICIO ==================== -->
+<section class="view" id="v-inicio">
+  <div class="wrap hero">
+    <div>
+      <p class="overline">Cálculo II · Universidad Internacional de Innovación</p>
+      <h1>Fundamentos y espacio <em>euclídeo</em></h1>
+      <p class="lead">Del espacio \(\mathbb{R}^n\) a las funciones de varias variables: vectores, normas, conjuntos abiertos y cerrados, y las bases del análisis en dimensiones superiores.</p>
+      <div class="hero-actions">
+        <button class="btn" data-view="teoria"><i data-lucide="book-open"></i>Entrar a la teoría</button>
+        <button class="btn ghost" data-view="simulador"><i data-lucide="layout-dashboard"></i>Probar el simulador</button>
+      </div>
+      <dl class="meta-grid">
+        <div><dt>Unidad</dt><dd>I — Fundamentos y espacio euclídeo</dd></div>
+        <div><dt>Sesiones</dt><dd>4 · 2 horas cada una</dd></div>
+        <div><dt>Evaluación</dt><dd>Quiz + tareas + laboratorio</dd></div>
+        <div><dt>Texto</dt><dd>Marsden &amp; Tromba — Cap. 1</dd></div>
+      </dl>
+    </div>
+    <figure class="hero-fig">
+      <canvas id="heroCanvas" style="cursor:grab;"></canvas>
+      <p class="hero-drag-hint">⟵ Arrastra las puntas de los vectores <strong>u</strong> (azul) o <strong>v</strong> (negro) para recalcular en tiempo real ⟶</p>
+      <div class="hero-controls">
+        <span style="font-size:12px;color:var(--muted);font-family:'Instrument Sans',sans-serif;">Operación:</span>
+        <button class="hero-op-btn active" data-op="suma">u + v</button>
+        <button class="hero-op-btn" data-op="resta">u − v</button>
+        <button class="hero-op-btn" data-op="punto">u · v</button>
+      </div>
+      <div class="hero-controls" id="heroInfoRow" style="margin-top:6px;gap:6px;">
+        <span class="hero-badge" id="badgeU"><strong>u</strong> = (6, 2)</span>
+        <span class="hero-badge" id="badgeV"><strong>v</strong> = (−2, 6)</span>
+        <span class="hero-badge" id="badgeR"><strong>u+v</strong> = (4, 8)</span>
+        <span class="hero-badge" id="badgeDot" style="display:none;"><strong>u·v</strong> = 0</span>
+      </div>
+      <figcaption><strong>Vectores en \(\mathbb{R}^2\).</strong> Arrastra los extremos de los vectores — la operación se recalcula en tiempo real.</figcaption>
+    </figure>
+  </div>
+
+  <div class="wrap home-grid">
+    <div>
+      <p class="overline" style="margin-bottom:14px">Ruta de la unidad</p>
+      <div class="route-item" data-view="teoria">
+        <span class="route-no">01</span>
+        <div><h3>Desarrollo de la teoría</h3><p>\(\mathbb{R}^n\), vectores, norma, distancia, conjuntos abiertos y cerrados.</p></div>
+        <span class="route-go"><i data-lucide="arrow-right"></i></span>
+      </div>
+      <div class="route-item" data-view="simulador">
+        <span class="route-no">02</span>
+        <div><h3>Laboratorio de simulación</h3><p>Operaciones vectoriales y visualización de regiones en \(\mathbb{R}^2\).</p></div>
+        <span class="route-go"><i data-lucide="arrow-right"></i></span>
+      </div>
+      <div class="route-item" data-view="actividades">
+        <span class="route-no">03</span>
+        <div><h3>Evaluación y tareas</h3><p>Ejercicios guiados, redacción en LaTeX, quiz y problemas del Marsden-Tromba.</p></div>
+        <span class="route-go"><i data-lucide="arrow-right"></i></span>
+      </div>
+      <div class="route-item" data-view="boleta">
+        <span class="route-no">04</span>
+        <div><h3>Mi registro y nota</h3><p>Regístrate y sigue tu avance: tu progreso y calificación final.</p></div>
+        <span class="route-go"><i data-lucide="arrow-right"></i></span>
+      </div>
+    </div>
+    <aside>
+      <p class="overline" style="margin-bottom:14px">En un vistazo</p>
+      <div class="side-stats">
+        <div class="stat"><div class="num" id="statNota">—</div><div class="lbl">Tu nota (sobre 10)</div></div>
+        <div class="stat"><div class="num">5</div><div class="lbl">Secciones teóricas</div></div>
+        <div class="stat"><div class="num">6</div><div class="lbl">Preguntas del quiz</div></div>
+        <div class="stat"><div class="num">12</div><div class="lbl">Ejercicios y problemas</div></div>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<!-- ==================== TEORÍA ==================== -->
+<section class="view" id="v-teoria" hidden>
+  <div class="wrap">
+    <div class="view-head">
+      <p class="overline">Desarrollo de la teoría</p>
+      <h2>Fundamentos del espacio euclídeo</h2>
+      <p class="sub">Síntesis del Capítulo 1 de Marsden &amp; Tromba, <em>Cálculo Vectorial</em>. Cada sección combina definición formal, propiedades y ejemplos resueltos.</p>
+    </div>
+
+    <div class="theory">
+      <aside class="toc">
+        <p class="toc-title">Contenido</p>
+        <a href="#t11"><span>1.1</span>El espacio \(\mathbb{R}^n\)</a>
+        <a href="#t12"><span>1.2</span>Propiedades de \(\mathbb{R}^n\)</a>
+        <a href="#t13"><span>1.3</span>Vectores y operaciones</a>
+        <a href="#t14"><span>1.4</span>Norma y distancia</a>
+        <a href="#t15"><span>1.5</span>Conjuntos abiertos y cerrados</a>
+      </aside>
+
+      <div class="prose">
+
+        <!-- 1.1 -->
+        <article class="sec" id="t11">
+          <div class="sec-no">1.1</div>
+          <h3>El espacio \(\mathbb{R}^n\) y sus conjuntos</h3>
+          <div class="def">
+            <span class="def-tag">Definición</span>
+            <p>El <strong>espacio euclídeo \(n\)-dimensional</strong> es el conjunto de todas las \(n\)-tuplas ordenadas de números reales:</p>
+            <p style="display:flex;justify-content:center;padding:6px 0">\( \displaystyle \mathbb{R}^n = \{(x_1, x_2, \dots, x_n) : x_i \in \mathbb{R},\; i = 1,\dots,n\} \)</p>
+          </div>
+          <p>Los elementos de \(\mathbb{R}^n\) se llaman <strong>puntos</strong> o <strong>vectores</strong>. Geométricamente:</p>
+          <ul>
+            <li>\(\mathbb{R}^1\): la recta real.</li>
+            <li>\(\mathbb{R}^2\): el plano cartesiano.</li>
+            <li>\(\mathbb{R}^3\): el espacio tridimensional.</li>
+          </ul>
+          <div class="ex">
+            <span class="ex-tag">Ejemplo</span>
+            <p>El punto \(P = (2, -3, 5) \in \mathbb{R}^3\) representa un vector con coordenadas \(2\) en el eje \(x\), \(-3\) en el eje \(y\), y \(5\) en el eje \(z\).</p>
+            <p>Conjuntos importantes en \(\mathbb{R}^n\):</p>
+            <ul>
+              <li><strong>Recta:</strong> \(\{ \mathbf{a} + t\mathbf{v} : t \in \mathbb{R} \}\).</li>
+              <li><strong>Plano:</strong> \(\{ \mathbf{x} : \mathbf{n} \cdot (\mathbf{x} - \mathbf{a}) = 0 \}\).</li>
+              <li><strong>Bola abierta:</strong> \(B(\mathbf{a}, r) = \{ \mathbf{x} : \|\mathbf{x} - \mathbf{a}\| < r \}\).</li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- 1.2 -->
+        <article class="sec" id="t12">
+          <div class="sec-no">1.2</div>
+          <h3>Propiedades del espacio \(\mathbb{R}^n\)</h3>
+          <p>\(\mathbb{R}^n\) es un <strong>espacio vectorial</strong> sobre \(\mathbb{R}\), con las operaciones:</p>
+          <ul>
+            <li><strong>Suma:</strong> \(\mathbf{x} + \mathbf{y} = (x_1+y_1, \dots, x_n+y_n)\).</li>
+            <li><strong>Producto por escalar:</strong> \(\alpha\mathbf{x} = (\alpha x_1, \dots, \alpha x_n)\).</li>
+          </ul>
+          <div class="def">
+            <span class="def-tag">Propiedades</span>
+            <p>Para todo \(\mathbf{x}, \mathbf{y}, \mathbf{z} \in \mathbb{R}^n\) y \(\alpha, \beta \in \mathbb{R}\):</p>
+            <ul>
+              <li><strong>Asociatividad:</strong> \((\mathbf{x} + \mathbf{y}) + \mathbf{z} = \mathbf{x} + (\mathbf{y} + \mathbf{z})\).</li>
+              <li><strong>Conmutatividad:</strong> \(\mathbf{x} + \mathbf{y} = \mathbf{y} + \mathbf{x}\).</li>
+              <li><strong>Elemento neutro:</strong> \(\mathbf{x} + \mathbf{0} = \mathbf{x}\).</li>
+              <li><strong>Inverso:</strong> \(\mathbf{x} + (-\mathbf{x}) = \mathbf{0}\).</li>
+              <li><strong>Distributividad:</strong> \(\alpha(\mathbf{x} + \mathbf{y}) = \alpha\mathbf{x} + \alpha\mathbf{y}\).</li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- 1.3 -->
+        <article class="sec" id="t13">
+          <div class="sec-no">1.3</div>
+          <h3>Vectores en \(\mathbb{R}^n\): operaciones</h3>
+          <div class="def">
+            <span class="def-tag">Definiciones</span>
+            <p>Dados \(\mathbf{u} = (u_1,\dots,u_n)\) y \(\mathbf{v} = (v_1,\dots,v_n)\):</p>
+            <ul>
+              <li><strong>Suma:</strong> \(\mathbf{u} + \mathbf{v} = (u_1+v_1, \dots, u_n+v_n)\).</li>
+              <li><strong>Resta:</strong> \(\mathbf{u} - \mathbf{v} = (u_1-v_1, \dots, u_n-v_n)\).</li>
+              <li><strong>Producto escalar (punto):</strong> \(\mathbf{u} \cdot \mathbf{v} = u_1v_1 + \cdots + u_nv_n\).</li>
+              <li><strong>Producto por escalar:</strong> \(\alpha\mathbf{u} = (\alpha u_1, \dots, \alpha u_n)\).</li>
+            </ul>
+          </div>
+          <div class="formula-hero">\( \mathbf{u} \cdot \mathbf{v} = \|\mathbf{u}\| \|\mathbf{v}\| \cos\theta \)</div>
+          <div class="ex">
+            <span class="ex-tag">Ejemplo</span>
+            <p>Sean \(\mathbf{u} = (2, -1, 3)\) y \(\mathbf{v} = (4, 0, -2)\).</p>
+            <p>\(\mathbf{u} + \mathbf{v} = (6, -1, 1)\)</p>
+            <p>\(\mathbf{u} - \mathbf{v} = (-2, -1, 5)\)</p>
+            <p>\(\mathbf{u} \cdot \mathbf{v} = 2\cdot4 + (-1)\cdot0 + 3\cdot(-2) = 8 - 6 = 2\)</p>
+            <p>\(3\mathbf{u} = (6, -3, 9)\)</p>
+          </div>
+        </article>
+
+        <!-- 1.4 -->
+        <article class="sec" id="t14">
+          <div class="sec-no">1.4</div>
+          <h3>Norma euclidiana y distancia</h3>
+          <div class="def">
+            <span class="def-tag">Definición</span>
+            <p>La <strong>norma euclidiana</strong> de \(\mathbf{x} = (x_1,\dots,x_n)\) es:</p>
+            <p style="display:flex;justify-content:center;padding:6px 0">\( \displaystyle \|\mathbf{x}\| = \sqrt{x_1^2 + x_2^2 + \cdots + x_n^2} \)</p>
+            <p>La <strong>distancia euclidiana</strong> entre \(\mathbf{x}\) e \(\mathbf{y}\) es:</p>
+            <p style="display:flex;justify-content:center;padding:6px 0">\( \displaystyle d(\mathbf{x}, \mathbf{y}) = \|\mathbf{x} - \mathbf{y}\| = \sqrt{\sum_{i=1}^n (x_i - y_i)^2} \)</p>
+          </div>
+          <p>Propiedades de la norma:</p>
+          <ul>
+            <li>\(\|\mathbf{x}\| \ge 0\), y \(\|\mathbf{x}\| = 0 \iff \mathbf{x} = \mathbf{0}\).</li>
+            <li>\(\|\alpha\mathbf{x}\| = |\alpha|\|\mathbf{x}\|\).</li>
+            <li><strong>Desigualdad triangular:</strong> \(\|\mathbf{x} + \mathbf{y}\| \le \|\mathbf{x}\| + \|\mathbf{y}\|\).</li>
+          </ul>
+          <div class="ex">
+            <span class="ex-tag">Ejemplo</span>
+            <p>Para \(\mathbf{x} = (3, -1, 2)\): \(\|\mathbf{x}\| = \sqrt{9+1+4} = \sqrt{14} \approx 3.742\).</p>
+            <p>Para \(\mathbf{y} = (1, 2, -1)\): \(d(\mathbf{x}, \mathbf{y}) = \sqrt{(3-1)^2 + (-1-2)^2 + (2+1)^2} = \sqrt{4+9+9} = \sqrt{22} \approx 4.690\).</p>
+          </div>
+        </article>
+
+        <!-- 1.5 -->
+        <article class="sec" id="t15">
+          <div class="sec-no">1.5</div>
+          <h3>Conjuntos abiertos, cerrados y vecindades</h3>
+          <div class="def">
+            <span class="def-tag">Definiciones</span>
+            <p>Una <strong>vecindad</strong> (bola abierta) de \(\mathbf{a}\) con radio \(r > 0\) es:</p>
+            <p style="display:flex;justify-content:center;padding:6px 0">\( B(\mathbf{a}, r) = \{\mathbf{x} \in \mathbb{R}^n : \|\mathbf{x} - \mathbf{a}\| < r \} \)</p>
+            <p>Una <strong>vecindad agujerada</strong> es:</p>
+            <p style="display:flex;justify-content:center;padding:6px 0">\( B^*(\mathbf{a}, r) = B(\mathbf{a}, r) \setminus \{\mathbf{a}\} \)</p>
+          </div>
+          <ul>
+            <li><strong>Conjunto abierto:</strong> todo punto tiene una vecindad contenida en el conjunto.</li>
+            <li><strong>Conjunto cerrado:</strong> su complemento es abierto.</li>
+            <li><strong>Punto frontera:</strong> toda vecindad contiene puntos del conjunto y de su complemento.</li>
+          </ul>
+          <div class="ex">
+            <span class="ex-tag">Ejemplo</span>
+            <p>En \(\mathbb{R}^2\), el disco abierto \(D = \{(x,y) : x^2 + y^2 < 1\}\) es <strong>abierto</strong>.</p>
+            <p>El disco cerrado \( \overline{D} = \{(x,y) : x^2 + y^2 \le 1\}\) es <strong>cerrado</strong>.</p>
+            <p>Su <strong>frontera</strong> es la circunferencia \(x^2 + y^2 = 1\).</p>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== SIMULADOR ==================== -->
+<section class="view" id="v-simulador" hidden>
+  <div class="wrap">
+    <div class="view-head">
+      <p class="overline">Laboratorio de simulación · Actividad práctica</p>
+      <h2>Simulador de vectores y regiones</h2>
+      <p class="sub">Elige una operación o una región, ajusta los datos y presiona Ejecutar. El resultado se dibuja en el panel derecho.</p>
+    </div>
+
+    <div class="lab-grid">
+      <div class="panel">
+        <div class="panel-head"><i data-lucide="sliders-horizontal"></i>Panel de control</div>
+        <div class="panel-body">
+
+          <div class="sim-tabs">
+            <button class="sim-tab active" data-stab="vec" type="button">Vectores</button>
+            <button class="sim-tab" data-stab="region" type="button">Regiones</button>
+          </div>
+
+          <!-- MODO VECTORES -->
+          <div class="sim-panel active" id="st-vec">
+            <div class="field" style="margin-bottom:14px">
+              <label>1 · Elige la operación</label>
+              <select id="vecOp">
+                <option value="suma">Suma — u + v</option>
+                <option value="resta">Resta — u − v</option>
+                <option value="punto">Producto punto — u · v</option>
+                <option value="escalar">Producto por escalar — α·u</option>
+                <option value="norma">Norma y distancia — ‖u‖, ‖v‖, d(u,v)</option>
+              </select>
+            </div>
+            <p class="overline" style="margin:4px 0 8px">2 · Datos</p>
+            <div class="vec-input cols2">
+              <div class="field"><label>u — x</label><input id="ux1" type="number" value="5" step="0.5"></div>
+              <div class="field"><label>u — y</label><input id="uy1" type="number" value="3" step="0.5"></div>
+            </div>
+            <div class="vec-input cols2" id="rowV">
+              <div class="field"><label>v — x</label><input id="ux2" type="number" value="-4" step="0.5"></div>
+              <div class="field"><label>v — y</label><input id="uy2" type="number" value="5" step="0.5"></div>
+            </div>
+            <div class="vec-input" id="rowAlpha" hidden>
+              <div class="field"><label>α (escalar)</label><input id="vscalar" type="number" value="2" step="0.5"></div>
+            </div>
+            <div class="vec-actions">
+              <button class="btn" id="btnVecRun" type="button" style="flex:1;justify-content:center">
+                <i data-lucide="play"></i>Ejecutar
+              </button>
+            </div>
+            <div class="vec-result" id="vecResult"><p class="hint">El resultado aparecerá aquí.</p></div>
+            <p class="note"><strong>Consejo:</strong> los ejes van de −15 a 15. Con la <strong>suma</strong> se muestra la ley del paralelogramo.</p>
+          </div>
+
+          <!-- MODO REGIONES -->
+          <div class="sim-panel" id="st-region">
+            <div class="field" style="margin-bottom:10px">
+              <label>1 · Elige la región</label>
+              <select id="regionSel">
+                <option value="disco">Disco abierto — x² + y² &lt; 4</option>
+                <option value="disco-cerrado">Disco cerrado — x² + y² ≤ 4</option>
+                <option value="banda">Corona abierta — 1 &lt; x² + y² &lt; 4</option>
+                <option value="banda-mixta">Corona mixta — 1 ≤ x² + y² &lt; 4 (Ejercicio 3)</option>
+                <option value="semiespacio">Semiplano — y &gt; x + 1</option>
+                <option value="dominio1">Dominio de √(x+y) — x + y ≥ 0</option>
+                <option value="dominio2">Dominio de ln(x²−1) — x² − 1 &gt; 0</option>
+                <option value="triangulo">Triángulo — x&gt;0, y&gt;0, x+y&lt;1</option>
+                <option value="custom">Personalizada…</option>
+              </select>
+            </div>
+            <p class="hint" id="regionDesc" style="margin-bottom:12px"></p>
+            <div id="regionInputs" hidden>
+              <div class="vec-input">
+                <div class="field" style="grid-column:1/-1">
+                  <label>Condición principal</label>
+                  <input id="regExpr" type="text" spellcheck="false" placeholder="Ej: x^2+y^2 &lt; 4">
+                </div>
+                <div class="field" style="grid-column:1/-1">
+                  <label>Condición adicional (opcional)</label>
+                  <input id="regExpr2" type="text" spellcheck="false" placeholder="Ej: y &gt; 0">
+                </div>
+              </div>
+            </div>
+            <div class="vec-actions">
+              <button class="btn" id="btnRegionPlot" type="button" style="flex:1;justify-content:center">
+                <i data-lucide="paintbrush-2"></i>Graficar
+              </button>
+            </div>
+            <div class="region-result" id="regionResult"><p class="hint">La clasificación aparecerá aquí.</p></div>
+            <p class="note"><strong>Personalizada:</strong> usa <code>x</code>, <code>y</code>, números, <code>^</code>, <code>sqrt</code>, <code>ln</code>, <code>abs</code> y comparaciones <code>&lt;</code>, <code>&gt;</code>, <code>&lt;=</code>, <code>&gt;=</code>. También cadenas como <code>1 &lt; x^2+y^2 &lt; 4</code>.</p>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="panel graph-frame">
+        <div class="panel-head"><i data-lucide="chart-line"></i>Visualización</div>
+        <div class="zoom-ctrls">
+          <button id="btnZoomIn" title="Zoom In">+</button>
+          <button id="btnZoomOut" title="Zoom Out">−</button>
+          <button id="btnZoomReset" title="Reset" style="font-size:13px;">↺</button>
+        </div>
+        <div class="zoom-indicator" id="zoomIndicator">×1.0</div>
+        <canvas id="simCanvas"></canvas>
+        <div class="graph-cap" id="graphCap">Ventana de −15 a 15 en ambos ejes. Rueda del mouse o pellizco para zoom.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== ACTIVIDADES ==================== -->
+<section class="view" id="v-actividades" hidden>
+  <div class="wrap">
+    <div class="view-head">
+      <p class="overline">Zona de evaluación</p>
+      <h2>Actividades de la Unidad 1</h2>
+      <p class="sub">Ejercicios guiados, redacción con LaTeX, quiz y problemas del Marsden-Tromba. Todo tu avance se guarda automáticamente.</p>
+    </div>
+
+    <!-- Rúbrica -->
+    <div class="act-block">
+      <h3>Rúbrica de evaluación</h3>
+      <p class="act-desc">Ponderación de cada instrumento sobre la calificación de la unidad (nota final sobre 10).</p>
+      <div class="rub-row"><span class="rub-name">Prácticas en el simulador (operaciones y regiones)</span><div class="rub-bar"><div style="width:15%"></div></div><span class="rub-pct">15%</span></div>
+      <div class="rub-row"><span class="rub-name">Ejercicios guiados (solución detallada)</span><div class="rub-bar"><div style="width:25%"></div></div><span class="rub-pct">25%</span></div>
+      <div class="rub-row"><span class="rub-name">Quiz de autoevaluación</span><div class="rub-bar"><div style="width:30%"></div></div><span class="rub-pct">30%</span></div>
+      <div class="rub-row"><span class="rub-name">Tarea: problemas del Marsden-Tromba</span><div class="rub-bar"><div style="width:30%"></div></div><span class="rub-pct">30%</span></div>
+    </div>
+
+    <!-- Ejercicios guiados -->
+    <div class="act-block" id="ejBlock">
+      <h3>Ejercicios guiados con solución</h3>
+      <p class="act-desc">Intenta resolverlos por escrito antes de desplegar la solución. Al terminar cada uno, márcalo como resuelto.</p>
+
+      <details class="sol">
+        <summary><span class="sol-marker">+</span><span><span class="prob-tag">Ejercicio 1 · Vectores en \(\mathbb{R}^2\)</span>Dados \(\mathbf{u}=(2,-1)\) y \(\mathbf{v}=(3,4)\), calcula: (a) \(\mathbf{u}+\mathbf{v}\), (b) \(\mathbf{u}-\mathbf{v}\), (c) \(\mathbf{u}\cdot\mathbf{v}\), (d) \(2\mathbf{u}\).</span></summary>
+        <div class="sol-body">
+          <p><strong>(a)</strong> \(\mathbf{u}+\mathbf{v} = (2+3, -1+4) = (5, 3)\).</p>
+          <p><strong>(b)</strong> \(\mathbf{u}-\mathbf{v} = (2-3, -1-4) = (-1, -5)\).</p>
+          <p><strong>(c)</strong> \(\mathbf{u}\cdot\mathbf{v} = 2\cdot3 + (-1)\cdot4 = 6-4 = 2\).</p>
+          <p><strong>(d)</strong> \(2\mathbf{u} = (4, -2)\).</p>
+          <label class="chk chk-ej" style="margin-top:14px"><input type="checkbox" data-ej="e1"><span>Ya resolví este ejercicio y verifiqué mi resultado</span></label>
+        </div>
+      </details>
+
+      <details class="sol">
+        <summary><span class="sol-marker">+</span><span><span class="prob-tag">Ejercicio 2 · Norma y distancia</span>Para \(\mathbf{u}=(1,2,2)\) y \(\mathbf{v}=(3,0,4)\) en \(\mathbb{R}^3\), calcula: (a) \(\|\mathbf{u}\|\), (b) \(\|\mathbf{v}\|\), (c) \(d(\mathbf{u},\mathbf{v})\).</span></summary>
+        <div class="sol-body">
+          <p><strong>(a)</strong> \(\|\mathbf{u}\| = \sqrt{1^2+2^2+2^2} = \sqrt{9} = 3\).</p>
+          <p><strong>(b)</strong> \(\|\mathbf{v}\| = \sqrt{3^2+0^2+4^2} = \sqrt{25} = 5\).</p>
+          <p><strong>(c)</strong> \(\mathbf{u}-\mathbf{v} = (-2,2,-2)\), \(d(\mathbf{u},\mathbf{v}) = \sqrt{4+4+4} = \sqrt{12} = 2\sqrt{3}\).</p>
+          <label class="chk chk-ej" style="margin-top:14px"><input type="checkbox" data-ej="e2"><span>Ya resolví este ejercicio y verifiqué mi resultado</span></label>
+        </div>
+      </details>
+
+      <details class="sol">
+        <summary><span class="sol-marker">+</span><span><span class="prob-tag">Ejercicio 3 · Conjuntos abiertos y cerrados</span>Describe el conjunto \(A = \{(x,y) \in \mathbb{R}^2 : 1 \le x^2+y^2 < 4\}\). ¿Es abierto, cerrado o ninguno? Identifica su frontera.</span></summary>
+        <div class="sol-body">
+          <p>\(A\) es un anillo (corona circular) con radio interior 1 (incluido) y radio exterior 2 (excluido).</p>
+          <p><strong>No es abierto:</strong> los puntos con \(x^2+y^2=1\) no tienen vecindad contenida en \(A\).</p>
+          <p><strong>No es cerrado:</strong> los puntos con \(x^2+y^2=2\) no están en \(A\) pero son límite de puntos de \(A\).</p>
+          <p><strong>Frontera:</strong> las circunferencias \(x^2+y^2=1\) y \(x^2+y^2=4\).</p>
+          <label class="chk chk-ej" style="margin-top:14px"><input type="checkbox" data-ej="e3"><span>Ya resolví este ejercicio y verifiqué mi resultado</span></label>
+        </div>
+      </details>
+
+      <details class="sol">
+        <summary><span class="sol-marker">+</span><span><span class="prob-tag">Ejercicio 4 · Vecindades</span>Sea \(\mathbf{a}=(1,2)\) y \(r=2\). (a) Describe \(B(\mathbf{a},r)\). (b) ¿El punto \((2,3)\) pertenece a la vecindad? (c) ¿Y el punto \((3,3)\)?</span></summary>
+        <div class="sol-body">
+          <p><strong>(a)</strong> \(B((1,2),2) = \{(x,y) : (x-1)^2 + (y-2)^2 < 4\}\), un disco abierto de radio 2 centrado en \((1,2)\).</p>
+          <p><strong>(b)</strong> Para \((2,3)\): \((2-1)^2+(3-2)^2 = 1+1=2<4\) → <strong>sí</strong> pertenece.</p>
+          <p><strong>(c)</strong> Para \((3,3)\): \((3-1)^2+(3-2)^2 = 4+1=5>4\) → <strong>no</strong> pertenece.</p>
+          <label class="chk chk-ej" style="margin-top:14px"><input type="checkbox" data-ej="e4"><span>Ya resolví este ejercicio y verifiqué mi resultado</span></label>
+        </div>
+      </details>
+    </div>
+
+    <!-- Refuerzo con redacción -->
+    <div class="act-block" id="redBlock">
+      <h3>Refuerzo: redacta tu solución</h3>
+      <p class="act-desc">Cuatro problemas adicionales sin solución visible. Escribe tu procedimiento completo en el editor con LaTeX y vista previa instantánea.</p>
+
+      <details class="sol">
+        <summary><span class="sol-marker">+</span><span><span class="prob-tag">Ejercicio 5 · Demostración de conjunto abierto</span>Demuestra que el conjunto \(A = \{(x,y) \in \mathbb{R}^2 : x^2+y^2 < 1\}\) es abierto en \(\mathbb{R}^2\).</span></summary>
+        <div class="sol-body">
+          <p>Incluye en tu redacción: la definición de conjunto abierto, cómo elegir el radio de la vecindad para cualquier punto de \(A\), y la conclusión formal.</p>
+          <div class="ed-box" data-ed="e5"></div>
+          <details class="mini-check">
+            <summary>Estructura sugerida para tu redacción</summary>
+            <div class="sol-body">
+              <p>Para cualquier \(\mathbf{a}\in A\), sea \(r = 1 - \|\mathbf{a}\| > 0\). Entonces \(B(\mathbf{a}, r) \subset A\) porque \(\|\mathbf{x}-\mathbf{a}\| < r\) implica \(\|\mathbf{x}\| \le \|\mathbf{a}\| + \|\mathbf{x}-\mathbf{a}\| < \|\mathbf{a}\| + 1 - \|\mathbf{a}\| = 1\).</p>
+            </div>
+          </details>
+        </div>
+      </details>
+
+      <details class="sol">
+        <summary><span class="sol-marker">+</span><span><span class="prob-tag">Ejercicio 6 · Dominio de una función</span>Encuentra y describe geométricamente el dominio de \(f(x,y) = \sqrt{x+y} + \ln(x^2-1)\).</span></summary>
+        <div class="sol-body">
+          <p>Identifica las condiciones para que la raíz y el logaritmo estén bien definidos, y expresa el dominio como intersección de dos conjuntos.</p>
+          <div class="ed-box" data-ed="e6"></div>
+          <details class="mini-check">
+            <summary>Respuestas de control (solo resultados)</summary>
+            <div class="sol-body">
+              <p>Condiciones: \(x+y \ge 0\) y \(x^2-1 > 0\) (es decir, \(x>1\) o \(x<-1\)).</p>
+              <p>Dominio: \(D = \{(x,y) : x+y \ge 0 \text{ y } (x>1 \text{ o } x<-1)\}\). No es abierto (la frontera \(x+y=0\) está incluida) ni cerrado (las fronteras \(x=\pm1\) están excluidas).</p>
+            </div>
+          </details>
+        </div>
+      </details>
+
+      <details class="sol">
+        <summary><span class="sol-marker">+</span><span><span class="prob-tag">Ejercicio 7 · Desigualdad triangular</span>Con \(\mathbf{u}=(3,-4)\) y \(\mathbf{v}=(-4,3)\), verifica numéricamente que \(\|\mathbf{u}+\mathbf{v}\| \le \|\mathbf{u}\|+\|\mathbf{v}\|\) y explica en qué caso se cumple la igualdad.</span></summary>
+        <div class="sol-body">
+          <p>Calcula cada norma por separado, la norma de la suma, y compara. Para la igualdad, piensa en la relación geométrica que deben tener \(\mathbf{u}\) y \(\mathbf{v}\).</p>
+          <div class="ed-box" data-ed="e7"></div>
+          <details class="mini-check">
+            <summary>Respuestas de control (solo resultados)</summary>
+            <div class="sol-body">
+              <p>\(\|\mathbf{u}\| = 5\), \(\|\mathbf{v}\| = 5\), \(\mathbf{u}+\mathbf{v} = (-1,-1)\), \(\|\mathbf{u}+\mathbf{v}\| = \sqrt{2} \approx 1.414 \le 10\). La igualdad \(\|\mathbf{u}+\mathbf{v}\| = \|\mathbf{u}\|+\|\mathbf{v}\|\) se da solo si un vector es múltiplo escalar no negativo del otro (\(\mathbf{v} = \alpha\mathbf{u}\) con \(\alpha \ge 0\)).</p>
+            </div>
+          </details>
+        </div>
+      </details>
+
+      <details class="sol">
+        <summary><span class="sol-marker">+</span><span><span class="prob-tag">Ejercicio 8 · Punto frontera</span>Demuestra que todo punto de la circunferencia \(x^2+y^2=1\) es punto frontera del disco abierto \(D = \{(x,y) : x^2+y^2 < 1\}\).</span></summary>
+        <div class="sol-body">
+          <p>Usa la definición de punto frontera: toda vecindad del punto contiene puntos de \(D\) y puntos fuera de \(D\).</p>
+          <div class="ed-box" data-ed="e8"></div>
+        </div>
+      </details>
+    </div>
+
+    <!-- Quiz -->
+    <div class="act-block">
+      <h3>Quiz de autoevaluación</h3>
+      <p class="act-desc">Seis preguntas de opción múltiple. Tu mejor intento se registra en tu boleta.</p>
+      <div id="quizList"></div>
+      <div class="quiz-foot">
+        <button class="btn" id="btnGrade"><i data-lucide="check-check"></i>Calificar quiz</button>
+        <button class="btn ghost" id="btnQuizReset"><i data-lucide="rotate-ccw"></i>Reintentar</button>
+        <div class="quiz-result" id="quizResult"></div>
+      </div>
+    </div>
+
+    <!-- Tarea -->
+    <div class="act-block" style="margin-bottom:0">
+      <h3>Tarea — problemas del Marsden-Tromba</h3>
+      <p class="act-desc">Resuelve los ejercicios seleccionados del Capítulo 1 y registra tu avance. Fecha límite: <strong id="taskDeadline"></strong>.</p>
+      <div class="task-panel">
+        <div class="panel">
+          <div class="panel-head"><i data-lucide="list-checks"></i>Avance de la tarea</div>
+          <div class="panel-body">
+            <div style="display:flex;justify-content:space-between;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:8px">
+              <span>Progreso</span><span id="taskPct">0 / 8 · 0%</span>
+            </div>
+            <div class="conv-bar" style="margin-bottom:18px"><div id="taskBar"></div></div>
+            <div id="taskList"></div>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="panel-head"><i data-lucide="file-text"></i>Instrucciones de entrega</div>
+          <div class="panel-body">
+            <ol style="margin-left:20px;font-size:14.5px">
+              <li style="margin-bottom:9px">Resuelve a mano o en LaTeX, justificando cada paso.</li>
+              <li style="margin-bottom:9px">Identifica: espacio \(\mathbb{R}^n\), operaciones usadas, propiedades aplicadas.</li>
+              <li style="margin-bottom:9px">Marca aquí cada problema terminado; el avance se guarda automáticamente.</li>
+              <li>Entrega el PDF en la plataforma el día de la sesión 4.</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== MI BOLETA ==================== -->
+<section class="view" id="v-boleta" hidden>
+  <div class="wrap">
+    <div class="view-head">
+      <p class="overline">Expediente individual</p>
+      <h2>Mi registro y nota de resultados</h2>
+      <p class="sub">Regístrate una sola vez: tu progreso y tu nota final quedan a tu nombre, y puedes descargar tu boleta como imagen.</p>
+    </div>
+
+    <div class="panel" id="regEmpty" style="max-width:560px">
+      <div class="panel-head"><i data-lucide="user-plus"></i>Ficha de registro individual</div>
+      <div class="panel-body">
+        <form id="formEst" style="display:grid;gap:14px" novalidate>
+          <div class="field">
+            <label for="alNombre">Nombre completo</label>
+            <input id="alNombre" type="text" placeholder="Ej. Ana Sofía Delgado Ruiz" autocomplete="off">
+          </div>
+          <div class="field">
+            <label for="alMat">Matrícula</label>
+            <input id="alMat" type="text" placeholder="Ej. 20240315" autocomplete="off">
+          </div>
+          <div class="field">
+            <label for="alMail">Correo electrónico</label>
+            <input id="alMail" type="email" placeholder="nombre@universidad.edu.mx" autocomplete="off">
+          </div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap">
+            <button class="btn" type="submit" id="btnEstSave"><i data-lucide="user-plus"></i><span>Registrarme</span></button>
+            <button class="btn ghost" type="button" id="btnEstCancel" hidden>Cancelar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div id="boletaWrap" hidden>
+      <div class="boleta-card" id="boletaCard">
+        <div class="b-head">
+          <span class="avatar" id="bAvatar">··</span>
+          <div>
+            <div class="b-title">Boleta de evaluación · Unidad 1 — Fundamentos y espacio euclídeo</div>
+            <div class="b-name" id="bName">—</div>
+            <div class="b-meta" id="bMeta">—</div>
+          </div>
+          <div class="b-seal"><span>Cálculo<br>II</span><strong>Unidad 1</strong></div>
+        </div>
+        <div class="b-body" id="bRows"></div>
+        <div class="b-total">
+          <div>
+            <div class="b-total-lbl">Nota final de la unidad</div>
+            <div class="b-total-det">Simulador 15% · Ejercicios 25% · Quiz 30% · Tarea 30%</div>
+          </div>
+          <div class="b-score"><span class="big" id="bNota">0.0</span><span class="den">/ 10</span></div>
+        </div>
+        <div class="b-foot">
+          <span>Emitida: <strong id="bEmit">—</strong></span>
+          <span>Registro desde: <strong id="bSince">—</strong></span>
+          <span>Cálculo II · Dr. Adrián Cerda</span>
+        </div>
+      </div>
+
+      <div class="boleta-actions">
+        <button class="btn" id="btnBoletaPng"><i data-lucide="download"></i>Descargar boleta (PNG)</button>
+        <button class="btn ghost" id="btnEstEdit"><i data-lucide="pencil"></i>Editar datos</button>
+        <button class="del-btn" id="btnEstDel"><i data-lucide="trash-2"></i><span>Borrar registro y avance</span></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap foot-row">
+    <div><strong>Referencia:</strong> Marsden, J. E. &amp; Tromba, A. J. — <em>Cálculo Vectorial</em>, 6.ª ed., Capítulo 1.</div>
+    <div>Aula interactiva de Cálculo II · Universidad Internacional de Innovación · los datos se guardan solo en este navegador.</div>
+  </div>
+</footer>
+
+<div id="toasts"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+
+<!-- ==================== PARTE 2 AQUÍ (bloque <script> principal + cierre del documento) ==================== -->
+<script>
+/* ============================================================
+   UTILIDADES
+============================================================ */
+const $  = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+const INK='#0B0D10', PINE='#1670C8', TERRA='#0B4E8F', AZUL='#2E9BF0';
+
+function esc(s){ return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function fmt(n){ if(!isFinite(n)) return '—'; return String(Math.round(n*1000)/1000); }
+function fmtV(v){ return '('+fmt(v[0])+', '+fmt(v[1])+')'; }
+function refreshIcons(){ if(window.lucide) lucide.createIcons(); }
+function toast(msg, type='ok'){
+  const box=$('#toasts'), t=document.createElement('div');
+  t.className='toast '+type;
+  t.innerHTML = `<i data-lucide="${type==='ok'?'check-circle-2':'alert-circle'}"></i><span>${msg}</span>`;
+  box.appendChild(t); refreshIcons();
+  setTimeout(()=>{ t.classList.add('out'); setTimeout(()=>t.remove(), 320); }, 3200);
+}
+
+/* ============================================================
+   PERSISTENCIA (mismas claves: no se pierde el avance)
+============================================================ */
+const LS_EST='aula_estudiante';
+const LS_ACT='aula_actividades';
+const CURSO='unidad1';
+function loadEst(){ try{ return JSON.parse(localStorage.getItem(LS_EST)); }catch(e){ return null; } }
+function saveEst(e){ localStorage.setItem(LS_EST, JSON.stringify(e)); }
+function loadAct(){ try{ return JSON.parse(localStorage.getItem(LS_ACT)||'{}'); }catch(e){ return {}; } }
+function act(){
+  const a=loadAct();
+  a[CURSO]=a[CURSO]||{ sim:{}, ej:{}, quiz:null, tarea:{}, red:{} };
+  a[CURSO].sim=a[CURSO].sim||{};
+  a[CURSO].ej=a[CURSO].ej||{};
+  a[CURSO].tarea=a[CURSO].tarea||{};
+  a[CURSO].red=a[CURSO].red||{};
+  return a;
+}
+function saveAct(a){ localStorage.setItem(LS_ACT, JSON.stringify(a)); }
+
+/* ============================================================
+   NAVEGACIÓN
+============================================================ */
+function showView(v){
+  $$('.view').forEach(s => s.hidden = true);
+  $('#v-'+v).hidden = false;
+  $$('.nav-btn').forEach(b => b.classList.toggle('active', b.dataset.view === v));
+  window.scrollTo({top:0, behavior:'smooth'});
+  if(v==='inicio')    requestAnimationFrame(drawHero);
+  if(v==='simulador') requestAnimationFrame(renderSim);
+}
+ $$('[data-view]').forEach(el => el.addEventListener('click', e => {
+  if(el.tagName==='A'){ e.preventDefault(); }
+  if(document.getElementById('v-'+el.dataset.view)) showView(el.dataset.view);
+}));
+
+/* ============================================================
+   CANVAS: utilidades de dibujo
+============================================================ */
+function setupCanvas(cv){
+  const dpr = window.devicePixelRatio||1;
+  const r = cv.getBoundingClientRect();
+  const w = Math.max(40, r.width), h = Math.max(40, r.height);
+  if(cv.width !== Math.round(w*dpr)) cv.width = Math.round(w*dpr);
+  if(cv.height !== Math.round(h*dpr)) cv.height = Math.round(h*dpr);
+  const ctx = cv.getContext('2d');
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+  return {ctx, w, h};
+}
+
+function drawGrid(ctx,w,h,s,R){
+  ctx.clearRect(0,0,w,h);
+  const bg = ctx.createLinearGradient(0,0,0,h);
+  bg.addColorStop(0,'#FBFDFF'); bg.addColorStop(1,'#F0F6FF');
+  ctx.fillStyle=bg; ctx.fillRect(0,0,w,h);
+  const xmax=w/2/s, ymax=h/2/s;
+  let step=1;
+  if(s<8) step=5; else if(s<20) step=2;
+  for(let i=Math.ceil(-xmax); i<=Math.floor(xmax); i++){
+    const isMaj=(i%5===0);
+    ctx.strokeStyle=isMaj?'rgba(11,13,16,.15)':'rgba(11,13,16,.055)';
+    ctx.lineWidth=isMaj?.9:.6;
+    ctx.beginPath(); ctx.moveTo(w/2+i*s,0); ctx.lineTo(w/2+i*s,h); ctx.stroke();
+  }
+  for(let j=Math.ceil(-ymax); j<=Math.floor(ymax); j++){
+    const isMaj=(j%5===0);
+    ctx.strokeStyle=isMaj?'rgba(11,13,16,.15)':'rgba(11,13,16,.055)';
+    ctx.lineWidth=isMaj?.9:.6;
+    ctx.beginPath(); ctx.moveTo(0,h/2-j*s); ctx.lineTo(w,h/2-j*s); ctx.stroke();
+  }
+  drawAxes(ctx,w,h,s,R);
+}
+function drawAxes(ctx,w,h,s,R){
+  ctx.strokeStyle=INK; ctx.lineWidth=1.8;
+  ctx.beginPath(); ctx.moveTo(0,h/2); ctx.lineTo(w,h/2); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(w/2,0); ctx.lineTo(w/2,h); ctx.stroke();
+  ctx.fillStyle=INK;
+  ctx.beginPath(); ctx.moveTo(w,h/2); ctx.lineTo(w-8,h/2-4); ctx.lineTo(w-8,h/2+4); ctx.closePath(); ctx.fill();
+  ctx.beginPath(); ctx.moveTo(w/2,0); ctx.lineTo(w/2-4,8); ctx.lineTo(w/2+4,8); ctx.closePath(); ctx.fill();
+  ctx.fillStyle='rgba(11,13,16,.60)'; ctx.font='bold 11px "Instrument Sans", sans-serif';
+  ctx.textAlign='left'; ctx.textBaseline='bottom'; ctx.fillText('x',w-10,h/2-4);
+  ctx.textAlign='center'; ctx.textBaseline='top'; ctx.fillText('y',w/2+5,4);
+  const xmax=Math.floor(w/2/s), ymax=Math.floor(h/2/s);
+  let labelStep=1;
+  if(xmax>40) labelStep=10; else if(xmax>20) labelStep=5; else if(xmax>10) labelStep=2;
+  ctx.fillStyle='rgba(11,13,16,.55)'; ctx.font='10px "Instrument Sans", sans-serif';
+  ctx.textAlign='center'; ctx.textBaseline='top';
+  for(let i=-xmax; i<=xmax; i+=labelStep){ if(i!==0) ctx.fillText(String(i), w/2+i*s, h/2+4); }
+  ctx.textAlign='right'; ctx.textBaseline='middle';
+  for(let j=-ymax; j<=ymax; j+=labelStep){ if(j!==0) ctx.fillText(String(j), w/2-4, h/2-j*s); }
+}
+function drawArrow(ctx,w,h,s,x,y,color,label,fromX,fromY,glowing){
+  const ox=fromX!==undefined?w/2+fromX*s:w/2;
+  const oy=fromY!==undefined?h/2-fromY*s:h/2;
+  const qx=w/2+x*s, qy=h/2-y*s;
+  if(Math.hypot(qx-ox,qy-oy)<2) return;
+  ctx.save();
+  if(glowing){ ctx.shadowColor=color; ctx.shadowBlur=8; }
+  ctx.strokeStyle=color; ctx.fillStyle=color; ctx.lineWidth=2.8;
+  ctx.lineCap='round';
+  ctx.beginPath(); ctx.moveTo(ox,oy); ctx.lineTo(qx,qy); ctx.stroke();
+  const ang=Math.atan2(qy-oy, qx-ox);
+  const aLen=13, aAng=0.38;
+  ctx.beginPath();
+  ctx.moveTo(qx,qy);
+  ctx.lineTo(qx-aLen*Math.cos(ang-aAng), qy-aLen*Math.sin(ang-aAng));
+  ctx.lineTo(qx-aLen*Math.cos(ang+aAng), qy-aLen*Math.sin(ang+aAng));
+  ctx.closePath(); ctx.fill();
+  if(label){
+    ctx.shadowBlur=0;
+    ctx.font='700 12px "Instrument Sans", sans-serif';
+    const midX=(ox+qx)/2, midY=(oy+qy)/2;
+    const nx=-Math.sin(ang)*16, ny=Math.cos(ang)*16;
+    const lx=midX+nx, ly=midY+ny;
+    ctx.strokeStyle='rgba(255,255,255,.85)'; ctx.lineWidth=4; ctx.lineJoin='round';
+    ctx.strokeText(label, Math.max(6,Math.min(w-6,lx)), Math.max(6,Math.min(h-6,ly)));
+    ctx.fillStyle=color;
+    ctx.fillText(label, Math.max(6,Math.min(w-6,lx)), Math.max(6,Math.min(h-6,ly)));
+  }
+  ctx.restore();
+}
+function drawArrowTip(ctx,w,h,s,x,y,color){
+  const qx=w/2+x*s, qy=h/2-y*s;
+  ctx.save();
+  ctx.beginPath(); ctx.arc(qx,qy,7,0,Math.PI*2);
+  ctx.fillStyle='rgba(255,255,255,.9)';
+  ctx.shadowColor=color; ctx.shadowBlur=6;
+  ctx.fill();
+  ctx.strokeStyle=color; ctx.lineWidth=2.5;
+  ctx.stroke();
+  ctx.restore();
+}
+function drawDash(ctx,w,h,s,pts,color,dash){
+  ctx.save();
+  ctx.strokeStyle=color; ctx.lineWidth=1.3; ctx.setLineDash(dash||[5,4]);
+  ctx.beginPath();
+  pts.forEach((p,i)=>{ const px=w/2+p[0]*s, py=h/2-p[1]*s; i? ctx.lineTo(px,py) : ctx.moveTo(px,py); });
+  ctx.stroke(); ctx.restore();
+}
+
+/* ============================================================
+   HERO — VECTORES INTERACTIVOS (DRAG) — P4 CORREGIDO (retina)
+============================================================ */
+let heroU=[6,2], heroV=[-2,6], heroOp='suma';
+let heroDrag=null;
+const HERO_RANGE=10;
+
+function drawHero(){
+  const cv=$('#heroCanvas'); if(!cv || cv.offsetParent===null) return;
+  const {ctx,w,h}=setupCanvas(cv);
+  const s=Math.min(w,h)/(2*HERO_RANGE);
+  drawGrid(ctx,w,h,s,HERO_RANGE);
+  const u=heroU, v=heroV;
+  let r, rLabel, rColor;
+  if(heroOp==='suma'){
+    r=[u[0]+v[0], u[1]+v[1]]; rLabel='u+v'; rColor=AZUL;
+    drawDash(ctx,w,h,s,[u,r],'rgba(46,155,240,.50)',[4,4]);
+    drawDash(ctx,w,h,s,[v,r],'rgba(22,112,200,.50)',[4,4]);
+  } else if(heroOp==='resta'){
+    r=[u[0]-v[0], u[1]-v[1]]; rLabel='u−v'; rColor='#8B5CF6';
+    drawDash(ctx,w,h,s,[u,r],'rgba(139,92,246,.40)',[4,4]);
+  } else {
+    r=null; rLabel=null; rColor=null;
+  }
+  if(r) drawArrow(ctx,w,h,s,r[0],r[1],rColor,rLabel,undefined,undefined,false);
+  drawArrow(ctx,w,h,s,u[0],u[1],PINE,'u',undefined,undefined,heroDrag==='u');
+  drawArrow(ctx,w,h,s,v[0],v[1],INK,'v',undefined,undefined,heroDrag==='v');
+  drawArrowTip(ctx,w,h,s,u[0],u[1],PINE);
+  drawArrowTip(ctx,w,h,s,v[0],v[1],INK);
+  const bu=$('#badgeU'), bv=$('#badgeV'), br=$('#badgeR'), bd=$('#badgeDot');
+  if(bu) bu.innerHTML='<strong>u</strong> = ('+fmt(u[0])+', '+fmt(u[1])+')';
+  if(bv) bv.innerHTML='<strong>v</strong> = ('+fmt(v[0])+', '+fmt(v[1])+')';
+  if(heroOp==='punto'){
+    const dot=u[0]*v[0]+u[1]*v[1];
+    const nu=Math.hypot(u[0],u[1]), nv=Math.hypot(v[0],v[1]);
+    const theta=(nu>0&&nv>0)?fmt(Math.acos(Math.max(-1,Math.min(1,dot/(nu*nv))))*180/Math.PI)+'°':'—';
+    if(br) br.style.display='none';
+    if(bd){ bd.style.display='inline-flex'; bd.innerHTML='<strong>u·v</strong> = '+fmt(dot)+' | θ = '+theta; }
+  } else {
+    if(bd) bd.style.display='none';
+    if(br && r){ br.style.display='inline-flex'; br.innerHTML='<strong>'+rLabel+'</strong> = ('+fmt(r[0])+', '+fmt(r[1])+') ‖='+fmt(Math.hypot(r[0],r[1]))+' ‖'; }
+  }
+}
+
+function heroCanvasCoords(cv, e){
+  const rect=cv.getBoundingClientRect();
+  const cx=(e.clientX!==undefined)?e.clientX:e.touches[0].clientX;
+  const cy=(e.clientY!==undefined)?e.clientY:e.touches[0].clientY;
+  const {w,h}=setupCanvas(cv);
+  const s=Math.min(w,h)/(2*HERO_RANGE);
+  return { mx:(cx-rect.left-w/2)/s, my:-(cy-rect.top-h/2)/s };
+}
+
+function heroGetNearestTip(cv,e){
+  const {mx,my}=heroCanvasCoords(cv,e);
+  const du=Math.hypot(mx-heroU[0], my-heroU[1]);
+  const dv=Math.hypot(mx-heroV[0], my-heroV[1]);
+  const thresh=1.5;
+  if(du<thresh && du<=dv) return 'u';
+  if(dv<thresh && dv<=du) return 'v';
+  return null;
+}
+
+function initHeroDrag(){
+  const cv=$('#heroCanvas'); if(!cv) return;
+  cv.style.cursor='grab';
+  cv.addEventListener('mousedown',e=>{
+    const tip=heroGetNearestTip(cv,e);
+    if(tip){ heroDrag=tip; cv.style.cursor='grabbing'; e.preventDefault(); }
+  });
+  window.addEventListener('mousemove',e=>{
+    if(!heroDrag) return;
+    const {mx,my}=heroCanvasCoords(cv,e);
+    const clamped=[Math.max(-HERO_RANGE+.5,Math.min(HERO_RANGE-.5,mx)),
+                   Math.max(-HERO_RANGE+.5,Math.min(HERO_RANGE-.5,my))];
+    if(heroDrag==='u') heroU=clamped; else heroV=clamped;
+    requestAnimationFrame(drawHero);
+  });
+  window.addEventListener('mouseup',()=>{ heroDrag=null; cv.style.cursor='grab'; });
+  cv.addEventListener('touchstart',e=>{
+    const tip=heroGetNearestTip(cv,e);
+    if(tip){ heroDrag=tip; e.preventDefault(); }
+  },{passive:false});
+  window.addEventListener('touchmove',e=>{
+    if(!heroDrag) return;
+    const {mx,my}=heroCanvasCoords(cv,e);
+    const clamped=[Math.max(-HERO_RANGE+.5,Math.min(HERO_RANGE-.5,mx)),
+                   Math.max(-HERO_RANGE+.5,Math.min(HERO_RANGE-.5,my))];
+    if(heroDrag==='u') heroU=clamped; else heroV=clamped;
+    requestAnimationFrame(drawHero);
+    e.preventDefault();
+  },{passive:false});
+  window.addEventListener('touchend',()=>{ heroDrag=null; });
+  $$('.hero-op-btn').forEach(btn=>btn.addEventListener('click',()=>{
+    heroOp=btn.dataset.op;
+    $$('.hero-op-btn').forEach(b=>b.classList.toggle('active',b===btn));
+    requestAnimationFrame(drawHero);
+  }));
+}
+
+/* ============================================================
+   SIMULADOR — VECTORES
+============================================================ */
+let simMode='vec', lastVecDraw={u:[5,3], v:[-4,5]}, lastPreds=null, lastBounded=true;
+let simRange=15;
+
+function drawSim(d){
+  const cv=$('#simCanvas'); if(!cv || cv.offsetParent===null) return;
+  const {ctx,w,h}=setupCanvas(cv);
+  const s=Math.min(w,h)/(2*simRange);
+  drawGrid(ctx,w,h,s,simRange);
+  if(d.par){
+    drawDash(ctx,w,h,s,[d.u, d.res, d.v, [0,0]],'rgba(11,13,16,.40)');
+    ctx.save(); ctx.fillStyle='rgba(46,155,240,.07)';
+    ctx.beginPath();
+    ctx.moveTo(w/2,h/2);
+    [[d.u],[d.res],[d.v]].forEach(p=>ctx.lineTo(w/2+p[0][0]*s, h/2-p[0][1]*s));
+    ctx.closePath(); ctx.fill(); ctx.restore();
+  }
+  if(d.seg) drawDash(ctx,w,h,s,[d.u, d.v],'rgba(11,13,16,.45)');
+  drawArrow(ctx,w,h,s,d.u[0],d.u[1],PINE,'u',undefined,undefined,true);
+  if(d.v) drawArrow(ctx,w,h,s,d.v[0],d.v[1],INK,'v',undefined,undefined,true);
+  if(d.res) drawArrow(ctx,w,h,s,d.res[0],d.res[1],AZUL, d.resLabel||'r',undefined,undefined,true);
+}
+
+function syncVecForm(){
+  const op=$('#vecOp').value;
+  $('#rowV').hidden = (op==='escalar');
+  $('#rowAlpha').hidden = (op!=='escalar');
+}
+
+function runVectors(){
+  const op=$('#vecOp').value;
+  const u=[+$('#ux1').value||0, +$('#uy1').value||0];
+  const v=[+$('#ux2').value||0, +$('#uy2').value||0];
+  const a=+$('#vscalar').value||0;
+  let rows=[], draw=null, cap='';
+  if(op==='suma' || op==='resta'){
+    const sg=(op==='suma')?1:-1;
+    const r=[u[0]+sg*v[0], u[1]+sg*v[1]];
+    rows.push([op==='suma'?'u + v':'u − v', fmtV(r)]);
+    rows.push([op==='suma'?'‖u + v‖':'‖u − v‖ = d(u,v)', fmt(Math.hypot(r[0],r[1]))]);
+    draw={u,v,res:r, par:(op==='suma'), resLabel:(op==='suma'?'u+v':'u−v')};
+    cap=(op==='suma')
+      ? 'Suma — regla del paralelogramo: la diagonal desde el origen es u+v.'
+      : 'Resta — u−v va desde la punta de v hasta la punta de u.';
+  } else if(op==='punto'){
+    const d=u[0]*v[0]+u[1]*v[1];
+    rows.push(['u · v', fmt(d)]);
+    const nu=Math.hypot(u[0],u[1]), nv=Math.hypot(v[0],v[1]);
+    if(nu>0 && nv>0){
+      const c=Math.max(-1,Math.min(1,d/(nu*nv)));
+      rows.push(['θ entre u y v', fmt(Math.acos(c)*180/Math.PI)+'°']);
+    }
+    draw={u,v};
+    cap = d>0 ? 'Producto punto positivo → ángulo agudo entre u y v.'
+        : d<0 ? 'Producto punto negativo → ángulo obtuso entre u y v.'
+        : 'Producto punto cero → vectores ortogonales.';
+  } else if(op==='escalar'){
+    const r=[a*u[0], a*u[1]];
+    rows.push(['α · u con α = '+fmt(a), fmtV(r)]);
+    rows.push(['‖α·u‖ = |α|·‖u‖', fmt(Math.abs(a)*Math.hypot(u[0],u[1]))]);
+    draw={u,res:r,resLabel:'α·u'};
+    cap='Si |α|>1 estira, si 0<|α|<1 encoge, si α<0 además invierte el sentido.';
+  } else {
+    rows.push(['‖u‖', fmt(Math.hypot(u[0],u[1]))]);
+    rows.push(['‖v‖', fmt(Math.hypot(v[0],v[1]))]);
+    rows.push(['d(u,v) = ‖u − v‖', fmt(Math.hypot(u[0]-v[0], u[1]-v[1]))]);
+    draw={u,v,seg:true};
+    cap='La distancia es la longitud del segmento que une las puntas de u y v.';
+  }
+  $('#vecResult').innerHTML = rows.map(r=>
+    '<div class="res-row"><span>'+esc(r[0])+'</span><strong class="mono">'+esc(r[1])+'</strong></div>').join('');
+  $('#graphCap').textContent = cap;
+  lastVecDraw = draw;
+  if(simMode==='vec') drawSim(draw);
+}
+
+/* ============================================================
+   SIMULADOR — REGIONES (parser limpio — P5)
+============================================================ */
+const REGIONS={
+  'disco':        {c:['x^2+y^2 < 4'],      d:'Disco abierto B(0,2): la frontera x²+y²=4 queda excluida.'},
+  'disco-cerrado':{c:['x^2+y^2 <= 4'],     d:'Disco cerrado de radio 2: frontera incluida.'},
+  'banda':        {c:['1 < x^2+y^2 < 4'],  d:'Corona abierta: ninguna frontera incluida.'},
+  'banda-mixta':  {c:['1 <= x^2+y^2 < 4'], d:'Corona mixta (Ejercicio 3): ni abierta ni cerrada.'},
+  'semiespacio':  {c:['y > x+1'],          d:'Semiplano abierto por encima de la recta y = x+1.'},
+  'dominio1':     {c:['x+y >= 0'],         d:'Dominio de f(x,y)=√(x+y): semiplano cerrado.'},
+  'dominio2':     {c:['x^2-1 > 0'],        d:'Dominio de g(x,y)=ln(x²−1): x>1 o x<−1, abierto.'},
+  'triangulo':    {c:['x > 0','y > 0','x+y < 1'], d:'Triángulo abierto: intersección de tres condiciones.'},
+  'custom':       {c:null, d:'Escribe tus condiciones (usa x, y) y presiona Graficar.'}
+};
+function syncRegionForm(){
+  const val=$('#regionSel').value;
+  $('#regionDesc').textContent = REGIONS[val].d;
+  $('#regionInputs').hidden = (val!=='custom');
+}
+
+const HELPERS={sqrt:Math.sqrt, ln:Math.log, log:Math.log10, abs:Math.abs, exp:Math.exp,
+  sin:Math.sin, cos:Math.cos, tan:Math.tan, asin:Math.asin, acos:Math.acos,
+  atan:Math.atan, pi:Math.PI, e:Math.E};
+const FN_NAMES=Object.keys(HELPERS).sort((a,b)=>b.length-a.length);
+const FN_RE=new RegExp(FN_NAMES.join('|'),'g');
+
+function compileSide(raw){
+  let t=String(raw||'').toLowerCase().replace(/\s+/g,'')
+    .replace(/sen/g,'sin').replace(/\*\*/g,'^')
+    .replace(/²/g,'^2').replace(/³/g,'^3').replace(/[−–—]/g,'-')
+    .replace(/·|×/g,'*');
+  if(!t) throw new Error('Falta una parte de la condición.');
+  const store=[];
+  const prot=t.replace(FN_RE, m=>{ store.push(m); return '\u0001'+(store.length-1)+'\u0001'; });
+  let n=prot
+    .replace(/(\d)(?=[xy(\u0001])/g,'$1*')
+    .replace(/([xy)])(?=\()/g,'$1*')
+    .replace(/([xy)])(?=[xy])/g,'$1*')
+    .replace(/([xy)])(?=\u0001)/g,'$1*')
+    .replace(/\^/g,'**');
+  let prev;
+  do{ prev=n;
+    n=n.replace(/(\*\*|[(+*,\/]|^)-/g,(m,p1)=>(p1==='**')?'-':p1+'(0-1)*');
+  }while(n!==prev);
+  n=n.replace(/\u0001(\d+)\u0001/g,(_,i)=>store[+i]);
+  if(!/^[-+*/().,\d\s@xy]*$/.test(n.replace(FN_RE,'@')))
+    throw new Error('No reconozco símbolos en «'+raw+'». Usa x, y, números y + − * / ^ ( ).');
+  let f;
+  try{ f=new Function('x','y','H','const {'+FN_NAMES.join(',')+'}=H; return ('+n+');'); }
+  catch(err){ throw new Error('La expresión «'+raw+'» no es válida.'); }
+  return (x,y)=>{ const v=f(x,y,HELPERS); return (typeof v==='number')?v:NaN; };
+}
+function compileCondition(str){
+  let s=String(str||'').trim();
+  if(!s) return [];
+  s=s.replace(/≤/g,'<=').replace(/≥/g,'>=')
+     .replace(/<=/g,'\u0002').replace(/>=/g,'\u0003')
+     .replace(/==/g,'=').replace(/=/g,'==')
+     .replace(/\u0002/g,'<=').replace(/\u0003/g,'>=')
+     .replace(/\s+/g,'');
+  const parts=s.split(/(<=|>=|==|<|>)/), preds=[];
+  if(parts.length===3){
+    preds.push({op:parts[1], raw:parts[0]+' '+parts[1]+' '+parts[2],
+      f:mkDiff(compileSide(parts[0]), compileSide(parts[2]))});
+  } else if(parts.length===5){
+    const a=parts[0], o1=parts[1], f=parts[2], o2=parts[3], b=parts[4];
+    if(!(((o1==='<'||o1==='<=')&&(o2==='<'||o2==='<=')) && a && f && b))
+      throw new Error('Cadenas tipo a < f < b: usa solo < o <= en ambas comparaciones.');
+    const A=compileSide(a), F=compileSide(f), B=compileSide(b);
+    preds.push({op:(o1==='<'?'>':'>='), raw:f+' '+(o1==='<'?'>':'>=')+' '+a, f:mkDiff(F,A)});
+    preds.push({op:o2, raw:f+' '+o2+' '+b, f:mkDiff(F,B)});
+  } else {
+    throw new Error('Usa UNA comparación (a < b) o una cadena (a < f < b).');
+  }
+  return preds;
+}
+function mkDiff(L,R){ return (x,y)=>L(x,y)-R(x,y); }
+function holds(p,x,y){
+  const v=p.f(x,y);
+  switch(p.op){
+    case '<': return v<0;  case '<=': return v<=0;
+    case '>': return v>0;  case '>=': return v>=0;
+    case '==': return Math.abs(v)<1e-9; default: return false;
+  }
+}
+function plotRegion(preds){
+  const cv=$('#simCanvas'); if(!cv || cv.offsetParent===null) return;
+  const {ctx,w,h}=setupCanvas(cv);
+  const s=Math.min(w,h)/(2*simRange);
+  drawGrid(ctx,w,h,s,simRange);
+  const step=2, nx=Math.ceil(w/step), ny=Math.ceil(h/step);
+  const mem=new Uint8Array(nx*ny);
+  lastBounded=true;
+  for(let iy=0; iy<ny; iy++){
+    const y=(h/2-(iy*step+step/2))/s;
+    for(let ix=0; ix<nx; ix++){
+      const x=((ix*step+step/2)-w/2)/s;
+      let ok=true;
+      for(let k=0;k<preds.length;k++){ if(!holds(preds[k],x,y)){ ok=false; break; } }
+      if(ok){ mem[iy*nx+ix]=1;
+        if(ix===0||iy===0||ix===nx-1||iy===ny-1) lastBounded=false; }
+    }
+  }
+  ctx.fillStyle='rgba(46,155,240,.20)';
+  for(let i=0;i<mem.length;i++) if(mem[i]) ctx.fillRect((i%nx)*step, Math.floor(i/nx)*step, step, step);
+  const open=preds.length && preds.every(p=>p.op==='<'||p.op==='>');
+  ctx.fillStyle='#0B4E8F';
+  for(let iy=0; iy<ny; iy++) for(let ix=0; ix<nx; ix++){
+    const i=iy*nx+ix;
+    if(!mem[i]) continue;
+    const edge=(ix>0&&!mem[i-1])||(ix<nx-1&&!mem[i+1])||(iy>0&&!mem[i-nx])||(iy<ny-1&&!mem[i+nx]);
+    if(!edge) continue;
+    if(open && ((ix+iy)&1)) continue;
+    ctx.fillRect(ix*step, iy*step, step, step);
+  }
+  drawAxes(ctx,w,h,s,simRange);   /* P3: era RANGE */
+  const r2=Math.round(simRange*10)/10;
+  $('#graphCap').textContent='Ventana [−'+r2+', '+r2+'] × [−'+r2+', '+r2+']. Frontera punteada = excluida (abierto); continua = incluida (cerrado). Zoom: '+Math.round(15/simRange*10)/10+'×';
+}
+function runRegion(){
+  const out=$('#regionResult');
+  try{
+    let preds=[];
+    if($('#regionSel').value==='custom'){
+      preds=compileCondition($('#regExpr').value).concat(compileCondition($('#regExpr2').value));
+      if(!preds.length) throw new Error('Escribe al menos una condición.');
+    } else {
+      REGIONS[$('#regionSel').value].c.forEach(c=>{ preds=preds.concat(compileCondition(c)); });
+    }
+    lastPreds=preds;
+    if(simMode==='region') plotRegion(preds);
+    const strict=preds.every(p=>p.op==='<'||p.op==='>');
+    const closed=preds.every(p=>p.op==='<='||p.op==='>='||p.op==='==');
+    const tipo=strict?'ABIERTO':(closed?'CERRADO':'NI ABIERTO NI CERRADO (frontera mixta)');
+    out.innerHTML=
+      '<div class="res-row"><span>Condición(es)</span><strong>'+preds.map(p=>esc(p.raw)).join(' &nbsp;y&nbsp; ')+'</strong></div>'+
+      '<div class="res-row"><span>El conjunto es</span><strong>'+tipo+'</strong></div>'+
+      '<div class="res-row"><span>Acotación en la ventana</span><strong>'+(lastBounded?'acotada':'no acotada (llega al borde)')+'</strong></div>';
+  } catch(err){ toast(err.message,'err'); }
+}
+
+/* Pestañas y botones del simulador */
+ $$('.sim-tab').forEach(tab=>{
+  tab.addEventListener('click', ()=>{
+    $$('.sim-tab').forEach(t=>t.classList.toggle('active', t===tab));
+    $$('.sim-panel').forEach(p=>p.classList.toggle('active', p.id==='st-'+tab.dataset.stab));
+    simMode=(tab.dataset.stab==='region')?'region':'vec';
+    requestAnimationFrame(renderSim);
+  });
+});
+function renderSim(){
+  if(simMode==='region' && lastPreds) plotRegion(lastPreds);
+  else if(lastVecDraw) drawSim(lastVecDraw);
+  else{
+    const cv=$('#simCanvas'); if(!cv || cv.offsetParent===null) return;
+    const {ctx,w,h}=setupCanvas(cv);
+    drawGrid(ctx,w,h,Math.min(w,h)/(2*simRange),simRange);   /* P3: era RANGE */
+  }
+}
+ $('#vecOp').addEventListener('change', syncVecForm);
+ $('#btnVecRun').addEventListener('click', runVectors);
+ $('#regionSel').addEventListener('change', syncRegionForm);
+ $('#btnRegionPlot').addEventListener('click', runRegion);
+ $$('#st-vec input, #st-region input').forEach(inp=>{
+  inp.addEventListener('keydown', e=>{ if(e.key==='Enter'){ (simMode==='region')?runRegion():runVectors(); } });
+});
+
+/* ============================================================
+   QUIZ (String.raw preserva los backslashes de LaTeX)
+============================================================ */
+const QUIZ=[
+ {q:String.raw`¿Qué es \(\mathbb{R}^n\)?`,
+  opts:['El conjunto de todos los números reales','El conjunto de todas las n-tuplas ordenadas de números reales','El conjunto de los números complejos','El conjunto de los números enteros'],
+  ans:1, why:String.raw`\(\mathbb{R}^n\) es el producto cartesiano de \(n\) copias de \(\mathbb{R}\), es decir, todas las n-tuplas ordenadas de números reales.`},
+ {q:String.raw`¿Cuál de las siguientes operaciones NO está definida para vectores en \(\mathbb{R}^n\)?`,
+  opts:['Suma de vectores','Producto escalar','Producto vectorial (para \(n=3\))','División de vectores'],
+  ans:3, why:String.raw`La división de vectores no está definida en \(\mathbb{R}^n\). Existen suma, resta, producto escalar y producto por escalar.`},
+ {q:String.raw`La norma euclidiana de \(\mathbf{x}=(3,-4)\) en \(\mathbb{R}^2\) es:`,
+  opts:['1','5','7','25'],
+  ans:1, why:String.raw`\(\|\mathbf{x}\| = \sqrt{3^2+(-4)^2} = \sqrt{25} = 5\).`},
+ {q:String.raw`Un conjunto \(A\) es abierto si:`,
+  opts:['Contiene todos sus puntos frontera','Todo punto tiene una vecindad contenida en \(A\)','Su complemento es vacío','Es un intervalo cerrado'],
+  ans:1, why:String.raw`Un conjunto es abierto si para cada punto existe una vecindad (bola abierta) completamente contenida en el conjunto.`},
+ {q:String.raw`La distancia entre los puntos \((1,2)\) y \((4,6)\) en \(\mathbb{R}^2\) es:`,
+  opts:['3','4','5','6'],
+  ans:2, why:String.raw`\(d = \sqrt{(4-1)^2+(6-2)^2} = \sqrt{9+16} = \sqrt{25} = 5\).`},
+ {q:String.raw`¿Cuál de los siguientes conjuntos es cerrado en \(\mathbb{R}^2\)?`,
+  opts:['El disco abierto \(x^2+y^2<1\)','El disco cerrado \(x^2+y^2\le1\)','El conjunto \(x^2+y^2<1\) con \(y>0\)','La circunferencia \(x^2+y^2=1\) sola'],
+  ans:1, why:String.raw`El disco cerrado incluye su frontera, por lo que su complemento es abierto. (Nota: la circunferencia sola también es cerrada; la opción esperada del curso es el disco cerrado, el ejemplo canónico de la sección 1.5.)`}
+];
+function renderQuiz(){
+  $('#quizList').innerHTML = QUIZ.map((it,i)=>`
+    <article class="quiz-q">
+      <header><span class="qnum">P${i+1}</span><p class="q-text">${it.q}</p></header>
+      <div class="opts">${it.opts.map((o,j)=>`
+        <label class="opt"><input type="radio" name="q${i}" value="${j}">
+        <span class="opt-key">${'ABCD'[j]}</span><span>${o}</span></label>`).join('')}
+      </div>
+      <p class="explain" hidden><strong>Retroalimentación:</strong> ${it.why}</p>
+    </article>`).join('');
+  $('#quizResult').innerHTML='';
+  try{ renderMathInElement($('#quizList'),{delimiters:[{left:'\\(',right:'\\)',display:false}],throwOnError:false}); }catch(e){}
+}
+
+ $('#btnGrade').addEventListener('click', ()=>{
+  const unanswered = QUIZ.some((_,i)=>!document.querySelector(`input[name="q${i}"]:checked`));
+  if(unanswered){ toast('Responde todas las preguntas.','err'); return; }
+  let score=0;
+  $$('#quizList .quiz-q').forEach((art,i)=>{
+    const sel=document.querySelector(`input[name="q${i}"]:checked`);
+    if(+sel.value===QUIZ[i].ans) score++;
+    art.querySelectorAll('.opt').forEach(l=>{
+      const inp=l.querySelector('input'); inp.disabled=true; l.classList.add('locked');
+      if(+inp.value===QUIZ[i].ans) l.classList.add('is-correct');
+      else if(+inp.value===+sel.value) l.classList.add('is-wrong');
+    });
+    art.querySelector('.explain').hidden=false;
+  });
+  const a=act(), prev=(a[CURSO].quiz && a[CURSO].quiz.score!=null)? a[CURSO].quiz.score : -1;
+  if(score>prev){ a[CURSO].quiz={score, total:QUIZ.length, ts:Date.now()}; saveAct(a); renderBoleta(); }
+  const msg = score===6?'¡Excelente dominio de la unidad!':score>=4?'Muy bien: revisa los puntos marcados en rojo.':score>=2?'Repasa las secciones 1.1 a 1.5 y vuelve a intentarlo.':'Comienza por la teoría y reintenta con calma.';
+  $('#quizResult').innerHTML=`<strong>${score} / ${QUIZ.length}</strong> ${msg}`;
+  toast(`Quiz calificado: ${score} de ${QUIZ.length}.`);
+});
+ $('#btnQuizReset').addEventListener('click', ()=>{ renderQuiz(); toast('Quiz reiniciado.'); });
+
+/* ============================================================
+   TAREA (Marsden-Tromba)
+============================================================ */
+const PROBLEMAS=['1.2','1.7','1.11','1.15','1.19','1.23','1.27','1.31'];
+const dl=new Date(Date.now()+7*864e5);
+ $('#taskDeadline').textContent = dl.toLocaleDateString('es-MX',{weekday:'long',day:'numeric',month:'long'});
+function renderTaskList(){
+  const T=act()[CURSO].tarea;
+  $('#taskList').innerHTML = PROBLEMAS.map(p=>`
+    <label class="chk ${T[p]?'done':''}">
+      <input type="checkbox" data-p="${p}" ${T[p]?'checked':''}>
+      <span>Problema <strong>${p}</strong> del Capítulo 1</span>
+    </label>`).join('');
+  updateTaskBar();
+}
+function updateTaskBar(){
+  const T=act()[CURSO].tarea;
+  const done=PROBLEMAS.filter(p=>T[p]).length, pct=Math.round(done/PROBLEMAS.length*100);
+  $('#taskBar').style.width=pct+'%';
+  $('#taskPct').textContent=`${done} / ${PROBLEMAS.length} · ${pct}%`;
+}
+ $('#taskList').addEventListener('change', e=>{
+  const cb=e.target.closest('input[data-p]'); if(!cb) return;
+  const a=act(); a[CURSO].tarea[cb.dataset.p]=cb.checked; saveAct(a);
+  cb.closest('.chk').classList.toggle('done', cb.checked);
+  updateTaskBar(); renderBoleta();
+});
+function syncEjChecks(){
+  const EJ=act()[CURSO].ej;
+  $$('#ejBlock .chk-ej input').forEach(cb=>{
+    cb.checked=!!EJ[cb.dataset.ej];
+    cb.closest('.chk').classList.toggle('done', cb.checked);
+  });
+}
+ $('#ejBlock').addEventListener('change', e=>{
+  const cb=e.target.closest('input[data-ej]'); if(!cb) return;
+  const a=act(); a[CURSO].ej[cb.dataset.ej]=cb.checked; saveAct(a);
+  cb.closest('.chk').classList.toggle('done', cb.checked);
+  renderBoleta();
+});
+
+/* ============================================================
+   EDITOR DE REDACCIÓN (LaTeX + autoguardado)
+============================================================ */
+const REDACS=['e5','e6','e7','e8'];
+const redTimers={};
+const MANUAL=[
+  {code:'\\( … \\)', help:'Fórmula en línea', tex:'\\mathbf{x}\\in\\mathbb{R}^2', snip:String.raw`\(|\)`},
+  {code:'x^2   x_i', help:'Potencias e índices', tex:'x^{2}\\;\\;x_{i}', snip:String.raw`x^{|}`},
+  {code:'\frac{a}{b}', help:'Fracciones', tex:'\frac{1}{2}', snip:String.raw`\frac{|}{}`},
+  {code:'\sqrt{x}', help:'Raíces', tex:'\sqrt{x^2+y^2}', snip:String.raw`\sqrt{|}`},
+  {code:'\mathbf{x}', help:'Vectores en negrita', tex:'\mathbf{u}\cdot\mathbf{v}', snip:String.raw`\mathbf{|}`},
+  {code:'\mathbb{R}^n', help:'Espacio euclídeo', tex:'\mathbb{R}^{2}', snip:String.raw`\mathbb{R}^{|}`},
+  {code:'\|\mathbf{x}\|', help:'Norma', tex:'\|\mathbf{u}\|', snip:String.raw`\|\mathbf{|}\|`},
+  {code:'\subset \subseteq', help:'Subconjuntos', tex:'A \subset \mathbb{R}^2', snip:String.raw`\subset`},
+  {code:'\in', help:'Pertenece a', tex:'\mathbf{x}\in A', snip:String.raw`\in`},
+  {code:'\forall \exists', help:'Cuantificadores', tex:'\forall x>0', snip:String.raw`\forall`},
+  {code:'\text{…}', help:'Texto en fórmula', tex:'\text{abierto}', snip:String.raw`\text{|}`},
+  {code:'\boxed{…}', help:'Respuesta final', tex:'\boxed{5}', snip:String.raw`\boxed{|}`}
+];
+function buildEditors(){
+  $$('.ed-box').forEach(box=>{
+    const k=box.dataset.ed;
+    box.innerHTML=`
+      <div class="ed-toolbar">
+        <span class="ed-title"><i data-lucide="pencil"></i>Tu procedimiento</span>
+        <span class="ed-status" id="st_${k}"><span class="dot"></span>Sin guardar</span>
+      </div>
+      <div class="ed-grid">
+        <div class="ed-main">
+          <textarea id="ta_${k}" class="ed-ta" spellcheck="false"
+            placeholder="Escribe tu solución aquí. Usa LaTeX entre \( ... \).&#10;Ej.: Sea \(\mathbf{u}=(1,2)\). Entonces..."></textarea>
+          <div class="ed-preview-wrap">
+            <div class="ed-preview-head">Vista previa</div>
+            <div class="ed-preview" id="pv_${k}"><em class="ed-ph">La vista previa aparecerá aquí.</em></div>
+          </div>
+        </div>
+        <aside class="ed-manual" data-for="${k}"></aside>
+      </div>
+      <div class="ed-foot">
+        <span class="ed-count" id="cn_${k}">0 palabras</span>
+        <div style="display:flex;gap:8px">
+          <button type="button" class="btn ghost sm" data-redclear="${k}">Limpiar</button>
+          <button type="button" class="btn sm" data-redsave="${k}"><i data-lucide="save"></i>Guardar</button>
+        </div>
+      </div>`;
+  });
+  buildManuals(); refreshIcons();
+}
+function buildManuals(){
+  $$('.ed-manual').forEach(box=>{
+    const views=[];
+    const rows=MANUAL.map(m=>{
+      views.push(m);
+      return `
+      <div class="cmd-row">
+        <div><span class="cmd-code">${esc(m.code)}</span><span class="cmd-help">${m.help}</span></div>
+        <span class="cmd-view"></span>
+        <button type="button" class="cmd-add" data-snip="${esc(m.snip)}">+</button>
+      </div>`;
+    }).join('');
+    box.innerHTML=`<p class="ed-note"><strong>Fórmulas:</strong> usa \( ... \) o $ ... $.</p>
+      <p class="ed-cmd-title">Comandos útiles</p>
+      ${rows}
+      <p class="ed-note"><strong>Estructura:</strong> define el problema, desarrolla paso a paso, responde con \(\boxed{}\).</p>`;
+    box.querySelectorAll('.cmd-view').forEach((el,i)=>{
+      try{ katex.render(views[i].tex, el, {throwOnError:false}); }catch(e){ el.textContent=views[i].code; }
+    });
+  });
+}
+function insertSnippet(ta, snip){
+  const s=ta.selectionStart ?? ta.value.length, e=ta.selectionEnd ?? s;
+  const before=ta.value.slice(0,s), sel=ta.value.slice(s,e), after=ta.value.slice(e);
+  const caret=snip.indexOf('|');
+  let text, pos;
+  if(caret>=0){
+    const clean=snip.replace('|','');
+    if(sel){ text=clean.slice(0,caret)+sel+clean.slice(caret); pos=s+caret+sel.length; }
+    else   { text=clean; pos=s+caret; }
+  }else{ text=snip+(sel||''); pos=s+snip.length; }
+  ta.value=before+text+after;
+  ta.selectionStart=ta.selectionEnd=pos;
+  ta.focus();
+  ta.dispatchEvent(new Event('input'));
+}
+function setStatus(k, txt, saved){
+  const st=$('#st_'+k); if(!st) return;
+  st.classList.toggle('saved', !!saved);
+  st.innerHTML='<span class="dot"></span>'+txt;
+}
+function redPreview(k){
+  const ta=$('#ta_'+k), pv=$('#pv_'+k);
+  const raw=ta.value;
+  $('#cn_'+k).textContent=(raw.trim()? raw.trim().split(/\s+/).length:0)+' palabras';
+  if(!raw.trim()){ pv.innerHTML='<em class="ed-ph">La vista previa aparecerá aquí.</em>'; return; }
+  pv.innerHTML=esc(raw).replace(/\n/g,'<br>');
+  if(typeof renderMathInElement==='function'){
+    try{
+      renderMathInElement(pv,{delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'$',right:'$',display:false}],throwOnError:false});
+    }catch(e){}
+  }
+}
+function redSave(k, announce){
+  const a=act(); a[CURSO].red[k]=$('#ta_'+k).value; saveAct(a);
+  setStatus(k,'Guardado '+new Date().toLocaleTimeString('es-MX',{hour:'2-digit',minute:'2-digit'}), true);
+  if(announce) toast('Redacción guardada.');
+}
+function redInput(k){
+  setStatus(k,'Escribiendo…', false);
+  clearTimeout(redTimers[k+'p']);
+  redTimers[k+'p']=setTimeout(()=>redPreview(k),250);
+  clearTimeout(redTimers[k+'s']);
+  redTimers[k+'s']=setTimeout(()=>redSave(k,false),1100);
+}
+function initRedacs(){
+  const R=act()[CURSO].red||{};
+  REDACS.forEach(k=>{
+    const ta=$('#ta_'+k); if(!ta) return;
+    if(R[k]){ ta.value=R[k]; setStatus(k,'Guardado', true); redPreview(k); }
+    ta.addEventListener('input',()=>redInput(k));
+  });
+  $$('.ed-manual').forEach(m=>m.addEventListener('click',e=>{
+    const b=e.target.closest('.cmd-add'); if(!b) return;
+    insertSnippet($('#ta_'+m.dataset.for), b.dataset.snip);
+  }));
+  $$('[data-redsave]').forEach(b=>b.addEventListener('click',()=>{
+    const k=b.dataset.redsave; redSave(k,true); redPreview(k);
+  }));
+  $$('[data-redclear]').forEach(b=>b.addEventListener('click',()=>{
+    const k=b.dataset.redclear;
+    if(!b.classList.contains('confirm')){
+      b.classList.add('confirm'); b.textContent='¿Borrar todo?';
+      setTimeout(()=>{ if(b.isConnected){ b.classList.remove('confirm'); b.textContent='Limpiar'; } },2800);
+      return;
+    }
+    b.classList.remove('confirm'); b.textContent='Limpiar';
+    $('#ta_'+k).value=''; redPreview(k); setStatus(k,'Sin guardar',false);
+    const a=act(); a[CURSO].red[k]=''; saveAct(a);
+    toast('Redacción borrada.');
+  }));
+}
+
+/* ============================================================
+   BOLETA
+============================================================ */
+const AV_COLORS=[['#E4F0FB','#0B4E8F'],['#DCEAF9','#1670C8'],['#E8F1FA','#2E9BF0'],
+                 ['#EAedef','#0B0D10'],['#FDEEE7','#C24E36'],['#E7F0E9','#2C5E49']];
+function initials(name){
+  const p=name.trim().split(/\s+/);
+  return ((p[0]?.[0]||'')+(p[1]?.[0]||p[0]?.[1]||'')).toUpperCase();
+}
+function avColor(name){ return AV_COLORS[[...name].reduce((a,c)=>a+c.charCodeAt(0),0)%AV_COLORS.length]; }
+function progresoUnidad(){
+  const c=act()[CURSO];
+  const ejOk=['e1','e2','e3','e4'].filter(k=>c.ej[k]).length;
+  const tOk=PROBLEMAS.filter(p=>c.tarea[p]).length;
+  return {
+    sim: 100,
+    ej: ejOk/4*100, ejOk,
+    quiz: (c.quiz && c.quiz.score!=null)? c.quiz.score/c.quiz.total*100 : 0,
+    quizScore: (c.quiz && c.quiz.score!=null)? c.quiz.score : null,
+    tarea: tOk/PROBLEMAS.length*100, tOk
+  };
+}
+function notaFinal(){
+  const p=progresoUnidad();
+  return (p.sim*0.15 + p.ej*0.25 + p.quiz*0.30 + p.tarea*0.30)/10;
+}
+function updateHomeStat(){
+  const est=loadEst();
+  $('#statNota').textContent = est? notaFinal().toFixed(1) : '—';
+}
+function renderBoleta(){
+  const est=loadEst();
+  $('#regEmpty').hidden = !!est;
+  $('#boletaWrap').hidden = !est;
+  updateHomeStat();
+  if(!est) return;
+  const [bg,fg]=avColor(est.nombre);
+  const av=$('#bAvatar'); av.textContent=initials(est.nombre); av.style.background=bg; av.style.color=fg;
+  $('#bName').textContent=est.nombre;
+  $('#bMeta').textContent=`Matrícula ${est.matricula} · ${est.correo}`;
+  $('#bSince').textContent=new Date(est.ts).toLocaleDateString('es-MX',{day:'numeric',month:'long',year:'numeric'});
+  const p=progresoUnidad();
+  const defs=[
+    {nombre:'Simulador — operaciones y regiones', pct:p.sim, w:1.5, det:'Uso de herramientas completado'},
+    {nombre:'Ejercicios guiados resueltos', pct:p.ej, w:2.5, det:`${p.ejOk} de 4 marcados`},
+    {nombre:'Quiz de autoevaluación', pct:p.quiz, w:3.0, det: p.quizScore==null?'Sin intento':`${p.quizScore} de 6 aciertos`},
+    {nombre:'Tarea — problemas del Marsden-Tromba', pct:p.tarea, w:3.0, det:`${p.tOk} de ${PROBLEMAS.length} problemas`}
+  ];
+  $('#bRows').innerHTML=defs.map(d=>`
+    <div class="b-row">
+      <div><div class="b-rubname">${d.nombre}</div><div class="b-rubdet">${d.det}</div></div>
+      <div class="b-bar"><div style="width:${d.pct.toFixed(0)}%"></div></div>
+      <div class="b-pts mono">${(d.pct/100*d.w).toFixed(2)} <small>/ ${d.w.toFixed(1)}</small></div>
+    </div>`).join('');
+  $('#bNota').textContent=notaFinal().toFixed(1);
+  $('#bEmit').textContent=new Date().toLocaleDateString('es-MX',{day:'numeric',month:'long',year:'numeric'});
+}
+let editMode=false;
+function setFormMode(edit){
+  editMode=edit;
+  $('#btnEstSave').innerHTML = edit? '<i data-lucide="save"></i><span>Guardar cambios</span>'
+                                   : '<i data-lucide="user-plus"></i><span>Registrarme</span>';
+  $('#btnEstCancel').hidden=!edit;
+  refreshIcons();
+}
+ $('#formEst').addEventListener('submit', e=>{
+  e.preventDefault();
+  const nombre=$('#alNombre').value.trim(), mat=$('#alMat').value.trim(), correo=$('#alMail').value.trim();
+  if(nombre.length<3){ toast('Escribe el nombre completo.','err'); return; }
+  if(mat.length<4){ toast('La matrícula debe tener al menos 4 caracteres.','err'); return; }
+  if(!/^\S+@\S+\.\S+$/.test(correo)){ toast('Escribe un correo válido.','err'); return; }
+  const prev=loadEst();
+  saveEst({nombre, matricula:mat, correo, ts: prev? prev.ts : Date.now()});
+  e.target.reset(); setFormMode(false);
+  renderBoleta(); syncEjChecks(); renderTaskList();
+  toast(prev? 'Datos actualizados.' : `¡Listo, ${nombre.split(' ')[0]}!`);
+});
+ $('#btnEstEdit').addEventListener('click', ()=>{
+  const est=loadEst(); if(!est) return;
+  $('#alNombre').value=est.nombre; $('#alMat').value=est.matricula; $('#alMail').value=est.correo;
+  $('#regEmpty').hidden=false; $('#boletaWrap').hidden=true;
+  setFormMode(true); $('#alNombre').focus();
+});
+ $('#btnEstCancel').addEventListener('click', ()=>{ $('#formEst').reset(); setFormMode(false); renderBoleta(); });
+ $('#btnEstDel').addEventListener('click', ()=>{
+  const b=$('#btnEstDel');
+  if(!b.classList.contains('confirm')){
+    b.classList.add('confirm'); b.innerHTML='<i data-lucide="alert-triangle"></i><span>¿Borrar todo?</span>'; refreshIcons();
+    setTimeout(()=>{ if(b.isConnected){ b.classList.remove('confirm');
+      b.innerHTML='<i data-lucide="trash-2"></i><span>Borrar registro y avance</span>'; refreshIcons(); } },3000);
+    return;
+  }
+  localStorage.removeItem(LS_EST); localStorage.removeItem(LS_ACT);
+  $('#formEst').reset(); setFormMode(false);
+  renderBoleta(); syncEjChecks(); renderTaskList();
+  toast('Registro y avance borrados.');
+});
+ $('#btnBoletaPng').addEventListener('click', ()=>{
+  if(typeof html2canvas!=='function'){ toast('No se pudo generar la imagen.','err'); return; }
+  toast('Generando imagen…');
+  html2canvas($('#boletaCard'),{scale:2, backgroundColor:null, useCORS:true}).then(cv=>{
+    const est=loadEst();
+    const a=document.createElement('a');
+    a.download=`boleta-unidad1-${est? est.matricula : 'alumno'}.png`;
+    a.href=cv.toDataURL('image/png'); a.click();
+    toast('Boleta descargada.');
+  }).catch(()=>toast('No se pudo generar la imagen.','err'));
+});
+
+/* ============================================================
+   ZOOM — Simulador
+============================================================ */
+function updateZoomIndicator(){
+  const el=document.querySelector('#zoomIndicator');
+  if(el) el.textContent='×'+Math.round(15/simRange*10)/10;
+}
+function applyZoom(factor){
+  simRange=Math.max(3,Math.min(60, simRange*factor));
+  updateZoomIndicator();
+  requestAnimationFrame(renderSim);
+}
+function initZoom(){
+  const cv=document.querySelector('#simCanvas');
+  if(!cv) return;
+  cv.addEventListener('wheel',e=>{
+    e.preventDefault();
+    applyZoom(e.deltaY>0?1.15:0.87);
+  },{passive:false});
+  let lastPinchDist=null;
+  cv.addEventListener('touchstart',e=>{ if(e.touches.length===2) lastPinchDist=Math.hypot(e.touches[0].clientX-e.touches[1].clientX, e.touches[0].clientY-e.touches[1].clientY); },{passive:true});
+  cv.addEventListener('touchmove',e=>{
+    if(e.touches.length===2){
+      const d=Math.hypot(e.touches[0].clientX-e.touches[1].clientX, e.touches[0].clientY-e.touches[1].clientY);
+      if(lastPinchDist){ applyZoom(lastPinchDist/d); }
+      lastPinchDist=d;
+      e.preventDefault();
+    }
+  },{passive:false});
+  cv.addEventListener('touchend',()=>{ lastPinchDist=null; },{passive:true});
+  const btnIn=document.querySelector('#btnZoomIn'), btnOut=document.querySelector('#btnZoomOut'), btnReset=document.querySelector('#btnZoomReset');
+  if(btnIn) btnIn.addEventListener('click',()=>applyZoom(0.7));
+  if(btnOut) btnOut.addEventListener('click',()=>applyZoom(1.4));
+  if(btnReset) btnReset.addEventListener('click',()=>{ simRange=15; updateZoomIndicator(); requestAnimationFrame(renderSim); });
+  updateZoomIndicator();
+}
+
+/* ============================================================
+   ARRANQUE
+============================================================ */
+window.addEventListener('resize', ()=>{
+  const v=document.getElementById('v-simulador');
+  if(v && !v.hidden) requestAnimationFrame(renderSim);
+  requestAnimationFrame(drawHero);
+});
+function init(){
+  refreshIcons();
+  buildEditors();
+  initRedacs();
+  renderTaskList();
+  syncEjChecks();
+  renderBoleta();
+  syncVecForm();
+  syncRegionForm();
+  renderQuiz();
+  drawHero();
+  if(typeof renderMathInElement==='function'){
+    renderMathInElement(document.body,{delimiters:[
+      {left:'$$',right:'$$',display:true},{left:'\\(',right:'\\)',display:false}],throwOnError:false});
+  }
+}
+
+init();
+initHeroDrag();
+initZoom();
+</script>
+</body>
+</html>
+
+   
