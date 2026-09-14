@@ -209,7 +209,7 @@ nav.tabs::-webkit-scrollbar{display:none}
 .info-box .label{font-weight:600;color:var(--muted)}
 
 /* ============================================================
-   ACTIVIDADES (mismo estilo que unidades anteriores)
+   ACTIVIDADES
 ============================================================ */
 .act-block{margin-bottom:52px}
 .act-block>h3{font-size:1.45rem;margin:8px 0 6px}
@@ -378,8 +378,8 @@ footer{border-top:2px solid var(--ink);padding:30px 0 40px;margin-top:20px}
       <span>Cálculo II<small>Aula interactiva — Dr. Adrián Cerda</small></span>
     </div>
     <img class="brand-logo" src="unii_logo_clean.png" alt="Logo UNII" style="width:48px;height:auto;margin-left:auto;">
-    
-  </div><div class="wrap">
+  </div>
+  <div class="wrap">
     <nav class="tabs" id="mainNav">
       <button class="nav-btn active" data-view="inicio"><i data-lucide="home"></i>Inicio</button>
       <button class="nav-btn" data-view="teoria"><i data-lucide="book-open"></i>Teoría</button>
@@ -596,13 +596,13 @@ footer{border-top:2px solid var(--ink);padding:30px 0 40px;margin-top:20px}
               <button class="btn sm ghost" data-grad="curvas">Curvas de nivel</button>
             </div>
             <button class="btn" id="btnGradiente"><i data-lucide="refresh-cw"></i>Actualizar</button>
-            
+
             <div class="info-box" id="infoGradiente">
               <div><span class="label">\(\nabla f\) en (1,1):</span> <span id="gradVal" class="valor">—</span></div>
               <div><span class="label">Dirección de máximo crecimiento:</span> <span id="gradDir" class="valor">—</span></div>
               <div style="font-size:13px;color:var(--muted);margin-top:4px">El gradiente apunta en la dirección de máximo crecimiento y es perpendicular a las curvas de nivel.</div>
             </div>
-            
+
             <div class="legend-3d">
               <span><span class="dot" style="background:#1e4636;"></span>Superficie \(f\)</span>
               <span><span class="dot" style="background:#c2542f;"></span>Gradiente \(\nabla f\)</span>
@@ -629,13 +629,13 @@ footer{border-top:2px solid var(--ink);padding:30px 0 40px;margin-top:20px}
               <button class="btn sm ghost" data-campo="rotacional">Mostrar rotacional</button>
             </div>
             <button class="btn" id="btnCampo"><i data-lucide="refresh-cw"></i>Actualizar campo</button>
-            
+
             <div class="info-box" id="infoCampo">
               <div><span class="label">\(\nabla\cdot\mathbf{F}\):</span> <span id="divVal" class="valor">—</span></div>
               <div><span class="label">\(\nabla\times\mathbf{F}\):</span> <span id="rotVal" class="valor">—</span></div>
               <div style="font-size:13px;color:var(--muted);margin-top:4px">La divergencia mide el flujo; el rotacional mide la vorticidad.</div>
             </div>
-            
+
             <div class="legend-3d">
               <span><span class="dot" style="background:#1e4636;"></span>Vectores del campo</span>
               <span><span class="dot" style="background:#c2542f;"></span>Líneas de campo</span>
@@ -660,12 +660,12 @@ footer{border-top:2px solid var(--ink);padding:30px 0 40px;margin-top:20px}
               <button class="btn sm ghost" data-lap="calor">Simular difusión (calor)</button>
             </div>
             <button class="btn" id="btnLaplaciano"><i data-lucide="refresh-cw"></i>Actualizar</button>
-            
+
             <div class="info-box" id="infoLaplaciano">
               <div><span class="label">\(\nabla^2 f(x,y)\):</span> <span id="lapVal" class="valor">—</span></div>
               <div style="font-size:13px;color:var(--muted);margin-top:4px">El laplaciano mide la curvatura promedio de la función. \(\nabla^2 f=0\) indica función armónica.</div>
             </div>
-            
+
             <div class="legend-3d">
               <span><span class="dot" style="background:#1e4636;"></span>Superficie \(f\)</span>
               <span><span class="dot" style="background:#c2542f;"></span>\(\nabla^2 f\) (curvatura)</span>
@@ -694,13 +694,13 @@ footer{border-top:2px solid var(--ink);padding:30px 0 40px;margin-top:20px}
               <button class="btn sm ghost" data-curv="circulo">Círculo osculador</button>
             </div>
             <button class="btn" id="btnCurvatura"><i data-lucide="refresh-cw"></i>Actualizar</button>
-            
+
             <div class="info-box" id="infoCurvatura">
               <div><span class="label">Curvatura \(\kappa\):</span> <span id="curvVal" class="valor">—</span></div>
               <div><span class="label">Radio de curvatura:</span> <span id="radioVal" class="valor">—</span></div>
               <div style="font-size:13px;color:var(--muted);margin-top:4px">La curvatura mide cuánto se "dobla" la curva en cada punto.</div>
             </div>
-            
+
             <div class="legend-3d">
               <span><span class="dot" style="background:#1e4636;"></span>Curva \(\mathbf{r}(t)\)</span>
               <span><span class="dot" style="background:#c2542f;"></span>Curvatura \(\kappa\)</span>
@@ -886,7 +886,7 @@ footer{border-top:2px solid var(--ink);padding:30px 0 40px;margin-top:20px}
             <div style="display:flex;justify-content:space-between;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:8px">
               <span>Progreso</span><span id="taskPct">0 / 8 · 0%</span>
             </div>
-            <div class="conv-bar" style="margin-bottom:18px"><div id="taskBar" style="background:var(--pine)"></div></div>
+            <div class="conv-bar" style="margin-bottom:18px;height:10px;border:1px solid var(--line-strong);border-radius:999px;overflow:hidden"><div id="taskBar" style="background:var(--pine);height:100%;width:0%"></div></div>
             <div id="taskList"></div>
           </div>
         </div>
@@ -1001,14 +1001,22 @@ const $$ = s => [...document.querySelectorAll(s)];
 const INK='#1c2b25', PINE='#1e4636', TERRA='#c2542f', PAPER='#fffdf8';
 
 function esc(s){ return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
-function toast(msg, type='ok'){
-  const box=$('#toasts'), t=document.createElement('div');
-  t.className='toast '+type;
-  t.innerHTML = `<i data-lucide="${type==='ok'?'check-circle-2':'alert-circle'}"></i><span>${msg}</span>`;
-  box.appendChild(t); lucide.createIcons();
-  setTimeout(()=>{ t.classList.add('out'); setTimeout(()=>t.remove(), 320); }, 3200);
+function safe(fn, label){
+  try { return fn(); }
+  catch(err){ console.error('[Error en ' + label + ']', err); }
 }
-function refreshIcons(){ if(window.lucide) lucide.createIcons(); }
+function toast(msg, type='ok'){
+  safe(() => {
+    const box=$('#toasts'); if(!box) return;
+    const t=document.createElement('div');
+    t.className='toast '+type;
+    t.innerHTML = `<i data-lucide="${type==='ok'?'check-circle-2':'alert-circle'}"></i><span>${msg}</span>`;
+    box.appendChild(t);
+    if(window.lucide) safe(() => lucide.createIcons(), 'lucide toast');
+    setTimeout(()=>{ t.classList.add('out'); setTimeout(()=>t.remove(), 320); }, 3200);
+  }, 'toast');
+}
+function refreshIcons(){ if(window.lucide) safe(() => lucide.createIcons(), 'lucide'); }
 
 /* ============================================================
    PERSISTENCIA
@@ -1032,20 +1040,28 @@ function act(){
 function saveAct(a){ localStorage.setItem(LS_ACT, JSON.stringify(a)); }
 
 /* ============================================================
-   NAVEGACIÓN
+   NAVEGACIÓN (delegación de eventos: a prueba de fallos)
 ============================================================ */
 function showView(v){
-  $$('.view').forEach(s => s.hidden = true);
-  $('#v-'+v).hidden = false;
-  $$('.nav-btn').forEach(b => b.classList.toggle('active', b.dataset.view === v));
+  const target = document.getElementById('v-' + v);
+  if(!target){ console.warn('Vista no encontrada:', v); return; }
+  document.querySelectorAll('.view').forEach(s => { s.hidden = true; });
+  target.hidden = false;
+  document.querySelectorAll('.nav-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.view === v);
+  });
   window.scrollTo({top:0, behavior:'smooth'});
-  if(v==='inicio') drawHero();
-  if(v==='simulador') setTimeout(()=>initThree(), 200);
+  if(v === 'inicio') safe(drawHero, 'hero');
+  if(v === 'simulador') setTimeout(() => safe(initThree, 'three'), 200);
 }
-$$('[data-view]').forEach(el => el.addEventListener('click', e => {
-  if(el.tagName==='A'){ e.preventDefault(); }
+
+// Delegación global: funciona aunque el resto del JS falle
+document.addEventListener('click', function(e){
+  const el = e.target.closest('[data-view]');
+  if(!el) return;
+  if(el.tagName === 'A') e.preventDefault();
   showView(el.dataset.view);
-}));
+});
 
 /* ============================================================
    HERO CANVAS
@@ -1059,20 +1075,19 @@ function drawHero(){
   const w=r.width, h=r.height;
   ctx.clearRect(0,0,w,h);
   const cx=w/2, cy=h/2, scale=40;
-  
+
   // Ejes
   ctx.strokeStyle='rgba(28,43,37,.3)'; ctx.lineWidth=1;
   ctx.beginPath(); ctx.moveTo(30, cy); ctx.lineTo(w-30, cy); ctx.moveTo(cx, 20); ctx.lineTo(cx, h-20); ctx.stroke();
   ctx.font='11px Instrument Sans'; ctx.fillStyle='rgba(28,43,37,.5)';
   ctx.fillText('x', w-25, cy-5); ctx.fillText('y', cx+8, 24);
-  
+
   // Campo vectorial de ejemplo (rotacional)
   const step=20;
   for(let i=-6; i<=6; i++){
     for(let j=-5; j<=5; j++){
       const x = i*0.5, y = j*0.5;
       const px = cx + x*scale, py = cy - y*scale;
-      // Vector (-y, x) -> rotación
       const vx = -y, vy = x;
       const mag = Math.sqrt(vx*vx+vy*vy);
       if(mag>0.1){
@@ -1081,7 +1096,6 @@ function drawHero(){
         const endX = px + normX*len, endY = py - normY*len;
         ctx.strokeStyle='rgba(30,70,54,.4)'; ctx.lineWidth=1.5;
         ctx.beginPath(); ctx.moveTo(px, py); ctx.lineTo(endX, endY); ctx.stroke();
-        // Punta
         const ang = Math.atan2(-normY, normX);
         ctx.fillStyle='rgba(30,70,54,.4)';
         ctx.beginPath(); ctx.moveTo(endX, endY);
@@ -1091,9 +1105,9 @@ function drawHero(){
       }
     }
   }
-  
+
   ctx.fillStyle=INK; ctx.font='11px Instrument Sans';
-  ctx.fillText('Campo rotacional \(\mathbf{F}=(-y,x)\)', 20, h-12);
+  ctx.fillText('Campo rotacional F=(-y,x)', 20, h-12);
 }
 
 /* ============================================================
@@ -1107,31 +1121,33 @@ let threeObjects = [];
 let currentTab = 'gradiente';
 
 function initThree(){
+  if(!window.THREE){ console.warn('Three.js no disponible'); return; }
   const container = document.getElementById('threeContainer');
   if(!container) return;
   const w = container.clientWidth || 600;
   const h = container.clientHeight || 420;
-  
+
   if(!threeScene){
     threeScene = new THREE.Scene();
     threeScene.background = new THREE.Color(0xfaf8f4);
-    
+
     threeCamera = new THREE.PerspectiveCamera(45, w/h, 0.1, 30);
     threeCamera.position.set(4, 3, 5);
     threeCamera.lookAt(0, 0, 0);
-    
+
     threeRenderer = new THREE.WebGLRenderer({antialias: true});
     threeRenderer.setSize(w, h);
     threeRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     container.appendChild(threeRenderer.domElement);
-    
-    threeControls = new THREE.OrbitControls(threeCamera, threeRenderer.domElement);
-    threeControls.enableDamping = true;
-    threeControls.dampingFactor = 0.08;
-    threeControls.target.set(0, 0, 0);
-    threeControls.update();
-    
-    // Luces
+
+    if(THREE.OrbitControls){
+      threeControls = new THREE.OrbitControls(threeCamera, threeRenderer.domElement);
+      threeControls.enableDamping = true;
+      threeControls.dampingFactor = 0.08;
+      threeControls.target.set(0, 0, 0);
+      threeControls.update();
+    }
+
     const ambientLight = new THREE.AmbientLight(0x404060, 0.5);
     threeScene.add(ambientLight);
     const dirLight = new THREE.DirectionalLight(0xffffff, 0.9);
@@ -1140,49 +1156,51 @@ function initThree(){
     const dirLight2 = new THREE.DirectionalLight(0xffffff, 0.4);
     dirLight2.position.set(-2, -1, -2);
     threeScene.add(dirLight2);
-    
-    // Grid
+
     const gridHelper = new THREE.GridHelper(6, 6, 0x888888, 0xcccccc);
     gridHelper.position.y = -0.01;
+    gridHelper.userData.isHelper = true;
     threeScene.add(gridHelper);
-    
-    // Ejes etiquetados
+
     createAxesWithLabels();
-    
-    window.addEventListener('resize', ()=>{
+
+    window.addEventListener('resize', () => {
       const w2 = container.clientWidth || 600;
       const h2 = container.clientHeight || 420;
       threeCamera.aspect = w2/h2;
       threeCamera.updateProjectionMatrix();
       threeRenderer.setSize(w2, h2);
     });
+
+    (function animate(){
+      requestAnimationFrame(animate);
+      if(threeControls) threeControls.update();
+      if(threeRenderer && threeScene && threeCamera){
+        threeRenderer.render(threeScene, threeCamera);
+      }
+    })();
   }
-  
-  // Limpiar objetos anteriores
-  const keepObjects = [];
+
+  // Limpieza correcta: eliminar objetos de escena anteriores (no helpers)
+  const toRemove = [];
   threeScene.children.forEach(child => {
-    if(child.type === 'GridHelper' || child.type === 'AxesHelper' || 
-       child.userData?.isAxis || child.userData?.isLabel) {
-      keepObjects.push(child);
+    if(child.userData && (child.userData.isHelper || child.userData.isAxis || child.userData.isLabel)) return;
+    toRemove.push(child);
+  });
+  toRemove.forEach(obj => {
+    threeScene.remove(obj);
+    if(obj.geometry) safe(() => obj.geometry.dispose(), 'dispose geo');
+    if(obj.material){
+      if(Array.isArray(obj.material)) obj.material.forEach(m => safe(() => m.dispose(), 'dispose mat'));
+      else safe(() => obj.material.dispose(), 'dispose mat');
     }
   });
-  threeScene.children = keepObjects;
   threeObjects = [];
-  
-  // Mostrar según pestaña activa
-  if(currentTab === 'gradiente') drawGradiente();
-  else if(currentTab === 'campo') drawCampo();
-  else if(currentTab === 'laplaciano') drawLaplaciano();
-  else if(currentTab === 'curvatura') drawCurvatura();
-  
-  function animate(){
-    requestAnimationFrame(animate);
-    if(threeControls) threeControls.update();
-    if(threeRenderer && threeScene && threeCamera){
-      threeRenderer.render(threeScene, threeCamera);
-    }
-  }
-  animate();
+
+  if(currentTab === 'gradiente') safe(drawGradiente, 'drawGradiente');
+  else if(currentTab === 'campo') safe(drawCampo, 'drawCampo');
+  else if(currentTab === 'laplaciano') safe(drawLaplaciano, 'drawLaplaciano');
+  else if(currentTab === 'curvatura') safe(drawCurvatura, 'drawCurvatura');
 }
 
 function createAxesWithLabels() {
@@ -1194,7 +1212,7 @@ function createAxesWithLabels() {
     new THREE.Vector3(0, 1, 0),
     new THREE.Vector3(0, 0, 1)
   ];
-  
+
   dirs.forEach((dir, i) => {
     const end = dir.clone().multiplyScalar(axisLength);
     const geometry = new THREE.BufferGeometry().setFromPoints([
@@ -1205,18 +1223,17 @@ function createAxesWithLabels() {
     const line = new THREE.Line(geometry, material);
     line.userData.isAxis = true;
     threeScene.add(line);
-    
+
     const cone = new THREE.ConeGeometry(0.1, 0.25, 8);
     const coneMat = new THREE.MeshBasicMaterial({ color: colors[i] });
     const coneMesh = new THREE.Mesh(cone, coneMat);
-    const pos = end.clone();
-    coneMesh.position.copy(pos);
+    coneMesh.position.copy(end);
     const up = new THREE.Vector3(0, 1, 0);
     const quat = new THREE.Quaternion().setFromUnitVectors(up, dir);
     coneMesh.quaternion.copy(quat);
     coneMesh.userData.isAxis = true;
     threeScene.add(coneMesh);
-    
+
     const canvas = document.createElement('canvas');
     canvas.width = 64; canvas.height = 64;
     const ctx = canvas.getContext('2d');
@@ -1227,12 +1244,11 @@ function createAxesWithLabels() {
     ctx.textBaseline = 'middle';
     ctx.fillStyle = '#' + colors[i].toString(16).padStart(6, '0');
     ctx.fillText(labels[i], 32, 34);
-    
+
     const texture = new THREE.CanvasTexture(canvas);
     const spriteMat = new THREE.SpriteMaterial({ map: texture, transparent: true });
     const sprite = new THREE.Sprite(spriteMat);
-    const labelPos = end.clone().multiplyScalar(1.15);
-    sprite.position.copy(labelPos);
+    sprite.position.copy(end.clone().multiplyScalar(1.15));
     sprite.scale.set(0.6, 0.6, 1);
     sprite.userData.isLabel = true;
     threeScene.add(sprite);
@@ -1243,18 +1259,13 @@ function addObject(obj){ threeObjects.push(obj); threeScene.add(obj); }
 
 function updateEquation(text){
   const el = document.getElementById('eqText');
-  if(el){
-    try {
-      el.innerHTML = text;
-      if(typeof renderMathInElement === 'function'){
-        renderMathInElement(el, {delimiters: [
-          {left: '\\(', right: '\\)', display: false},
-          {left: '$$', right: '$$', display: true}
-        ], throwOnError: false});
-      }
-    } catch(e) {
-      el.textContent = text;
-    }
+  if(!el) return;
+  el.innerHTML = text;
+  if(typeof renderMathInElement === 'function'){
+    safe(() => renderMathInElement(el, {delimiters: [
+      {left: '\\(', right: '\\)', display: false},
+      {left: '$$', right: '$$', display: true}
+    ], throwOnError: false}), 'katex eq');
   }
 }
 
@@ -1276,14 +1287,13 @@ function drawGradiente(){
     'seno': 'f(x,y)=\\sin(x)\\cos(y)',
     'gaussiana': 'f(x,y)=e^{-(x^2+y^2)}'
   };
-  updateEquation(eqs[funcName] || 'f(x,y)=x^2+y^2');
-  
-  // Superficie
+  updateEquation('\\(' + (eqs[funcName] || 'f(x,y)=x^2+y^2') + '\\)');
+
   const range = 2.5;
   const steps = 40;
   const positions = [];
   const indices = [];
-  
+
   for(let i=0; i<=steps; i++){
     for(let j=0; j<=steps; j++){
       const x = -range + 2*range*i/steps;
@@ -1292,7 +1302,7 @@ function drawGradiente(){
       positions.push(x, y, z);
     }
   }
-  
+
   for(let i=0; i<steps; i++){
     for(let j=0; j<steps; j++){
       const a = i*(steps+1) + j;
@@ -1303,12 +1313,12 @@ function drawGradiente(){
       indices.push(b, d, c);
     }
   }
-  
+
   const geo = new THREE.BufferGeometry();
   geo.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
   geo.setIndex(indices);
   geo.computeVertexNormals();
-  
+
   const mat = new THREE.MeshPhongMaterial({
     color: 0x1e4636,
     transparent: true,
@@ -1318,18 +1328,7 @@ function drawGradiente(){
   });
   const mesh = new THREE.Mesh(geo, mat);
   addObject(mesh);
-  
-  // Wireframe
-  const wireMat = new THREE.MeshBasicMaterial({
-    color: 0x2c5e49,
-    wireframe: true,
-    transparent: true,
-    opacity: 0.1
-  });
-  const wireMesh = new THREE.Mesh(geo.clone(), wireMat);
-  addObject(wireMesh);
-  
-  // Gradiente (vectores en la superficie)
+
   const eps = 0.01;
   const stepVec = 0.4;
   for(let x=-range+0.2; x<=range-0.2; x+=stepVec){
@@ -1349,18 +1348,19 @@ function drawGradiente(){
       }
     }
   }
-  
-  // Actualizar información
+
   const gradVal = document.getElementById('gradVal');
   const gradDir = document.getElementById('gradDir');
-  const dfx = (f(1.01,1)-f(0.99,1))/(0.02);
-  const dfy = (f(1,1.01)-f(1,0.99))/(0.02);
-  gradVal.textContent = `(${dfx.toFixed(2)}, ${dfy.toFixed(2)})`;
-  const mag = Math.sqrt(dfx*dfx+dfy*dfy);
-  if(mag>0.01) gradDir.textContent = `(${(dfx/mag).toFixed(2)}, ${(dfy/mag).toFixed(2)})`;
-  else gradDir.textContent = '—';
-  
-  document.getElementById('graphCap3D').textContent = `Gradiente de ${eqs[funcName] || funcName}`;
+  if(gradVal && gradDir){
+    const dfx = (f(1.01,1)-f(0.99,1))/(0.02);
+    const dfy = (f(1,1.01)-f(1,0.99))/(0.02);
+    gradVal.textContent = `(${dfx.toFixed(2)}, ${dfy.toFixed(2)})`;
+    const mag = Math.sqrt(dfx*dfx+dfy*dfy);
+    gradDir.textContent = (mag>0.01) ? `(${(dfx/mag).toFixed(2)}, ${(dfy/mag).toFixed(2)})` : '—';
+  }
+
+  const cap = document.getElementById('graphCap3D');
+  if(cap) cap.textContent = `Gradiente de ${eqs[funcName] || funcName}`;
 }
 
 /* --- CAMPO VECTORIAL --- */
@@ -1383,13 +1383,11 @@ function drawCampo(){
     'gradiente': '\\mathbf{F}=(x^2-y^2,2xy)',
     'campo3': '\\mathbf{F}=(\\sin y,\\cos x)'
   };
-  updateEquation(eqs[funcName] || '\\mathbf{F}=(-y,x)');
-  
-  // Dibujar vectores del campo
+  updateEquation('\\(' + (eqs[funcName] || '\\mathbf{F}=(-y,x)') + '\\)');
+
   const range = 2.5;
   const step = 0.5;
-  const color = new THREE.Color(PINE);
-  
+
   for(let x=-range; x<=range; x+=step){
     for(let y=-range; y<=range; y+=step){
       const [fx, fy] = F(x,y);
@@ -1402,13 +1400,12 @@ function drawCampo(){
         const arrowMat = new THREE.LineBasicMaterial({ color: 0x1e4636, linewidth: 2 });
         const arrow = new THREE.Line(arrowGeo, arrowMat);
         addObject(arrow);
-        // Punta
+
         const dir = new THREE.Vector3(fx, fy, 0).normalize();
-        const tip = end.clone();
         const cone = new THREE.ConeGeometry(0.04, 0.1, 6);
         const coneMat = new THREE.MeshBasicMaterial({ color: 0x1e4636 });
         const coneMesh = new THREE.Mesh(cone, coneMat);
-        coneMesh.position.copy(tip);
+        coneMesh.position.copy(end);
         const up = new THREE.Vector3(0, 0, 1);
         const quat = new THREE.Quaternion().setFromUnitVectors(up, dir);
         coneMesh.quaternion.copy(quat);
@@ -1416,18 +1413,19 @@ function drawCampo(){
       }
     }
   }
-  
-  // Calcular divergencia y rotacional
+
   const eps = 0.01;
-  const [fx, fy] = F(0.5, 0.5);
   const div = (F(0.5+eps,0.5)[0]-F(0.5-eps,0.5)[0])/(2*eps) +
               (F(0.5,0.5+eps)[1]-F(0.5,0.5-eps)[1])/(2*eps);
   const rot = (F(0.5+eps,0.5)[1]-F(0.5-eps,0.5)[1])/(2*eps) -
               (F(0.5,0.5+eps)[0]-F(0.5,0.5-eps)[0])/(2*eps);
-  
-  document.getElementById('divVal').textContent = div.toFixed(2);
-  document.getElementById('rotVal').textContent = rot.toFixed(2);
-  document.getElementById('graphCap3D').textContent = `Campo vectorial: ${eqs[funcName]}`;
+
+  const dv = document.getElementById('divVal');
+  const rv = document.getElementById('rotVal');
+  if(dv) dv.textContent = div.toFixed(2);
+  if(rv) rv.textContent = rot.toFixed(2);
+  const cap = document.getElementById('graphCap3D');
+  if(cap) cap.textContent = `Campo vectorial: ${eqs[funcName]}`;
 }
 
 /* --- LAPLACIANO --- */
@@ -1448,28 +1446,22 @@ function drawLaplaciano(){
     'seno': 'f(x,y)=\\sin(x)\\cos(y)',
     'log': 'f(x,y)=\\ln(x^2+y^2+1)'
   };
-  updateEquation(eqs[funcName] || 'f(x,y)=x^2+y^2');
-  
-  // Superficie
+  updateEquation('\\(' + (eqs[funcName] || 'f(x,y)=x^2+y^2') + '\\)');
+
   const range = 2.5;
   const steps = 40;
   const positions = [];
   const indices = [];
-  const colors = [];
-  
+
   for(let i=0; i<=steps; i++){
     for(let j=0; j<=steps; j++){
       const x = -range + 2*range*i/steps;
       const y = -range + 2*range*j/steps;
       const z = f(x,y);
       positions.push(x, y, z);
-      // Calcular laplaciano para colorear
-      const eps = 0.01;
-      const lap = (f(x+eps,y)+f(x-eps,y)+f(x,y+eps)+f(x,y-eps)-4*f(x,y))/(eps*eps);
-      colors.push(lap/4 + 0.5);
     }
   }
-  
+
   for(let i=0; i<steps; i++){
     for(let j=0; j<steps; j++){
       const a = i*(steps+1) + j;
@@ -1480,12 +1472,12 @@ function drawLaplaciano(){
       indices.push(b, d, c);
     }
   }
-  
+
   const geo = new THREE.BufferGeometry();
   geo.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
   geo.setIndex(indices);
   geo.computeVertexNormals();
-  
+
   const mat = new THREE.MeshPhongMaterial({
     color: 0x1e4636,
     transparent: true,
@@ -1495,27 +1487,19 @@ function drawLaplaciano(){
   });
   const mesh = new THREE.Mesh(geo, mat);
   addObject(mesh);
-  
-  // Laplaciano como superficie de color
-  const lapMat = new THREE.MeshBasicMaterial({
-    vertexColors: true,
-    transparent: true,
-    opacity: 0.3,
-    wireframe: false
-  });
-  // ... (simplificado para mantener el código manejable)
-  
-  // Información
+
   const lap = (f(0.5+0.01,0.5)+f(0.5-0.01,0.5)+f(0.5,0.5+0.01)+f(0.5,0.5-0.01)-4*f(0.5,0.5))/(0.0001);
-  document.getElementById('lapVal').textContent = lap.toFixed(2);
-  document.getElementById('graphCap3D').textContent = `Laplaciano de ${eqs[funcName]}`;
+  const lv = document.getElementById('lapVal');
+  if(lv) lv.textContent = lap.toFixed(2);
+  const cap = document.getElementById('graphCap3D');
+  if(cap) cap.textContent = `Laplaciano de ${eqs[funcName]}`;
 }
 
 /* --- CURVATURA --- */
 function drawCurvatura(){
   const funcName = document.getElementById('funcCurvatura').value;
   const R = parseFloat(document.getElementById('radioCurvatura').value) || 2;
-  
+
   const r = (t) => {
     switch(funcName){
       case 'circulo': return [R*Math.cos(t), R*Math.sin(t), 0];
@@ -1531,9 +1515,8 @@ function drawCurvatura(){
     'parabola': '\\mathbf{r}(t)=(t,t^2,0)',
     'elipse': '\\mathbf{r}(t)=(2\\cos t,\\sin t,0)'
   };
-  updateEquation(eqs[funcName] || '\\mathbf{r}(t)=(R\\cos t,R\\sin t,0)');
-  
-  // Dibujar curva
+  updateEquation('\\(' + (eqs[funcName] || '\\mathbf{r}(t)=(R\\cos t,R\\sin t,0)') + '\\)');
+
   const n = 100;
   const pts = [];
   for(let i=0; i<=n; i++){
@@ -1541,13 +1524,12 @@ function drawCurvatura(){
     const p = r(t);
     pts.push(new THREE.Vector3(p[0], p[1], p[2]));
   }
-  
+
   const geo = new THREE.BufferGeometry().setFromPoints(pts);
-  const mat = new THREE.LineBasicMaterial({ color: PINE, linewidth: 2 });
+  const mat = new THREE.LineBasicMaterial({ color: 0x1e4636, linewidth: 2 });
   const curve = new THREE.Line(geo, mat);
   addObject(curve);
-  
-  // Puntos de muestreo
+
   const ptsGeo = new THREE.BufferGeometry();
   const pos = [];
   for(let i=0; i<=20; i++){
@@ -1556,11 +1538,10 @@ function drawCurvatura(){
     pos.push(p[0], p[1], p[2]);
   }
   ptsGeo.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3));
-  const ptsMat = new THREE.PointsMaterial({ color: TERRA, size: 0.05 });
+  const ptsMat = new THREE.PointsMaterial({ color: 0xc2542f, size: 0.05 });
   const ptsMesh = new THREE.Points(ptsGeo, ptsMat);
   addObject(ptsMesh);
-  
-  // Calcular curvatura en t=0
+
   const eps = 0.001;
   const p0 = r(0), p1 = r(eps), p2 = r(-eps);
   const v = [(p1[0]-p2[0])/(2*eps), (p1[1]-p2[1])/(2*eps), (p1[2]-p2[2])/(2*eps)];
@@ -1569,135 +1550,88 @@ function drawCurvatura(){
   const cross = [v[1]*a[2]-v[2]*a[1], v[2]*a[0]-v[0]*a[2], v[0]*a[1]-v[1]*a[0]];
   const crossMag = Math.sqrt(cross[0]*cross[0]+cross[1]*cross[1]+cross[2]*cross[2]);
   const kappa = (vMag > 0) ? crossMag/(vMag*vMag*vMag) : 0;
-  
-  document.getElementById('curvVal').textContent = kappa.toFixed(3);
-  document.getElementById('radioVal').textContent = (kappa > 0.001) ? (1/kappa).toFixed(3) : '∞';
-  document.getElementById('graphCap3D').textContent = `Curvatura: κ = ${kappa.toFixed(3)}`;
+
+  const cv = document.getElementById('curvVal');
+  const rv = document.getElementById('radioVal');
+  if(cv) cv.textContent = kappa.toFixed(3);
+  if(rv) rv.textContent = (kappa > 0.001) ? (1/kappa).toFixed(3) : '∞';
+  const cap = document.getElementById('graphCap3D');
+  if(cap) cap.textContent = `Curvatura: κ = ${kappa.toFixed(3)}`;
 }
 
 /* ============================================================
    EVENTOS DEL SIMULADOR
 ============================================================ */
-// Pestañas
-$$('.sim-tab').forEach(tab=>{
+document.querySelectorAll('.sim-tab').forEach(tab=>{
   tab.addEventListener('click', ()=>{
-    $$('.sim-tab').forEach(t=>t.classList.remove('active'));
-    $$('.sim-panel').forEach(p=>p.classList.remove('active'));
+    document.querySelectorAll('.sim-tab').forEach(t=>t.classList.remove('active'));
+    document.querySelectorAll('.sim-panel').forEach(p=>p.classList.remove('active'));
     tab.classList.add('active');
     const id = tab.dataset.stab;
-    document.getElementById('st-'+id).classList.add('active');
+    const panel = document.getElementById('st-'+id);
+    if(panel) panel.classList.add('active');
     currentTab = id;
-    setTimeout(()=>{
-      if(threeScene){
-        const keepObjects = [];
-        threeScene.children.forEach(child => {
-          if(child.userData?.isAxis || child.userData?.isLabel || 
-             child.type === 'GridHelper' || child.type === 'AxesHelper') {
-            keepObjects.push(child);
-          }
-        });
-        threeScene.children = keepObjects;
-        threeObjects = [];
-        if(id === 'gradiente') drawGradiente();
-        else if(id === 'campo') drawCampo();
-        else if(id === 'laplaciano') drawLaplaciano();
-        else if(id === 'curvatura') drawCurvatura();
-      }
-    }, 100);
+    setTimeout(() => safe(initThree, 'cambiar tab three'), 100);
   });
 });
 
-// Botones de actualización
-document.getElementById('btnGradiente').addEventListener('click', ()=>{
-  if(threeScene){
-    const keepObjects = [];
-    threeScene.children.forEach(child => {
-      if(child.userData?.isAxis || child.userData?.isLabel || 
-         child.type === 'GridHelper' || child.type === 'AxesHelper') {
-        keepObjects.push(child);
-      }
-    });
-    threeScene.children = keepObjects;
-    threeObjects = [];
-    drawGradiente();
-    toast('Gradiente actualizado.');
-  }
-});
-
-document.getElementById('btnCampo').addEventListener('click', ()=>{
-  if(threeScene){
-    const keepObjects = [];
-    threeScene.children.forEach(child => {
-      if(child.userData?.isAxis || child.userData?.isLabel || 
-         child.type === 'GridHelper' || child.type === 'AxesHelper') {
-        keepObjects.push(child);
-      }
-    });
-    threeScene.children = keepObjects;
-    threeObjects = [];
-    drawCampo();
-    toast('Campo actualizado.');
-  }
-});
-
-document.getElementById('btnLaplaciano').addEventListener('click', ()=>{
-  if(threeScene){
-    const keepObjects = [];
-    threeScene.children.forEach(child => {
-      if(child.userData?.isAxis || child.userData?.isLabel || 
-         child.type === 'GridHelper' || child.type === 'AxesHelper') {
-        keepObjects.push(child);
-      }
-    });
-    threeScene.children = keepObjects;
-    threeObjects = [];
-    drawLaplaciano();
-    toast('Laplaciano actualizado.');
-  }
-});
-
-document.getElementById('btnCurvatura').addEventListener('click', ()=>{
-  if(threeScene){
-    const keepObjects = [];
-    threeScene.children.forEach(child => {
-      if(child.userData?.isAxis || child.userData?.isLabel || 
-         child.type === 'GridHelper' || child.type === 'AxesHelper') {
-        keepObjects.push(child);
-      }
-    });
-    threeScene.children = keepObjects;
-    threeObjects = [];
-    drawCurvatura();
-    toast('Curvatura actualizada.');
-  }
-});
+function bindRefresh(btnId, drawFn, label){
+  const btn = document.getElementById(btnId);
+  if(!btn) return;
+  btn.addEventListener('click', () => {
+    if(threeScene){
+      const toRemove = [];
+      threeScene.children.forEach(child => {
+        if(child.userData && (child.userData.isHelper || child.userData.isAxis || child.userData.isLabel)) return;
+        toRemove.push(child);
+      });
+      toRemove.forEach(obj => {
+        threeScene.remove(obj);
+        if(obj.geometry) safe(() => obj.geometry.dispose(), 'dispose');
+        if(obj.material){
+          if(Array.isArray(obj.material)) obj.material.forEach(m => safe(() => m.dispose(), 'dispose'));
+          else safe(() => obj.material.dispose(), 'dispose');
+        }
+      });
+      threeObjects = [];
+    }
+    safe(drawFn, label);
+    toast(label + ' actualizado.');
+  });
+}
+bindRefresh('btnGradiente', drawGradiente, 'Gradiente');
+bindRefresh('btnCampo', drawCampo, 'Campo');
+bindRefresh('btnLaplaciano', drawLaplaciano, 'Laplaciano');
+bindRefresh('btnCurvatura', drawCurvatura, 'Curvatura');
 
 /* ============================================================
-   QUIZ (Unidad 5)
+   QUIZ
 ============================================================ */
 const QUIZ = [
  {q:'¿Qué operador mide la dirección de máximo crecimiento de una función escalar?',
   opts:['Divergencia','Gradiente','Rotacional','Laplaciano'],
-  ans:1, why:'El gradiente \(\nabla f\) apunta en la dirección de máximo crecimiento de la función.'],
+  ans:1, why:'El gradiente \\(\\nabla f\\) apunta en la dirección de máximo crecimiento de la función.'},
  {q:'La divergencia de un campo vectorial mide:',
   opts:['La rotación local','El flujo que sale de un punto','La curvatura','El gradiente'],
-  ans:1, why:'La divergencia \(\nabla\cdot\mathbf{F}\) mide el flujo neto que sale de un punto.'],
+  ans:1, why:'La divergencia \\(\\nabla\\cdot\\mathbf{F}\\) mide el flujo neto que sale de un punto.'},
  {q:'¿Cuál de las siguientes afirmaciones es cierta para el rotacional?',
-  opts:['\(\nabla\times(\nabla f)=0\)','\(\nabla\times(\nabla f)=\nabla f\)','\(\nabla\times(\nabla f)=\nabla^2 f\)','\(\nabla\times(\nabla f)\) no está definido'],
-  ans:0, why:'El rotacional de un gradiente siempre es cero: \(\nabla\times(\nabla f)=0\). Un campo gradiente es irrotacional.'],
- {q:'El laplaciano \(\nabla^2 f\) se define como:',
-  opts:['\(\nabla\cdot f\)','\(\nabla\cdot(\nabla f)\)','\(\nabla\times(\nabla f)\)','\(\nabla f\)'],
-  ans:1, why:'El laplaciano es la divergencia del gradiente: \(\nabla^2 f = \nabla\cdot(\nabla f)\).'],
+  opts:['\\(\\nabla\\times(\\nabla f)=0\\)','\\(\\nabla\\times(\\nabla f)=\\nabla f\\)','\\(\\nabla\\times(\\nabla f)=\\nabla^2 f\\)','\\(\\nabla\\times(\\nabla f)\\) no está definido'],
+  ans:0, why:'El rotacional de un gradiente siempre es cero: \\(\\nabla\\times(\\nabla f)=0\\). Un campo gradiente es irrotacional.'},
+ {q:'El laplaciano \\(\\nabla^2 f\\) se define como:',
+  opts:['\\(\\nabla\\cdot f\\)','\\(\\nabla\\cdot(\\nabla f)\\)','\\(\\nabla\\times(\\nabla f)\\)','\\(\\nabla f\\)'],
+  ans:1, why:'El laplaciano es la divergencia del gradiente: \\(\\nabla^2 f = \\nabla\\cdot(\\nabla f)\\).'},
  {q:'La curvatura de una curva mide:',
   opts:['La longitud de la curva','Cuánto se dobla la curva','La velocidad de la curva','El área bajo la curva'],
-  ans:1, why:'La curvatura \(\kappa\) mide cuánto se "dobla" la curva en cada punto.'],
+  ans:1, why:'La curvatura \\(\\kappa\\) mide cuánto se "dobla" la curva en cada punto.'},
  {q:'¿Qué condición debe cumplir un campo vectorial para ser irrotacional?',
-  opts:['\(\nabla\cdot\mathbf{F}=0\)','\(\nabla\times\mathbf{F}=0\)','\(\nabla f=0\)','\(\nabla^2\mathbf{F}=0\)'],
-  ans:1, why:'Un campo es irrotacional si su rotacional es cero: \(\nabla\times\mathbf{F}=0\).']
-};
+  opts:['\\(\\nabla\\cdot\\mathbf{F}=0\\)','\\(\\nabla\\times\\mathbf{F}=0\\)','\\(\\nabla f=0\\)','\\(\\nabla^2\\mathbf{F}=0\\)'],
+  ans:1, why:'Un campo es irrotacional si su rotacional es cero: \\(\\nabla\\times\\mathbf{F}=0\\).'}
+];
 
 function renderQuiz(){
-  $('#quizList').innerHTML = QUIZ.map((it,i)=>`
+  const list = document.getElementById('quizList');
+  if(!list) return;
+  list.innerHTML = QUIZ.map((it,i)=>`
     <article class="quiz-q">
       <header><span class="qnum">P${i+1}</span><p class="q-text">${it.q}</p></header>
       <div class="opts">${it.opts.map((o,j)=>`
@@ -1706,16 +1640,20 @@ function renderQuiz(){
       </div>
       <p class="explain" hidden><strong>Retroalimentación:</strong> ${it.why}</p>
     </article>`).join('');
-  $('#quizResult').innerHTML='';
-  try{ renderMathInElement($('#quizList'),{delimiters:[{left:'\\(',right:'\\)',display:false}],throwOnError:false}); }catch(e){}
+  const res = document.getElementById('quizResult');
+  if(res) res.innerHTML='';
+  if(typeof renderMathInElement === 'function'){
+    safe(() => renderMathInElement(list,{delimiters:[{left:'\\(',right:'\\)',display:false}],throwOnError:false}), 'katex quiz');
+  }
 }
 renderQuiz();
 
-$('#btnGrade').addEventListener('click', ()=>{
+const btnGrade = document.getElementById('btnGrade');
+if(btnGrade) btnGrade.addEventListener('click', ()=>{
   const unanswered = QUIZ.some((_,i)=>!document.querySelector(`input[name="q${i}"]:checked`));
   if(unanswered){ toast('Responde todas las preguntas.','err'); return; }
   let score=0;
-  $$('#quizList .quiz-q').forEach((art,i)=>{
+  document.querySelectorAll('#quizList .quiz-q').forEach((art,i)=>{
     const sel=document.querySelector(`input[name="q${i}"]:checked`);
     if(+sel.value===QUIZ[i].ans) score++;
     art.querySelectorAll('.opt').forEach(l=>{
@@ -1723,26 +1661,33 @@ $('#btnGrade').addEventListener('click', ()=>{
       if(+inp.value===QUIZ[i].ans) l.classList.add('is-correct');
       else if(+inp.value===+sel.value) l.classList.add('is-wrong');
     });
-    art.querySelector('.explain').hidden=false;
+    const ex = art.querySelector('.explain');
+    if(ex) ex.hidden=false;
   });
   const a=act(), prev=(a[CURSO].quiz && a[CURSO].quiz.score!=null)? a[CURSO].quiz.score : -1;
-  if(score>prev){ a[CURSO].quiz={score, total:QUIZ.length, ts:Date.now()}; saveAct(a); renderBoleta(); }
+  if(score>prev){ a[CURSO].quiz={score, total:QUIZ.length, ts:Date.now()}; saveAct(a); safe(renderBoleta, 'boleta'); }
   const msg = score===6?'¡Excelente! Dominas los operadores diferenciales.':score>=4?'Muy bien: revisa las definiciones.':score>=2?'Repasa la teoría de operadores.':'Comienza por la teoría y reintenta.';
-  $('#quizResult').innerHTML=`<strong>${score} / ${QUIZ.length}</strong> ${msg}`;
+  const res = document.getElementById('quizResult');
+  if(res) res.innerHTML=`<strong>${score} / ${QUIZ.length}</strong> ${msg}`;
   toast(`Quiz calificado: ${score} de ${QUIZ.length}.`);
 });
-$('#btnQuizReset').addEventListener('click', ()=>{ renderQuiz(); toast('Quiz reiniciado.'); });
+
+const btnQuizReset = document.getElementById('btnQuizReset');
+if(btnQuizReset) btnQuizReset.addEventListener('click', ()=>{ renderQuiz(); toast('Quiz reiniciado.'); });
 
 /* ============================================================
-   EJERCICIOS Y TAREA (simplificados para mantener el código manejable)
+   EJERCICIOS Y TAREA
 ============================================================ */
 const PROBLEMAS = ['5.2','5.7','5.11','5.15','5.19','5.23','5.27','5.31'];
 const dl = new Date(Date.now()+7*864e5);
-$('#taskDeadline').textContent = dl.toLocaleDateString('es-MX',{weekday:'long',day:'numeric',month:'long'});
+const dlEl = document.getElementById('taskDeadline');
+if(dlEl) dlEl.textContent = dl.toLocaleDateString('es-MX',{weekday:'long',day:'numeric',month:'long'});
 
 function renderTaskList(){
-  const T=act()[CURSO].tarea;
-  $('#taskList').innerHTML = PROBLEMAS.map(p=>`
+  const list = document.getElementById('taskList');
+  if(!list) return;
+  const T = act()[CURSO].tarea;
+  list.innerHTML = PROBLEMAS.map(p=>`
     <label class="chk ${T[p]?'done':''}">
       <input type="checkbox" data-p="${p}" ${T[p]?'checked':''}>
       <span>Problema <strong>${p}</strong> del Capítulo 5</span>
@@ -1752,48 +1697,57 @@ function renderTaskList(){
 function updateTaskBar(){
   const T=act()[CURSO].tarea;
   const done=PROBLEMAS.filter(p=>T[p]).length, pct=Math.round(done/PROBLEMAS.length*100);
-  $('#taskBar').style.width=pct+'%';
-  $('#taskPct').textContent=`${done} / ${PROBLEMAS.length} · ${pct}%`;
+  const bar = document.getElementById('taskBar');
+  const pctEl = document.getElementById('taskPct');
+  if(bar) bar.style.width=pct+'%';
+  if(pctEl) pctEl.textContent=`${done} / ${PROBLEMAS.length} · ${pct}%`;
 }
-$('#taskList').addEventListener('change', e=>{
+
+const taskList = document.getElementById('taskList');
+if(taskList) taskList.addEventListener('change', e=>{
   const cb=e.target.closest('input[data-p]'); if(!cb) return;
   const p=cb.dataset.p;
   const a=act(); a[CURSO].tarea[p]=cb.checked; saveAct(a);
-  cb.closest('.chk').classList.toggle('done', cb.checked);
-  updateTaskBar(); renderBoleta();
+  const label = cb.closest('.chk');
+  if(label) label.classList.toggle('done', cb.checked);
+  updateTaskBar(); safe(renderBoleta, 'boleta');
 });
 
 function syncEjChecks(){
   const EJ=act()[CURSO].ej;
-  $$('#ejBlock .chk-ej input').forEach(cb=>{
+  document.querySelectorAll('#ejBlock .chk-ej input').forEach(cb=>{
     cb.checked=!!EJ[cb.dataset.ej];
-    cb.closest('.chk').classList.toggle('done', cb.checked);
+    const label = cb.closest('.chk');
+    if(label) label.classList.toggle('done', cb.checked);
   });
 }
-$('#ejBlock').addEventListener('change', e=>{
+
+const ejBlock = document.getElementById('ejBlock');
+if(ejBlock) ejBlock.addEventListener('change', e=>{
   const cb=e.target.closest('input[data-ej]'); if(!cb) return;
   const a=act(); a[CURSO].ej[cb.dataset.ej]=cb.checked; saveAct(a);
-  cb.closest('.chk').classList.toggle('done', cb.checked);
-  renderBoleta();
+  const label = cb.closest('.chk');
+  if(label) label.classList.toggle('done', cb.checked);
+  safe(renderBoleta, 'boleta');
 });
 
 /* ============================================================
-   EDITOR DE REDACCIÓN (simplificado)
+   EDITOR DE REDACCIÓN
 ============================================================ */
 const REDACS = ['e5','e6','e7','e8'];
 const redTimers = {};
 const MANUAL = [
-  {code:'\\( … \\)', help:'Fórmula en línea', tex:'\\nabla f=(2x,2y)', snip:String.raw`\(|\)`},
-  {code:'\\nabla f', help:'Gradiente', tex:'\\nabla f = (2x,2y)', snip:String.raw`\nabla f = (|)`},
-  {code:'\\nabla\\cdot\\mathbf{F}', help:'Divergencia', tex:'\\nabla\\cdot\\mathbf{F}=0', snip:String.raw`\nabla\cdot\mathbf{F}=`},
-  {code:'\\nabla\\times\\mathbf{F}', help:'Rotacional', tex:'\\nabla\\times\\mathbf{F}=0', snip:String.raw`\nabla\times\mathbf{F}=`},
-  {code:'\\nabla^2 f', help:'Laplaciano', tex:'\\nabla^2 f=0', snip:String.raw`\nabla^2 f=`},
-  {code:'\\kappa', help:'Curvatura', tex:'\\kappa=\\frac{1}{R}', snip:String.raw`\kappa=`},
-  {code:'\\boxed{…}', help:'Respuesta final', tex:'\\boxed{0}', snip:String.raw`\boxed{|}`}
+  {code:'\\( … \\)', help:'Fórmula en línea', tex:'\\nabla f=(2x,2y)', snip:'\\(|\\)'},
+  {code:'\\nabla f', help:'Gradiente', tex:'\\nabla f = (2x,2y)', snip:'\\nabla f = (|)'},
+  {code:'\\nabla\\cdot\\mathbf{F}', help:'Divergencia', tex:'\\nabla\\cdot\\mathbf{F}=0', snip:'\\nabla\\cdot\\mathbf{F}='},
+  {code:'\\nabla\\times\\mathbf{F}', help:'Rotacional', tex:'\\nabla\\times\\mathbf{F}=0', snip:'\\nabla\\times\\mathbf{F}='},
+  {code:'\\nabla^2 f', help:'Laplaciano', tex:'\\nabla^2 f=0', snip:'\\nabla^2 f='},
+  {code:'\\kappa', help:'Curvatura', tex:'\\kappa=\\frac{1}{R}', snip:'\\kappa='},
+  {code:'\\boxed{…}', help:'Respuesta final', tex:'\\boxed{0}', snip:'\\boxed{|}'}
 ];
 
 function buildEditors(){
-  $$('.ed-box').forEach(box=>{
+  document.querySelectorAll('.ed-box').forEach(box=>{
     const k=box.dataset.ed;
     box.innerHTML=`
       <div class="ed-toolbar">
@@ -1803,7 +1757,7 @@ function buildEditors(){
       <div class="ed-grid">
         <div class="ed-main">
           <textarea id="ta_${k}" class="ed-ta" spellcheck="false"
-            placeholder="Escribe tu solución aquí. Usa LaTeX entre \( ... \)."></textarea>
+            placeholder="Escribe tu solución aquí. Usa LaTeX entre \\( ... \\)."></textarea>
           <div class="ed-preview-wrap">
             <div class="ed-preview-head">Vista previa</div>
             <div class="ed-preview" id="pv_${k}"><em class="ed-ph">La vista previa aparecerá aquí.</em></div>
@@ -1824,7 +1778,7 @@ function buildEditors(){
 }
 
 function buildManuals(){
-  $$('.ed-manual').forEach(box=>{
+  document.querySelectorAll('.ed-manual').forEach(box=>{
     const views=[];
     const rows=MANUAL.map((m,i)=>{
       views.push(m);
@@ -1835,12 +1789,14 @@ function buildManuals(){
         <button type="button" class="cmd-add" data-snip="${esc(m.snip)}">+</button>
       </div>`;
     }).join('');
-    box.innerHTML=`<p class="ed-note"><strong>Fórmulas:</strong> usa \( ... \) o $ ... $.</p>
+    box.innerHTML=`<p class="ed-note"><strong>Fórmulas:</strong> usa \\( ... \\) o $ ... $.</p>
       <p class="ed-cmd-title">Comandos útiles</p>
       ${rows}
-      <p class="ed-note"><strong>Estructura:</strong> define el problema, desarrolla paso a paso, responde con \(\boxed{}\).</p>`;
+      <p class="ed-note"><strong>Estructura:</strong> define el problema, desarrolla paso a paso, responde con \\(\\boxed{}\\).</p>`;
     box.querySelectorAll('.cmd-view').forEach((el,i)=>{
-      try{ katex.render(views[i].tex, el, {throwOnError:false}); }catch(e){ el.textContent=views[i].code; }
+      if(typeof katex !== 'undefined'){
+        safe(() => katex.render(views[i].tex, el, {throwOnError:false}), 'katex manual');
+      } else { el.textContent = views[i].code; }
     });
   });
 }
@@ -1864,32 +1820,34 @@ function insertSnippet(ta, snip){
 }
 
 function setStatus(k, txt, saved){
-  const st=$('#st_'+k); if(!st) return;
+  const st=document.getElementById('st_'+k); if(!st) return;
   st.classList.toggle('saved', !!saved);
   st.innerHTML='<span class="dot"></span>'+txt;
 }
 
 function redPreview(k){
-  const ta=$('#ta_'+k), pv=$('#pv_'+k);
+  const ta=document.getElementById('ta_'+k), pv=document.getElementById('pv_'+k);
+  if(!ta || !pv) return;
   const raw=ta.value;
-  $('#cn_'+k).textContent=(raw.trim()? raw.trim().split(/\s+/).length:0)+' palabras';
+  const cn = document.getElementById('cn_'+k);
+  if(cn) cn.textContent=(raw.trim()? raw.trim().split(/\s+/).length:0)+' palabras';
   if(!raw.trim()){
     pv.innerHTML='<em class="ed-ph">La vista previa aparecerá aquí.</em>';
     return;
   }
   pv.innerHTML=esc(raw).replace(/\n/g,'<br>');
   if(typeof renderMathInElement==='function'){
-    try{
-      renderMathInElement(pv,{delimiters:[
-        {left:'$$',right:'$$',display:true},
-        {left:'\\(',right:'\\)',display:false},
-        {left:'$',right:'$',display:false}],throwOnError:false});
-    }catch(e){}
+    safe(() => renderMathInElement(pv,{delimiters:[
+      {left:'$$',right:'$$',display:true},
+      {left:'\\(',right:'\\)',display:false},
+      {left:'$',right:'$',display:false}],throwOnError:false}), 'katex preview');
   }
 }
 
 function redSave(k, announce){
-  const a=act(); a[CURSO].red[k]=$('#ta_'+k).value; saveAct(a);
+  const ta = document.getElementById('ta_'+k);
+  if(!ta) return;
+  const a=act(); a[CURSO].red[k]=ta.value; saveAct(a);
   setStatus(k,'Guardado '+new Date().toLocaleTimeString('es-MX',{hour:'2-digit',minute:'2-digit'}), true);
   if(announce) toast('Redacción guardada.');
 }
@@ -1905,18 +1863,19 @@ function redInput(k){
 function initRedacs(){
   const R=act()[CURSO].red||{};
   REDACS.forEach(k=>{
-    const ta=$('#ta_'+k); if(!ta) return;
+    const ta=document.getElementById('ta_'+k); if(!ta) return;
     if(R[k]){ ta.value=R[k]; setStatus(k,'Guardado', true); redPreview(k); }
     ta.addEventListener('input',()=>redInput(k));
   });
-  $$('.ed-manual').forEach(m=>m.addEventListener('click',e=>{
+  document.querySelectorAll('.ed-manual').forEach(m=>m.addEventListener('click',e=>{
     const b=e.target.closest('.cmd-add'); if(!b) return;
-    insertSnippet($('#ta_'+m.dataset.for), b.dataset.snip);
+    const ta = document.getElementById('ta_'+m.dataset.for);
+    if(ta) insertSnippet(ta, b.dataset.snip);
   }));
-  $$('[data-redsave]').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('[data-redsave]').forEach(b=>b.addEventListener('click',()=>{
     const k=b.dataset.redsave; redSave(k,true); redPreview(k);
   }));
-  $$('[data-redclear]').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('[data-redclear]').forEach(b=>b.addEventListener('click',()=>{
     const k=b.dataset.redclear;
     if(!b.classList.contains('confirm')){
       b.classList.add('confirm'); b.textContent='¿Borrar todo?';
@@ -1924,14 +1883,16 @@ function initRedacs(){
       return;
     }
     b.classList.remove('confirm'); b.textContent='Limpiar';
-    $('#ta_'+k).value=''; redPreview(k); setStatus(k,'Sin guardar',false);
+    const ta = document.getElementById('ta_'+k);
+    if(ta) ta.value='';
+    redPreview(k); setStatus(k,'Sin guardar',false);
     const a=act(); a[CURSO].red[k]=''; saveAct(a);
     toast('Redacción borrada.');
   }));
 }
 
 /* ============================================================
-   BOLETA (similar a unidades anteriores)
+   BOLETA
 ============================================================ */
 const AV_COLORS=[['#e4ecdf','#1e4636'],['#f3e0d6','#8a3d1e'],['#f2e8c9','#7a6210'],
                  ['#e2e8dd','#3c5a3c'],['#ead9e0','#7a3550'],['#dde7ea','#22505c']];
@@ -1961,19 +1922,23 @@ function notaFinal(){
 }
 function updateHomeStat(){
   const est=loadEst();
-  $('#statNota').textContent = est? notaFinal().toFixed(1) : '—';
+  const el = document.getElementById('statNota');
+  if(el) el.textContent = est? notaFinal().toFixed(1) : '—';
 }
 function renderBoleta(){
   const est=loadEst();
-  $('#regEmpty').hidden = !!est;
-  $('#boletaWrap').hidden = !est;
+  const regEmpty = document.getElementById('regEmpty');
+  const boletaWrap = document.getElementById('boletaWrap');
+  if(regEmpty) regEmpty.hidden = !!est;
+  if(boletaWrap) boletaWrap.hidden = !est;
   updateHomeStat();
   if(!est) return;
   const [bg,fg]=avColor(est.nombre);
-  const av=$('#bAvatar'); av.textContent=initials(est.nombre); av.style.background=bg; av.style.color=fg;
-  $('#bName').textContent=est.nombre;
-  $('#bMeta').textContent=`Matrícula ${est.matricula} · ${est.correo}`;
-  $('#bSince').textContent=new Date(est.ts).toLocaleDateString('es-MX',{day:'numeric',month:'long',year:'numeric'});
+  const av=document.getElementById('bAvatar');
+  if(av){ av.textContent=initials(est.nombre); av.style.background=bg; av.style.color=fg; }
+  const bn = document.getElementById('bName'); if(bn) bn.textContent=est.nombre;
+  const bm = document.getElementById('bMeta'); if(bm) bm.textContent=`Matrícula ${est.matricula} · ${est.correo}`;
+  const bs = document.getElementById('bSince'); if(bs) bs.textContent=new Date(est.ts).toLocaleDateString('es-MX',{day:'numeric',month:'long',year:'numeric'});
   const p=progresoUnidad();
   const defs=[
     {nombre:'Simulador 3D — operadores diferenciales', pct:p.sim, w:1.5, det:'Uso de herramientas completado'},
@@ -1981,28 +1946,34 @@ function renderBoleta(){
     {nombre:'Quiz de autoevaluación', pct:p.quiz, w:3.0, det: p.quizScore==null?'Sin intento':`${p.quizScore} de 6 aciertos`},
     {nombre:'Tarea — problemas del Marsden-Tromba', pct:p.tarea, w:3.0, det:`${p.tOk} de ${PROBLEMAS.length} problemas`}
   ];
-  $('#bRows').innerHTML=defs.map(d=>`
+  const rows = document.getElementById('bRows');
+  if(rows) rows.innerHTML=defs.map(d=>`
     <div class="b-row">
       <div><div class="b-rubname">${d.nombre}</div><div class="b-rubdet">${d.det}</div></div>
       <div class="b-bar"><div style="width:${d.pct.toFixed(0)}%"></div></div>
       <div class="b-pts mono">${(d.pct/100*d.w).toFixed(2)} <small>/ ${d.w.toFixed(1)}</small></div>
     </div>`).join('');
-  $('#bNota').textContent=notaFinal().toFixed(1);
-  $('#bEmit').textContent=new Date().toLocaleDateString('es-MX',{day:'numeric',month:'long',year:'numeric'});
+  const bn2 = document.getElementById('bNota'); if(bn2) bn2.textContent=notaFinal().toFixed(1);
+  const be = document.getElementById('bEmit'); if(be) be.textContent=new Date().toLocaleDateString('es-MX',{day:'numeric',month:'long',year:'numeric'});
 }
 
-// Registro (simplificado)
 let editMode=false;
 function setFormMode(edit){
   editMode=edit;
-  $('#btnEstSave').innerHTML = edit? '<i data-lucide="save"></i><span>Guardar cambios</span>'
-                                   : '<i data-lucide="user-plus"></i><span>Registrarme</span>';
-  $('#btnEstCancel').hidden=!edit;
+  const btn = document.getElementById('btnEstSave');
+  if(btn) btn.innerHTML = edit? '<i data-lucide="save"></i><span>Guardar cambios</span>'
+                               : '<i data-lucide="user-plus"></i><span>Registrarme</span>';
+  const cancel = document.getElementById('btnEstCancel');
+  if(cancel) cancel.hidden=!edit;
   refreshIcons();
 }
-$('#formEst').addEventListener('submit', e=>{
+
+const formEst = document.getElementById('formEst');
+if(formEst) formEst.addEventListener('submit', e=>{
   e.preventDefault();
-  const nombre=$('#alNombre').value.trim(), mat=$('#alMat').value.trim(), correo=$('#alMail').value.trim();
+  const nombre=document.getElementById('alNombre').value.trim();
+  const mat=document.getElementById('alMat').value.trim();
+  const correo=document.getElementById('alMail').value.trim();
   if(nombre.length<3){ toast('Escribe el nombre completo.','err'); return; }
   if(mat.length<4){ toast('La matrícula debe tener al menos 4 caracteres.','err'); return; }
   if(!/^\S+@\S+\.\S+$/.test(correo)){ toast('Escribe un correo válido.','err'); return; }
@@ -2012,15 +1983,26 @@ $('#formEst').addEventListener('submit', e=>{
   renderBoleta(); syncEjChecks(); renderTaskList();
   toast(prev? 'Datos actualizados.' : `¡Listo, ${nombre.split(' ')[0]}!`);
 });
-$('#btnEstEdit').addEventListener('click', ()=>{
+
+const btnEstEdit = document.getElementById('btnEstEdit');
+if(btnEstEdit) btnEstEdit.addEventListener('click', ()=>{
   const est=loadEst(); if(!est) return;
-  $('#alNombre').value=est.nombre; $('#alMat').value=est.matricula; $('#alMail').value=est.correo;
-  $('#regEmpty').hidden=false; $('#boletaWrap').hidden=true;
-  setFormMode(true); $('#alNombre').focus();
+  document.getElementById('alNombre').value=est.nombre;
+  document.getElementById('alMat').value=est.matricula;
+  document.getElementById('alMail').value=est.correo;
+  const re = document.getElementById('regEmpty'); if(re) re.hidden=false;
+  const bw = document.getElementById('boletaWrap'); if(bw) bw.hidden=true;
+  setFormMode(true); document.getElementById('alNombre').focus();
 });
-$('#btnEstCancel').addEventListener('click', ()=>{ $('#formEst').reset(); setFormMode(false); renderBoleta(); });
-$('#btnEstDel').addEventListener('click', ()=>{
-  const b=$('#btnEstDel');
+
+const btnEstCancel = document.getElementById('btnEstCancel');
+if(btnEstCancel) btnEstCancel.addEventListener('click', ()=>{
+  document.getElementById('formEst').reset(); setFormMode(false); renderBoleta();
+});
+
+const btnEstDel = document.getElementById('btnEstDel');
+if(btnEstDel) btnEstDel.addEventListener('click', ()=>{
+  const b=btnEstDel;
   if(!b.classList.contains('confirm')){
     b.classList.add('confirm'); b.innerHTML='<i data-lucide="alert-triangle"></i><span>¿Borrar todo?</span>'; refreshIcons();
     setTimeout(()=>{ if(b.isConnected){ b.classList.remove('confirm');
@@ -2028,14 +2010,16 @@ $('#btnEstDel').addEventListener('click', ()=>{
     return;
   }
   localStorage.removeItem(LS_EST); localStorage.removeItem(LS_ACT);
-  $('#formEst').reset(); setFormMode(false);
+  document.getElementById('formEst').reset(); setFormMode(false);
   renderBoleta(); syncEjChecks(); renderTaskList();
   toast('Registro y avance borrados.');
 });
-$('#btnBoletaPng').addEventListener('click', ()=>{
+
+const btnBoletaPng = document.getElementById('btnBoletaPng');
+if(btnBoletaPng) btnBoletaPng.addEventListener('click', ()=>{
   if(typeof html2canvas!=='function'){ toast('No se pudo generar la imagen.','err'); return; }
   toast('Generando imagen…');
-  html2canvas($('#boletaCard'),{scale:2, backgroundColor:null, useCORS:true}).then(cv=>{
+  html2canvas(document.getElementById('boletaCard'),{scale:2, backgroundColor:null, useCORS:true}).then(cv=>{
     const est=loadEst();
     const a=document.createElement('a');
     a.download=`boleta-unidad5-${est? est.matricula : 'alumno'}.png`;
@@ -2045,23 +2029,33 @@ $('#btnBoletaPng').addEventListener('click', ()=>{
 });
 
 /* ============================================================
-   ARRANQUE
+   ARRANQUE ROBUSTO
 ============================================================ */
 function init(){
-  refreshIcons();
-  buildEditors();
-  initRedacs();
-  renderTaskList();
-  syncEjChecks();
-  renderBoleta();
-  drawHero();
-  if(typeof renderMathInElement==='function'){
-    renderMathInElement(document.body,{delimiters:[
-      {left:'$$',right:'$$',display:true},{left:'\\(',right:'\\)',display:false}],throwOnError:false});
-  }
+  safe(refreshIcons, 'iconos');
+  safe(buildEditors, 'editores');
+  safe(initRedacs, 'redacciones');
+  safe(renderTaskList, 'tarea');
+  safe(syncEjChecks, 'checks ejercicios');
+  safe(renderBoleta, 'boleta');
+  safe(drawHero, 'hero canvas');
+  safe(() => {
+    if(typeof renderMathInElement === 'function'){
+      renderMathInElement(document.body, {delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'\\(',right:'\\)',display:false}
+      ], throwOnError:false});
+    }
+  }, 'katex global');
 }
-window.addEventListener('resize', ()=>{ drawHero(); });
-init();
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => safe(init, 'init'));
+} else {
+  safe(init, 'init inmediato');
+}
+
+window.addEventListener('resize', () => safe(drawHero, 'resize hero'));
 </script>
 </body>
 </html>
