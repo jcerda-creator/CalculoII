@@ -14,7 +14,23 @@
 /* ============================================================
    VARIABLES Y BASE
 ============================================================ */
-:root{--ink:#203025;--paper:#f5fbf3;--panel:#fff;--purple:#8C368D;--purple-soft:#f6e9f6;--orange:#F59C00;--orange-soft:#fdf1da;--green:#3BAA34;--green-soft:#e9f6e7;--magenta:#CE027F;--magenta-soft:#fbe7f2;--line:#cfe4cf;--muted:#526457;--ok:#247a25;--bad:#b4235a}
+:root{
+  --paper:#F5F9FD;
+  --card:#FFFFFF;
+  --ink:#0B0D10;
+  --pine:#1670C8;
+  --pine-soft:#2E9BF0;
+  --terra:#0B4E8F;
+  --terra-soft:#E4F0FB;
+  --gold:#2E9BF0;
+  --line:rgba(11,13,16,.12);
+  --line-strong:rgba(11,13,16,.26);
+  --muted:rgba(11,13,16,.62);
+  --ok-bg:#E4F1FC;
+  --err:#C24E36;
+  --err-bg:#F9E9E4;
+  --radius:12px;
+}
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
 [id]{scroll-margin-top:150px}
@@ -24,7 +40,7 @@ body{
   background:var(--paper);
   color:var(--ink);
   line-height:1.6;
-  background-image:radial-gradient(rgba(30,70,54,.075) 1px, transparent 1px);
+  background-image:radial-gradient(rgba(22,112,200,.08) 1px, transparent 1px);
   background-size:26px 26px;
 }
 .wrap{max-width:1150px;margin:0 auto;padding:0 24px}
@@ -38,6 +54,18 @@ svg.lucide{width:16px;height:16px;stroke-width:2}
 /* ============================================================
    HEADER / NAV
 ============================================================ */
+.topbar-logo{
+  position:absolute;top:14px;right:24px;
+  width:64px;height:64px;object-fit:contain;
+  filter:drop-shadow(0 2px 4px rgba(11,13,16,.15));
+}
+.topbar-row{position:relative}
+@media (max-width:640px){
+  .topbar-logo{width:28px;height:44px;top:12px;right:16px}
+.brand-logo{width:48px;max-width:22vw;height:auto;flex:none;align-self:flex-start}
+@media(max-width:760px){.brand-logo{width:28px}}
+  .topbar-side{padding-right:56px}
+}
 header.topbar{
   position:sticky;top:0;z-index:60;
   background:rgba(245,249,253,.94);
@@ -46,8 +74,9 @@ header.topbar{
 }
 .topbar-row{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 0}
 .brand{display:flex;align-items:center;gap:10px;font-family:'Fraunces',serif;font-weight:700;font-size:1.15rem}
-.brand .brand-ico{width:34px;height:34px;border:1.5px solid var(--ink);border-radius:9px;display:grid;place-items:center;background:var(--ink);color:var(--paper)}
-.brand .brand-ico svg{width:17px;height:17px}
+.brand .brand-ico{width:48px;height:38px;border-radius:9px;display:grid;place-items:center;background:transparent;border:none;color:var(--pine)}
+.brand .brand-ico img{width:36px;height:36px;object-fit:contain;display:block}
+.brand .brand-ico svg{width:20px;height:20px}
 .brand small{display:block;font-family:'Instrument Sans';font-weight:600;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
 .brand-logo{width:48px;max-width:22vw;height:auto;flex:none;align-self:flex-start}
 @media(max-width:760px){.brand-logo{width:28px}}
@@ -350,19 +379,17 @@ footer{border-top:2px solid var(--ink);padding:30px 0 40px;margin-top:20px}
 <header class="topbar">
   <div class="wrap topbar-row">
     <div class="brand">
-      <span class="brand-ico"><i data-lucide="sigma"></i></span>
-      <span>Cálculo II · Unidad 3<small>Aula interactiva — Dr. Adrián Cerda</small></span>
+      <span class="brand-ico"><img src="unii_logo_clean.png" alt="Logo"></span>
+      <span>Cálculo II<small>Aula interactiva — Dr. Adrián Cerda</small></span>
     </div>
-    <img class="brand-logo" src="unii_logo_clean.png" alt="Logo UNII">
-    <img class="brand-logo" src="unii_logo_clean.png" alt="Logo UNII">
-  </div>
-  <div class="wrap">
+    <img class="brand-logo" src="unii_logo_clean.png" alt="Logo UNII" style="width:48px;height:auto;margin-left:auto;">
+  </div><div class="wrap">
     <nav class="tabs" id="mainNav">
       <button class="nav-btn active" data-view="inicio"><i data-lucide="home"></i>Inicio</button>
       <button class="nav-btn" data-view="teoria"><i data-lucide="book-open"></i>Teoría</button>
-      <button class="nav-btn" data-view="simulador"><i data-lucide="layout-dashboard"></i>Simulador 3D</button>
+      <button class="nav-btn" data-view="simulador"><i data-lucide="layout-dashboard"></i>Simulador</button>
       <button class="nav-btn" data-view="actividades"><i data-lucide="clipboard-list"></i>Actividades</button>
-      <button class="nav-btn" data-view="boleta"><i data-lucide="badge-check"></i>Mi boleta</button>
+      <button class="nav-btn" data-view="boleta"><i data-lucide="badge-check"></i>Mi registro y nota</button>
     </nav>
   </div>
 </header>
@@ -419,11 +446,11 @@ footer{border-top:2px solid var(--ink);padding:30px 0 40px;margin-top:20px}
     </div>
     <aside>
       <p class="overline" style="margin-bottom:14px">En un vistazo</p>
-      <div class="side-stats">
-        <div class="stat"><div class="num" id="statNota">—</div><div class="lbl">Tu nota (sobre 10)</div><img class="brand-logo" src="unii_logo_clean.png" alt="Logo UNII"></div>
-        <div class="stat"><div class="num">3</div><div class="lbl">Secciones teóricas</div><img class="brand-logo" src="unii_logo_clean.png" alt="Logo UNII"></div>
-        <div class="stat"><div class="num">6</div><div class="lbl">Preguntas del quiz</div><img class="brand-logo" src="unii_logo_clean.png" alt="Logo UNII"></div>
-        <div class="stat"><div class="num">12</div><div class="lbl">Ejercicios y problemas</div><img class="brand-logo" src="unii_logo_clean.png" alt="Logo UNII"></div>
+      <div class="side-stats"><div class="stat" style="background:var(--paper)"><div class="lbl" style="margin-bottom:8px">Conceptos clave</div><div style="font-size:13px;line-height:1.4">Entornos, Límites, Continuidad, Diferenciabilidad, Teoremas base.</div></div>
+        <div class="stat"><div class="num" id="statNota">—</div><div class="lbl">Tu nota (sobre 10)</div></div>
+        <div class="stat"><div class="num">3</div><div class="lbl">Secciones teóricas</div></div>
+        <div class="stat"><div class="num">6</div><div class="lbl">Preguntas del quiz</div></div>
+        <div class="stat"><div class="num">12</div><div class="lbl">Ejercicios y problemas</div></div>
       </div>
     </aside>
   </div>
@@ -614,10 +641,10 @@ footer{border-top:2px solid var(--ink);padding:30px 0 40px;margin-top:20px}
     <div class="act-block">
       <h3>Rúbrica de evaluación</h3>
       <p class="act-desc">Ponderación de cada instrumento sobre la calificación de la unidad (nota final sobre 10).</p>
-      <div class="rub-row"><span class="rub-name">Prácticas en el simulador 3D</span><div class="rub-bar"><div style="width:15%"></div><img class="brand-logo" src="unii_logo_clean.png" alt="Logo UNII"></div><span class="rub-pct">15%</span></div>
-      <div class="rub-row"><span class="rub-name">Ejercicios guiados (solución detallada)</span><div class="rub-bar"><div style="width:25%"></div><img class="brand-logo" src="unii_logo_clean.png" alt="Logo UNII"></div><span class="rub-pct">25%</span></div>
-      <div class="rub-row"><span class="rub-name">Quiz de autoevaluación</span><div class="rub-bar"><div style="width:30%"></div><img class="brand-logo" src="unii_logo_clean.png" alt="Logo UNII"></div><span class="rub-pct">30%</span></div>
-      <div class="rub-row"><span class="rub-name">Tarea: problemas del Marsden-Tromba</span><div class="rub-bar"><div style="width:30%"></div><img class="brand-logo" src="unii_logo_clean.png" alt="Logo UNII"></div><span class="rub-pct">30%</span></div>
+      <div class="rub-row"><span class="rub-name">Prácticas en el simulador 3D</span><div class="rub-bar"><div style="width:15%"></div></div><span class="rub-pct">15%</span></div>
+      <div class="rub-row"><span class="rub-name">Ejercicios guiados (solución detallada)</span><div class="rub-bar"><div style="width:25%"></div></div><span class="rub-pct">25%</span></div>
+      <div class="rub-row"><span class="rub-name">Quiz de autoevaluación</span><div class="rub-bar"><div style="width:30%"></div></div><span class="rub-pct">30%</span></div>
+      <div class="rub-row"><span class="rub-name">Tarea: problemas del Marsden-Tromba</span><div class="rub-bar"><div style="width:30%"></div></div><span class="rub-pct">30%</span></div>
     </div>
 
     <!-- Ejercicios guiados -->
@@ -758,7 +785,7 @@ footer{border-top:2px solid var(--ink);padding:30px 0 40px;margin-top:20px}
             <div style="display:flex;justify-content:space-between;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:8px">
               <span>Progreso</span><span id="taskPct">0 / 8 · 0%</span>
             </div>
-            <div class="conv-bar" style="margin-bottom:18px"><div id="taskBar" style="background:var(--pine)"></div><img class="brand-logo" src="unii_logo_clean.png" alt="Logo UNII"></div>
+            <div class="conv-bar" style="margin-bottom:18px"><div id="taskBar" style="background:var(--pine)"></div></div>
             <div id="taskList"></div>
           </div>
         </div>
@@ -1872,8 +1899,8 @@ function renderBoleta(){
   ];
   $('#bRows').innerHTML=defs.map(d=>`
     <div class="b-row">
-      <div><div class="b-rubname">${d.nombre}</div><div class="b-rubdet">${d.det}</div><img class="brand-logo" src="unii_logo_clean.png" alt="Logo UNII"></div>
-      <div class="b-bar"><div style="width:${d.pct.toFixed(0)}%"></div><img class="brand-logo" src="unii_logo_clean.png" alt="Logo UNII"></div>
+      <div><div class="b-rubname">${d.nombre}</div><div class="b-rubdet">${d.det}</div></div>
+      <div class="b-bar"><div style="width:${d.pct.toFixed(0)}%"></div></div>
       <div class="b-pts mono">${(d.pct/100*d.w).toFixed(2)} <small>/ ${d.w.toFixed(1)}</small></div>
     </div>`).join('');
   $('#bNota').textContent=notaFinal().toFixed(1);
