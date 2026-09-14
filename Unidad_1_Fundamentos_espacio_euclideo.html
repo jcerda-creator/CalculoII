@@ -420,7 +420,7 @@ footer{border-top:2px solid var(--ink);padding:30px 0 40px;margin-top:20px}
       </span>
       <span>Cálculo II · Unidad 1<small>Aula interactiva — Dr. Adrián Cerda</small></span>
     </div>
-    <img class="brand-logo" src="unii_logo_clean.png" alt="Logo UNII">
+    
     <!-- <div class="topbar-side">UNII<br>7 sep – 3 oct 2026</div> -->
     
   </div>
@@ -501,10 +501,10 @@ footer{border-top:2px solid var(--ink);padding:30px 0 40px;margin-top:20px}
     <aside>
       <p class="overline" style="margin-bottom:14px">En un vistazo</p>
       <div class="side-stats"><div class="stat" style="background:var(--paper)"><div class="lbl" style="margin-bottom:8px">Conceptos clave</div><div style="font-size:13px;line-height:1.4">Espacio euclídeo, Producto punto, Norma, Proyecciones, Rectas y planos.</div></div>
-        <div class="stat"><div class="num" id="statNota">—</div><div class="lbl">Tu nota (sobre 10)</div><img class="brand-logo" src="unii_logo_clean.png" alt="Logo UNII"></div>
-        <div class="stat"><div class="num">5</div><div class="lbl">Secciones teóricas</div><img class="brand-logo" src="unii_logo_clean.png" alt="Logo UNII"></div>
-        <div class="stat"><div class="num">6</div><div class="lbl">Preguntas del quiz</div><img class="brand-logo" src="unii_logo_clean.png" alt="Logo UNII"></div>
-        <div class="stat"><div class="num">12</div><div class="lbl">Ejercicios y problemas</div><img class="brand-logo" src="unii_logo_clean.png" alt="Logo UNII"></div>
+        <div class="stat"><div class="num" id="statNota">—</div><div class="lbl">Tu nota (sobre 10)</div></div>
+        <div class="stat"><div class="num">5</div><div class="lbl">Secciones teóricas</div></div>
+        <div class="stat"><div class="num">6</div><div class="lbl">Preguntas del quiz</div></div>
+        <div class="stat"><div class="num">12</div><div class="lbl">Ejercicios y problemas</div></div>
       </div>
     </aside>
   </div>
@@ -779,10 +779,10 @@ footer{border-top:2px solid var(--ink);padding:30px 0 40px;margin-top:20px}
     <div class="act-block">
       <h3>Rúbrica de evaluación</h3>
       <p class="act-desc">Ponderación de cada instrumento sobre la calificación de la unidad (nota final sobre 10).</p>
-      <div class="rub-row"><span class="rub-name">Prácticas en el simulador (operaciones y regiones)</span><div class="rub-bar"><div style="width:15%"></div><img class="brand-logo" src="unii_logo_clean.png" alt="Logo UNII"></div><span class="rub-pct">15%</span></div>
-      <div class="rub-row"><span class="rub-name">Ejercicios guiados (solución detallada)</span><div class="rub-bar"><div style="width:25%"></div><img class="brand-logo" src="unii_logo_clean.png" alt="Logo UNII"></div><span class="rub-pct">25%</span></div>
-      <div class="rub-row"><span class="rub-name">Quiz de autoevaluación</span><div class="rub-bar"><div style="width:30%"></div><img class="brand-logo" src="unii_logo_clean.png" alt="Logo UNII"></div><span class="rub-pct">30%</span></div>
-      <div class="rub-row"><span class="rub-name">Tarea: problemas del Marsden-Tromba</span><div class="rub-bar"><div style="width:30%"></div><img class="brand-logo" src="unii_logo_clean.png" alt="Logo UNII"></div><span class="rub-pct">30%</span></div>
+      <div class="rub-row"><span class="rub-name">Prácticas en el simulador (operaciones y regiones)</span><div class="rub-bar"><div style="width:15%"></div></div><span class="rub-pct">15%</span></div>
+      <div class="rub-row"><span class="rub-name">Ejercicios guiados (solución detallada)</span><div class="rub-bar"><div style="width:25%"></div></div><span class="rub-pct">25%</span></div>
+      <div class="rub-row"><span class="rub-name">Quiz de autoevaluación</span><div class="rub-bar"><div style="width:30%"></div></div><span class="rub-pct">30%</span></div>
+      <div class="rub-row"><span class="rub-name">Tarea: problemas del Marsden-Tromba</span><div class="rub-bar"><div style="width:30%"></div></div><span class="rub-pct">30%</span></div>
     </div>
 
     <!-- Ejercicios guiados -->
@@ -913,7 +913,7 @@ footer{border-top:2px solid var(--ink);padding:30px 0 40px;margin-top:20px}
             <div style="display:flex;justify-content:space-between;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:8px">
               <span>Progreso</span><span id="taskPct">0 / 8 · 0%</span>
             </div>
-            <div class="conv-bar" style="margin-bottom:18px"><div id="taskBar"></div><img class="brand-logo" src="unii_logo_clean.png" alt="Logo UNII"></div>
+            <div class="conv-bar" style="margin-bottom:18px"><div id="taskBar"></div></div>
             <div id="taskList"></div>
           </div>
         </div>
@@ -1817,8 +1817,8 @@ function renderBoleta(){
   ];
   $('#bRows').innerHTML=defs.map(d=>`
     <div class="b-row">
-      <div><div class="b-rubname">${d.nombre}</div><div class="b-rubdet">${d.det}</div><img class="brand-logo" src="unii_logo_clean.png" alt="Logo UNII"></div>
-      <div class="b-bar"><div style="width:${d.pct.toFixed(0)}%"></div><img class="brand-logo" src="unii_logo_clean.png" alt="Logo UNII"></div>
+      <div><div class="b-rubname">${d.nombre}</div><div class="b-rubdet">${d.det}</div></div>
+      <div class="b-bar"><div style="width:${d.pct.toFixed(0)}%"></div></div>
       <div class="b-pts mono">${(d.pct/100*d.w).toFixed(2)} <small>/ ${d.w.toFixed(1)}</small></div>
     </div>`).join('');
   $('#bNota').textContent=notaFinal().toFixed(1);
