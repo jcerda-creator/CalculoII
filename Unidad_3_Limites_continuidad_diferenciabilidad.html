@@ -1,0 +1,1969 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unidad 3 · Límites, continuidad y diferenciabilidad — Cálculo II</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+
+<style>
+/* ============================================================
+   VARIABLES Y BASE
+============================================================ */
+:root{
+  --paper:#f7f3eb;
+  --card:#fffdf8;
+  --ink:#1c2b25;
+  --pine:#1e4636;
+  --pine-soft:#2c5e49;
+  --terra:#c2542f;
+  --terra-soft:#f3e0d6;
+  --gold:#c9a227;
+  --line:rgba(28,43,37,.16);
+  --line-strong:rgba(28,43,37,.4);
+  --muted:rgba(28,43,37,.62);
+  --ok-bg:#e7efe6;
+  --err-bg:#f7e6dd;
+  --radius:12px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+[id]{scroll-margin-top:150px}
+[hidden]{display:none!important}
+body{
+  font-family:'Instrument Sans',sans-serif;
+  background:var(--paper);
+  color:var(--ink);
+  line-height:1.6;
+  background-image:radial-gradient(rgba(30,70,54,.075) 1px, transparent 1px);
+  background-size:26px 26px;
+}
+.wrap{max-width:1150px;margin:0 auto;padding:0 24px}
+h1,h2,h3,.display{font-family:'Fraunces',serif;font-weight:600;line-height:1.12;letter-spacing:-.01em}
+.overline{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--terra)}
+.mono{font-variant-numeric:tabular-nums}
+button{font-family:inherit;cursor:pointer}
+a{color:var(--pine)}
+svg.lucide{width:16px;height:16px;stroke-width:2}
+
+/* ============================================================
+   HEADER / NAV
+============================================================ */
+header.topbar{
+  position:sticky;top:0;z-index:60;
+  background:rgba(247,243,235,.93);
+  backdrop-filter:blur(10px);
+  border-bottom:1.5px solid var(--ink);
+}
+.topbar-row{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 0}
+.brand{display:flex;align-items:center;gap:10px;font-family:'Fraunces',serif;font-weight:700;font-size:1.15rem}
+.brand .brand-ico{width:34px;height:34px;border:1.5px solid var(--ink);border-radius:9px;display:grid;place-items:center;background:var(--ink);color:var(--paper)}
+.brand .brand-ico svg{width:17px;height:17px}
+.brand small{display:block;font-family:'Instrument Sans';font-weight:600;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.topbar-side{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-align:right}
+nav.tabs{display:flex;gap:6px;border-top:1px solid var(--line);padding:10px 0;overflow-x:auto;scrollbar-width:none}
+nav.tabs::-webkit-scrollbar{display:none}
+.nav-btn{
+  display:inline-flex;align-items:center;gap:7px;white-space:nowrap;
+  border:1px solid transparent;background:transparent;color:var(--pine);
+  font-weight:600;font-size:13.5px;padding:8px 14px;border-radius:999px;
+  transition:all .18s ease;
+}
+.nav-btn svg{width:15px;height:15px}
+.nav-btn:hover{border-color:var(--line-strong)}
+.nav-btn.active{background:var(--ink);color:var(--paper)}
+
+/* ============================================================
+   VISTAS
+============================================================ */
+.view{padding:0 0 80px}
+.view-head{border-bottom:2px solid var(--ink);padding:52px 0 26px;margin-bottom:36px}
+.view-head h2{font-size:clamp(1.8rem,3.4vw,2.6rem);margin:8px 0 10px}
+.view-head p.sub{max-width:680px;color:var(--muted)}
+
+/* ============================================================
+   BOTONES / FORMULARIOS
+============================================================ */
+.btn{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--ink);color:var(--paper);
+  border:1px solid var(--ink);border-radius:10px;
+  padding:11px 18px;font-weight:600;font-size:14px;
+  transition:all .18s ease;
+}
+.btn:hover{background:var(--pine);border-color:var(--pine);transform:translateY(-1px)}
+.btn.ghost{background:transparent;color:var(--ink)}
+.btn.ghost:hover{background:rgba(28,43,37,.06);transform:translateY(-1px)}
+.btn.sm{padding:8px 12px;font-size:13px;border-radius:8px}
+.btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.field{display:flex;flex-direction:column;gap:6px}
+.field label{font-size:11px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
+.field input,.field select{
+  font:inherit;font-size:14px;color:var(--ink);
+  background:var(--card);border:1px solid var(--line-strong);
+  border-radius:8px;padding:10px 12px;width:100%;
+  transition:border-color .15s, box-shadow .15s;
+}
+.field input:focus,.field select:focus{outline:none;border-color:var(--pine);box-shadow:0 0 0 3px rgba(30,70,54,.14)}
+.hint{font-size:12px;color:var(--muted)}
+
+/* ============================================================
+   INICIO / HERO
+============================================================ */
+.hero{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center;padding:64px 0 56px}
+.hero h1{font-size:clamp(2.3rem,4.6vw,3.7rem);margin:14px 0 18px}
+.hero h1 em{font-style:italic;color:var(--terra)}
+.hero .lead{font-size:1.05rem;color:var(--muted);max-width:520px}
+.hero-actions{display:flex;gap:12px;margin:26px 0 30px;flex-wrap:wrap}
+.meta-grid{display:grid;grid-template-columns:repeat(2,1fr);border-top:1px solid var(--line-strong);max-width:520px}
+.meta-grid>div{padding:12px 14px 12px 0;border-bottom:1px solid var(--line)}
+.meta-grid dt{font-size:10.5px;font-weight:700;letter-spacing:.11em;text-transform:uppercase;color:var(--muted)}
+.meta-grid dd{font-weight:600;font-size:14.5px}
+.hero-fig{border:1.5px solid var(--ink);border-radius:var(--radius);background:var(--card);overflow:hidden;box-shadow:6px 6px 0 rgba(28,43,37,.12)}
+.hero-fig canvas{display:block;width:100%;height:320px}
+.hero-fig figcaption{padding:12px 16px;border-top:1px solid var(--line);font-size:12.5px;color:var(--muted)}
+.home-grid{display:grid;grid-template-columns:1.35fr .65fr;gap:44px;border-top:1.5px solid var(--ink);padding-top:38px}
+.route-item{display:grid;grid-template-columns:86px 1fr auto;gap:18px;align-items:center;border-top:1px solid var(--line);padding:22px 4px;cursor:pointer;transition:background .15s}
+.route-item:first-child{border-top:none}
+.route-item:hover{background:rgba(28,43,37,.045)}
+.route-no{font-family:'Fraunces',serif;font-size:2.6rem;font-weight:400;color:rgba(30,70,54,.28)}
+.route-item h3{font-size:1.2rem;margin-bottom:4px}
+.route-item p{font-size:13.5px;color:var(--muted)}
+.route-go{width:38px;height:38px;border:1.5px solid var(--ink);border-radius:50%;display:grid;place-items:center;background:transparent;color:var(--ink);transition:all .18s}
+.route-item:hover .route-go{background:var(--ink);color:var(--paper)}
+.side-stats{display:flex;flex-direction:column;gap:12px}
+.stat{border:1px solid var(--line-strong);border-radius:10px;background:var(--card);padding:14px 18px}
+.stat .num{font-family:'Fraunces',serif;font-size:1.7rem;font-weight:600;line-height:1}
+.stat .lbl{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:4px}
+
+/* ============================================================
+   TEORÍA
+============================================================ */
+.theory{display:grid;grid-template-columns:250px 1fr;gap:52px;align-items:start}
+.toc{position:sticky;top:150px;border-left:1.5px solid var(--ink);display:flex;flex-direction:column}
+.toc-title{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding:0 0 10px 16px}
+.toc a{display:flex;gap:10px;align-items:baseline;text-decoration:none;color:var(--ink);padding:9px 16px;font-size:13.5px;font-weight:500;border-left:3px solid transparent;margin-left:-1.5px;transition:all .15s}
+.toc a span{font-family:'Fraunces',serif;color:var(--terra);font-weight:600;min-width:30px}
+.toc a:hover{border-left-color:var(--pine);background:rgba(28,43,37,.05)}
+.sec{border-top:1px solid var(--line);padding:44px 0}
+.sec:first-child{border-top:none;padding-top:0}
+.sec-no{font-family:'Fraunces',serif;font-size:3rem;font-weight:400;color:rgba(30,70,54,.22);line-height:1}
+.sec h3{font-size:1.55rem;margin:6px 0 16px}
+.prose p{margin:0 0 14px;max-width:70ch}
+.prose ul,.prose ol{margin:0 0 14px 22px;max-width:70ch}
+.prose li{margin-bottom:6px}
+.def{background:#ecf1ea;border:1px solid rgba(30,70,54,.28);border-radius:0 10px 10px 0;border-left:4px solid var(--pine);padding:18px 22px;margin:20px 0}
+.def .def-tag{font-size:10.5px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--pine)}
+.def p{margin:6px 0 0}
+.ex{background:var(--card);border:1px solid var(--line-strong);border-left:4px solid var(--gold);border-radius:0 10px 10px 0;padding:18px 22px;margin:20px 0}
+.ex .ex-tag{font-size:10.5px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:#8a6d10}
+.formula-hero{display:flex;justify-content:center;padding:16px 0;font-size:1.15rem}
+.tbl{width:100%;border-collapse:collapse;margin:16px 0;font-size:14px}
+.tbl th{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-align:left;padding:8px 10px;border-bottom:1.5px solid var(--ink)}
+.tbl td{padding:9px 10px;border-bottom:1px solid var(--line)}
+.tbl tbody tr:hover{background:rgba(28,43,37,.04)}
+.tbl td.center,.tbl th.center{text-align:center}
+.tag{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:3px 9px;border-radius:999px;border:1px solid}
+.tag.d{color:var(--pine);border-color:rgba(30,70,54,.45);background:#ecf1ea}
+.tag.c{color:var(--terra);border-color:rgba(194,84,47,.45);background:var(--terra-soft)}
+
+/* ============================================================
+   SIMULADOR 3D - LÍMITES
+============================================================ */
+.panel{background:var(--card);border:1.5px solid var(--ink);border-radius:var(--radius);overflow:hidden}
+.panel-head{display:flex;align-items:center;gap:9px;padding:14px 18px;border-bottom:1px solid var(--line);font-weight:700;font-size:13px;letter-spacing:.06em;text-transform:uppercase}
+.panel-body{padding:20px 18px}
+.sim-tabs{display:flex;gap:6px;margin-bottom:18px;border-bottom:1px solid var(--line);padding-bottom:10px;flex-wrap:wrap}
+.sim-tab{background:transparent;border:1px solid transparent;padding:8px 16px;border-radius:999px;font-weight:600;font-size:13px;color:var(--muted);transition:all .15s}
+.sim-tab:hover{border-color:var(--line-strong)}
+.sim-tab.active{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.sim-panel{display:none}
+.sim-panel.active{display:block}
+.sim-3d-container{width:100%;height:420px;border-radius:8px;overflow:hidden;border:1px solid var(--line-strong);background:#faf8f4;position:relative}
+.sim-3d-container canvas{display:block;width:100%!important;height:100%!important}
+.sim-controls-3d{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+.sim-controls-3d .field{margin-bottom:0}
+.sim-presets{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+.sim-presets button{font-size:11px;padding:6px 12px}
+.trayectorias{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+.trayectorias button{font-size:11px;padding:4px 10px}
+.legend-3d{display:flex;gap:16px;flex-wrap:wrap;font-size:11px;color:var(--muted);margin-top:10px;padding-top:10px;border-top:1px solid var(--line)}
+.legend-3d .dot{display:inline-block;width:14px;height:14px;border-radius:50%;margin-right:4px;vertical-align:middle}
+.note{font-size:12.5px;color:var(--muted);border-top:1px dashed var(--line-strong);margin-top:18px;padding-top:12px}
+.limite-info{background:#ecf1ea;border-radius:8px;padding:12px 16px;margin-top:12px;font-size:14px}
+.limite-info .valor{font-family:'Fraunces',serif;font-size:1.3rem;color:var(--pine);font-weight:600}
+
+/* ============================================================
+   ACTIVIDADES
+============================================================ */
+.act-block{margin-bottom:52px}
+.act-block>h3{font-size:1.45rem;margin:8px 0 6px}
+.act-block>.act-desc{color:var(--muted);max-width:70ch;margin-bottom:20px}
+.rub-row{display:grid;grid-template-columns:280px 1fr 60px;gap:16px;align-items:center;border-top:1px solid var(--line);padding:14px 4px}
+.rub-row:last-child{border-bottom:1px solid var(--line)}
+.rub-row .rub-name{font-weight:600;font-size:14.5px}
+.rub-bar{height:10px;border:1px solid var(--line-strong);border-radius:999px;overflow:hidden}
+.rub-bar>div{height:100%;background:var(--pine)}
+.rub-pct{text-align:right;font-family:'Fraunces',serif;font-weight:600}
+details.sol{border:1px solid var(--line-strong);border-radius:10px;background:var(--card);margin-bottom:14px;overflow:hidden}
+details.sol summary{list-style:none;display:flex;align-items:flex-start;gap:12px;padding:16px 18px;cursor:pointer;font-weight:600;transition:background .15s}
+details.sol summary::-webkit-details-marker{display:none}
+details.sol summary:hover{background:rgba(28,43,37,.04)}
+.sol-marker{flex:none;width:24px;height:24px;border:1.5px solid var(--ink);border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:15px;transition:transform .2s;margin-top:1px}
+details[open].sol .sol-marker{transform:rotate(45deg);background:var(--ink);color:var(--paper)}
+.sol-body{border-top:1px dashed var(--line-strong);padding:16px 20px;font-size:14.5px}
+.sol-body p{margin-bottom:10px;max-width:75ch}
+.prob-tag{font-size:10.5px;font-weight:700;letter-spacing:.11em;text-transform:uppercase;color:var(--terra);display:block;margin-bottom:4px}
+.chk{display:flex;align-items:center;gap:11px;border:1px solid var(--line-strong);border-radius:9px;background:var(--card);padding:10px 14px;margin-bottom:9px;cursor:pointer;transition:all .15s;font-size:14.5px}
+.chk:hover{border-color:var(--pine)}
+.chk input{width:16px;height:16px;accent-color:var(--pine)}
+.chk.done{background:var(--ok-bg);border-color:var(--pine)}
+
+/* ============================================================
+   EDITOR DE REDACCIÓN
+============================================================ */
+.ed-box{border:1.5px solid var(--ink);border-radius:10px;margin-top:18px;overflow:hidden;background:var(--card)}
+.ed-toolbar{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:9px 14px;border-bottom:1px solid var(--line);background:#ecf1ea;flex-wrap:wrap}
+.ed-title{display:inline-flex;align-items:center;gap:7px;font-size:10.5px;font-weight:700;letter-spacing:.11em;text-transform:uppercase;color:var(--pine)}
+.ed-title svg{width:13px;height:13px}
+.ed-status{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;color:var(--muted)}
+.ed-status .dot{width:7px;height:7px;border-radius:50%;background:var(--gold)}
+.ed-status.saved{color:var(--pine);font-weight:600}
+.ed-status.saved .dot{background:#4a8a5c}
+.ed-grid{display:grid;grid-template-columns:1fr 330px}
+.ed-main{padding:14px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.ed-ta{width:100%;min-height:200px;resize:vertical;font:inherit;font-size:14.5px;line-height:1.6;padding:12px 14px;border:1px solid var(--line-strong);border-radius:8px;background:var(--paper);color:var(--ink)}
+.ed-ta:focus{outline:none;border-color:var(--pine);box-shadow:0 0 0 3px rgba(30,70,54,.14)}
+.ed-preview-wrap{border:1px dashed var(--line-strong);border-radius:8px;overflow:hidden;background:var(--paper)}
+.ed-preview-head{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding:6px 12px;background:rgba(28,43,37,.04);border-bottom:1px dashed var(--line)}
+.ed-preview{padding:12px 14px;font-size:14.5px;min-height:56px;overflow-x:auto}
+.ed-preview .katex-display{margin:6px 0}
+.ed-ph{color:var(--muted);font-size:13px}
+.ed-manual{border-left:1px solid var(--line);padding:12px 14px;background:rgba(28,43,37,.03);max-height:460px;overflow:auto}
+.ed-note{font-size:12px;color:var(--muted);margin-bottom:10px}
+.ed-note code{background:var(--paper);border:1px solid var(--line);border-radius:4px;padding:1px 5px;font-size:11px}
+.ed-cmd-title{font-size:10px;font-weight:700;letter-spacing:.11em;text-transform:uppercase;color:var(--terra);margin:12px 0 4px}
+.cmd-row{display:grid;grid-template-columns:minmax(0,1fr) auto 26px;align-items:center;gap:8px;padding:5px 0;border-bottom:1px dashed var(--line)}
+.cmd-code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11px;color:var(--ink);overflow-x:auto;white-space:nowrap;display:block}
+.cmd-help{display:block;font-size:10.5px;color:var(--muted);font-family:'Instrument Sans'}
+.cmd-view{font-size:13px;text-align:right;max-width:130px;overflow-x:auto;padding:2px 0}
+.cmd-add{width:26px;height:26px;border:1px solid var(--line-strong);border-radius:6px;background:var(--card);display:grid;place-items:center;font-weight:700;color:var(--pine);transition:all .15s;font-size:14px;flex:none}
+.cmd-add:hover{background:var(--pine);color:var(--paper);border-color:var(--pine)}
+.ed-foot{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:9px 14px;border-top:1px dashed var(--line-strong);flex-wrap:wrap}
+.ed-count{font-size:12px;color:var(--muted)}
+details.mini-check{border:1px dashed var(--line-strong);border-radius:8px;background:var(--terra-soft);margin-top:14px}
+details.mini-check summary{padding:10px 14px;cursor:pointer;font-size:13px;font-weight:600;list-style:none}
+details.mini-check summary::-webkit-details-marker{display:none}
+details.mini-check summary:hover{color:var(--terra)}
+details.mini-check .sol-body{border-top:1px dashed var(--line-strong);padding-top:8px;font-size:13.5px}
+
+/* ============================================================
+   QUIZ
+============================================================ */
+.quiz-q{border-top:1px solid var(--line);padding:24px 4px}
+.quiz-q header{display:flex;gap:14px;margin-bottom:14px}
+.qnum{flex:none;font-family:'Fraunces',serif;font-weight:700;color:var(--terra);border:1.5px solid var(--terra);border-radius:8px;padding:2px 9px;height:fit-content}
+.quiz-q .q-text{font-weight:600;font-size:15.5px;padding-top:4px}
+.opts{display:grid;gap:9px;margin-left:56px}
+.opt{display:flex;align-items:center;gap:12px;border:1px solid var(--line-strong);border-radius:10px;padding:11px 14px;cursor:pointer;background:var(--card);transition:all .15s;font-size:14.5px}
+.opt:hover{border-color:var(--pine)}
+.opt input{position:absolute;opacity:0;pointer-events:none}
+.opt-key{flex:none;width:26px;height:26px;border:1.5px solid var(--line-strong);border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:12px;transition:all .15s}
+.opt.is-correct{border-color:var(--pine);background:var(--ok-bg)}
+.opt.is-correct .opt-key{background:var(--pine);border-color:var(--pine);color:var(--paper)}
+.opt.is-wrong{border-color:var(--terra);background:var(--err-bg)}
+.opt.is-wrong .opt-key{background:var(--terra);border-color:var(--terra);color:var(--paper)}
+.opt.locked{cursor:default}
+.explain{margin:12px 0 0 56px;font-size:13.5px;color:var(--muted);border-left:3px solid var(--gold);padding:8px 14px;background:var(--card)}
+.quiz-foot{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-top:22px;border-top:1.5px solid var(--ink);padding-top:20px}
+.quiz-result{font-size:15px}
+.quiz-result strong{font-family:'Fraunces',serif;font-size:1.5rem;color:var(--pine);margin-right:8px}
+.task-panel{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:start}
+
+/* ============================================================
+   BOLETA
+============================================================ */
+.avatar{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:13px;flex:none}
+.del-btn{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line-strong);background:transparent;color:var(--ink);border-radius:8px;padding:8px 12px;font-size:12.5px;font-weight:600;transition:all .15s}
+.del-btn:hover{border-color:var(--terra);color:var(--terra)}
+.del-btn.confirm{background:var(--terra);border-color:var(--terra);color:#fff}
+.boleta-card{position:relative;max-width:700px;background:var(--card);border:2px solid var(--ink);border-radius:var(--radius);box-shadow:8px 8px 0 rgba(28,43,37,.12);overflow:hidden}
+.b-head{display:flex;align-items:center;gap:16px;padding:22px 24px;border-bottom:1.5px solid var(--ink)}
+.b-head .avatar{width:52px;height:52px;font-size:17px;border:1.5px solid var(--ink)}
+.b-head>div{flex:1;min-width:0}
+.b-title{font-size:10px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--terra);margin-bottom:3px}
+.b-name{font-family:'Fraunces',serif;font-size:1.35rem;font-weight:700;line-height:1.15}
+.b-meta{font-size:12.5px;color:var(--muted);margin-top:2px}
+.b-seal{flex:none;width:76px;height:76px;border:2px solid var(--terra);border-radius:50%;display:grid;place-items:center;text-align:center;color:var(--terra);transform:rotate(-8deg);opacity:.85;line-height:1.25}
+.b-seal span{font-size:7.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
+.b-seal strong{font-family:'Fraunces',serif;font-size:1.05rem}
+.b-body{padding:8px 24px 18px}
+.b-row{display:grid;grid-template-columns:1fr 150px 92px;gap:14px;align-items:center;border-top:1px solid var(--line);padding:13px 0}
+.b-row:first-child{border-top:none}
+.b-rubname{font-weight:600;font-size:14.5px}
+.b-rubdet{font-size:12px;color:var(--muted);margin-top:1px}
+.b-bar{height:10px;border:1px solid var(--line-strong);border-radius:999px;overflow:hidden;background:var(--paper)}
+.b-bar>div{height:100%;background:var(--pine);transition:width .4s ease}
+.b-pts{text-align:right;font-family:'Fraunces',serif;font-weight:600;font-size:1.05rem}
+.b-pts small{font-weight:400;color:var(--muted);font-size:.75em}
+.b-total{display:flex;justify-content:space-between;align-items:center;gap:16px;border-top:2px solid var(--ink);background:#ecf1ea;padding:16px 24px}
+.b-total-lbl{font-family:'Fraunces',serif;font-weight:700;font-size:1.05rem}
+.b-total-det{font-size:11.5px;color:var(--muted);margin-top:2px}
+.b-score{display:flex;align-items:baseline;gap:6px}
+.b-score .big{font-family:'Fraunces',serif;font-size:3rem;font-weight:700;color:var(--pine);line-height:1}
+.b-score .den{font-family:'Fraunces',serif;font-size:1.2rem;color:var(--muted)}
+.b-foot{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;border-top:1px dashed var(--line-strong);padding:11px 24px;font-size:11.5px;color:var(--muted)}
+.boleta-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px;max-width:700px}
+
+/* ============================================================
+   TOASTS / FOOTER
+============================================================ */
+#toasts{position:fixed;bottom:22px;right:22px;z-index:100;display:flex;flex-direction:column;gap:10px;max-width:340px}
+.toast{display:flex;align-items:center;gap:10px;background:var(--ink);color:var(--paper);border-radius:10px;padding:12px 16px;font-size:13.5px;font-weight:500;box-shadow:0 8px 24px rgba(28,43,37,.28);animation:toastIn .28s cubic-bezier(.2,.9,.3,1.2)}
+.toast svg{flex:none;width:17px;height:17px}
+.toast.ok svg{color:#8fd0a5}
+.toast.err svg{color:#f0a284}
+.toast.out{animation:toastOut .3s ease forwards}
+@keyframes toastIn{from{opacity:0;transform:translateY(14px) scale(.96)}to{opacity:1;transform:none}}
+@keyframes toastOut{to{opacity:0;transform:translateX(20px)}}
+footer{border-top:2px solid var(--ink);padding:30px 0 40px;margin-top:20px}
+.foot-row{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;font-size:13px;color:var(--muted)}
+.foot-row strong{color:var(--ink)}
+
+/* ============================================================
+   RESPONSIVE
+============================================================ */
+@media (max-width:960px){
+  .hero{grid-template-columns:1fr;gap:34px}
+  .home-grid{grid-template-columns:1fr}
+  .theory{grid-template-columns:1fr}
+  .toc{position:static;flex-direction:row;overflow-x:auto;border-left:none;border-bottom:1.5px solid var(--ink);gap:2px}
+  .toc-title{display:none}
+  .toc a{white-space:nowrap;border-left:none;border-bottom:3px solid transparent}
+  .toc a:hover{border-bottom-color:var(--pine)}
+  .lab-grid,.task-panel{grid-template-columns:1fr}
+  .ed-grid{grid-template-columns:1fr}
+  .ed-manual{border-left:none;border-top:1px solid var(--line);max-height:none}
+  .sim-controls-3d{grid-template-columns:1fr}
+}
+@media (max-width:640px){
+  .b-row{grid-template-columns:1fr 86px}
+  .b-bar{display:none}
+  .b-seal{display:none}
+  .b-total{flex-direction:column;align-items:flex-start;gap:6px}
+}
+</style>
+</head>
+<body>
+<!-- ==================== HEADER ==================== -->
+<header class="topbar">
+  <div class="wrap topbar-row">
+    <div class="brand">
+      <span class="brand-ico"><i data-lucide="sigma"></i></span>
+      <span>Cálculo II · Unidad 3<small>Aula interactiva — Dr. Adrián Cerda</small></span>
+    </div>
+    <div class="topbar-side">7 sep – 3 oct 2026</div>
+  </div>
+  <div class="wrap">
+    <nav class="tabs" id="mainNav">
+      <button class="nav-btn active" data-view="inicio"><i data-lucide="home"></i>Inicio</button>
+      <button class="nav-btn" data-view="teoria"><i data-lucide="book-open"></i>Teoría</button>
+      <button class="nav-btn" data-view="simulador"><i data-lucide="layout-dashboard"></i>Simulador 3D</button>
+      <button class="nav-btn" data-view="actividades"><i data-lucide="clipboard-list"></i>Actividades</button>
+      <button class="nav-btn" data-view="boleta"><i data-lucide="badge-check"></i>Mi boleta</button>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<!-- ==================== INICIO ==================== -->
+<section class="view" id="v-inicio">
+  <div class="wrap hero">
+    <div>
+      <p class="overline">Cálculo II · Universidad Internacional de Innovación</p>
+      <h1>Límites, continuidad y <em>diferenciabilidad</em></h1>
+      <p class="lead">Comprende el comportamiento de funciones de varias variables: cómo se aproximan a un punto, cuándo son continuas y cómo se extiende el concepto de derivada al espacio n-dimensional.</p>
+      <div class="hero-actions">
+        <button class="btn" data-view="teoria"><i data-lucide="book-open"></i>Entrar a la teoría</button>
+        <button class="btn ghost" data-view="simulador"><i data-lucide="layout-dashboard"></i>Explorar límites en 3D</button>
+      </div>
+      <dl class="meta-grid">
+        <div><dt>Unidad</dt><dd>III — Límites, continuidad y diferenciabilidad</dd></div>
+        <div><dt>Sesiones</dt><dd>4 · 2 horas cada una</dd></div>
+        <div><dt>Evaluación</dt><dd>Quiz + tareas + laboratorio</dd></div>
+        <div><dt>Texto</dt><dd>Marsden &amp; Tromba — Cap. 3</dd></div>
+      </dl>
+    </div>
+    <figure class="hero-fig">
+      <canvas id="heroCanvas"></canvas>
+      <figcaption><strong>Límite en dos variables.</strong> Aproximación al punto \((0,0)\) por diferentes trayectorias.</figcaption>
+    </figure>
+  </div>
+
+  <div class="wrap home-grid">
+    <div>
+      <p class="overline" style="margin-bottom:14px">Ruta de la unidad</p>
+      <div class="route-item" data-view="teoria">
+        <span class="route-no">01</span>
+        <div><h3>Desarrollo de la teoría</h3><p>Límites por trayectorias, continuidad, diferenciabilidad y gradientes.</p></div>
+        <span class="route-go"><i data-lucide="arrow-right"></i></span>
+      </div>
+      <div class="route-item" data-view="simulador">
+        <span class="route-no">02</span>
+        <div><h3>Laboratorio de límites</h3><p>Visualiza en 3D cómo las funciones se comportan al aproximarse a un punto.</p></div>
+        <span class="route-go"><i data-lucide="arrow-right"></i></span>
+      </div>
+      <div class="route-item" data-view="actividades">
+        <span class="route-no">03</span>
+        <div><h3>Evaluación y tareas</h3><p>Ejercicios guiados, redacción en LaTeX, quiz y problemas del Marsden-Tromba.</p></div>
+        <span class="route-go"><i data-lucide="arrow-right"></i></span>
+      </div>
+      <div class="route-item" data-view="boleta">
+        <span class="route-no">04</span>
+        <div><h3>Mi boleta</h3><p>Regístrate y sigue tu avance: tu progreso y calificación final.</p></div>
+        <span class="route-go"><i data-lucide="arrow-right"></i></span>
+      </div>
+    </div>
+    <aside>
+      <p class="overline" style="margin-bottom:14px">En un vistazo</p>
+      <div class="side-stats">
+        <div class="stat"><div class="num" id="statNota">—</div><div class="lbl">Tu nota (sobre 10)</div></div>
+        <div class="stat"><div class="num">3</div><div class="lbl">Secciones teóricas</div></div>
+        <div class="stat"><div class="num">6</div><div class="lbl">Preguntas del quiz</div></div>
+        <div class="stat"><div class="num">12</div><div class="lbl">Ejercicios y problemas</div></div>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<!-- ==================== TEORÍA ==================== -->
+<section class="view" id="v-teoria" hidden>
+  <div class="wrap">
+    <div class="view-head">
+      <p class="overline">Desarrollo de la teoría</p>
+      <h2>Límites, continuidad y diferenciabilidad</h2>
+      <p class="sub">Síntesis del Capítulo 3 de Marsden &amp; Tromba, <em>Cálculo Vectorial</em>.</p>
+    </div>
+
+    <div class="theory">
+      <aside class="toc">
+        <p class="toc-title">Contenido</p>
+        <a href="#t31"><span>3.1</span>Límites de funciones de varias variables</a>
+        <a href="#t32"><span>3.2</span>Continuidad</a>
+        <a href="#t33"><span>3.3</span>Diferenciabilidad y gradientes</a>
+      </aside>
+
+      <div class="prose">
+
+        <!-- 3.1 -->
+        <article class="sec" id="t31">
+          <div class="sec-no">3.1</div>
+          <h3>Límites de funciones de varias variables</h3>
+          <div class="def">
+            <span class="def-tag">Definición</span>
+            <p>Decimos que \(\displaystyle \lim_{(x,y)\to(a,b)} f(x,y) = L\) si para todo \(\varepsilon > 0\) existe \(\delta > 0\) tal que:</p>
+            <p style="display:flex;justify-content:center;padding:6px 0">\( 0 < \|(x,y) - (a,b)\| < \delta \implies |f(x,y) - L| < \varepsilon \)</p>
+          </div>
+          <p>Para que el límite exista, el valor debe ser el mismo <strong>independientemente de la trayectoria</strong> de aproximación.</p>
+          <div class="ex">
+            <span class="ex-tag">Ejemplo: límite que existe</span>
+            <p>\(\displaystyle \lim_{(x,y)\to(0,0)} \frac{x^2 y}{x^2 + y^2} = 0\)</p>
+            <p>Usando coordenadas polares: \(x = r\cos\theta, y = r\sin\theta\):</p>
+            <p>\(\displaystyle \frac{r^3\cos^2\theta\sin\theta}{r^2} = r\cos^2\theta\sin\theta \to 0\)</p>
+            <p>El límite existe y es 0, independientemente de la dirección.</p>
+          </div>
+          <div class="ex">
+            <span class="ex-tag">Ejemplo: límite que NO existe (pellizco)</span>
+            <p>\(\displaystyle \lim_{(x,y)\to(0,0)} \frac{x^2}{x^2 + y^2}\)</p>
+            <p>A lo largo del eje \(x\) (\(y=0\)): \(\frac{x^2}{x^2} = 1\)</p>
+            <p>A lo largo del eje \(y\) (\(x=0\)): \(\frac{0}{y^2} = 0\)</p>
+            <p>Dos trayectorias dan valores distintos \(\Rightarrow\) el <strong>límite no existe</strong>.</p>
+          </div>
+        </article>
+
+        <!-- 3.2 -->
+        <article class="sec" id="t32">
+          <div class="sec-no">3.2</div>
+          <h3>Continuidad de funciones de varias variables</h3>
+          <div class="def">
+            <span class="def-tag">Definición</span>
+            <p>\(f\) es <strong>continua</strong> en \((a,b)\) si:</p>
+            <p style="display:flex;justify-content:center;padding:6px 0">\( \displaystyle \lim_{(x,y)\to(a,b)} f(x,y) = f(a,b) \)</p>
+          </div>
+          <p>La continuidad exige que:</p>
+          <ul>
+            <li>El límite exista.</li>
+            <li>La función esté definida en el punto.</li>
+            <li>El límite sea igual al valor de la función.</li>
+          </ul>
+          <div class="ex">
+            <span class="ex-tag">Ejemplo</span>
+            <p>\(f(x,y) = \frac{x^2 y}{x^2+y^2}\) para \((x,y)\neq(0,0)\), y \(f(0,0)=0\).</p>
+            <p>Como el límite es 0 y \(f(0,0)=0\), la función es <strong>continua</strong> en el origen.</p>
+          </div>
+        </article>
+
+        <!-- 3.3 -->
+        <article class="sec" id="t33">
+          <div class="sec-no">3.3</div>
+          <h3>Diferenciabilidad y gradientes</h3>
+          <div class="def">
+            <span class="def-tag">Definición</span>
+            <p>\(f\) es <strong>diferenciable</strong> en \((a,b)\) si existe una transformación lineal \(T\) tal que:</p>
+            <p style="display:flex;justify-content:center;padding:6px 0">\( \displaystyle f(a+h,b+k) - f(a,b) = T(h,k) + R(h,k) \)</p>
+            <p>donde \(\displaystyle \lim_{(h,k)\to(0,0)} \frac{R(h,k)}{\|(h,k)\|} = 0\).</p>
+          </div>
+          <p>El <strong>gradiente</strong> de \(f\) en \((a,b)\) es el vector de derivadas parciales:</p>
+          <div class="formula-hero">\( \displaystyle \nabla f(a,b) = \left( \frac{\partial f}{\partial x}(a,b), \frac{\partial f}{\partial y}(a,b) \right) \)</div>
+          <div class="ex">
+            <span class="ex-tag">Ejemplo</span>
+            <p>Para \(f(x,y) = x^2 + 3xy + y^2\):</p>
+            <p>\(\frac{\partial f}{\partial x} = 2x + 3y,\quad \frac{\partial f}{\partial y} = 3x + 2y\)</p>
+            <p>El gradiente en \((1,2)\) es: \(\nabla f(1,2) = (2+6, 3+4) = (8,7)\).</p>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== SIMULADOR 3D - LÍMITES ==================== -->
+<section class="view" id="v-simulador" hidden>
+  <div class="wrap">
+    <div class="view-head">
+      <p class="overline">Laboratorio de simulación · Actividad práctica</p>
+      <h2>Visualización de límites en 3D</h2>
+      <p class="sub">Explora cómo las funciones se comportan al aproximarse a un punto. Observa trayectorias de aproximación y determina si el límite existe.</p>
+    </div>
+
+    <div class="lab-grid">
+      <div class="panel">
+        <div class="panel-head"><i data-lucide="sliders-horizontal"></i>Controles 3D</div>
+        <div class="panel-body">
+          <div class="sim-tabs">
+            <button class="sim-tab active" data-stab="limite">Límites</button>
+          </div>
+
+          <!-- Pestaña: Límites -->
+          <div class="sim-panel active" id="st-limite">
+            <div class="field" style="margin-bottom:12px">
+              <label for="funcLimite">Función \(f(x,y)\)</label>
+              <select id="funcLimite">
+                <option value="continua" selected>\(\frac{x^2 y}{x^2+y^2}\) (continua)</option>
+                <option value="pellizco">\(\frac{x^2}{x^2+y^2}\) (pellizco - no existe)</option>
+                <option value="xy">\(xy\) (continua)</option>
+                <option value="seno">\(\frac{\sin(x^2+y^2)}{x^2+y^2}\) (continua)</option>
+                <option value="discontinua">\(\frac{x^2 y}{x^4+y^2}\) (discontinua)</option>
+              </select>
+            </div>
+            <div class="field" style="margin-bottom:12px">
+              <label for="puntoX">Punto de aproximación \(x_0\)</label>
+              <input id="puntoX" type="number" value="0" step="0.1">
+            </div>
+            <div class="field" style="margin-bottom:12px">
+              <label for="puntoY">Punto de aproximación \(y_0\)</label>
+              <input id="puntoY" type="number" value="0" step="0.1">
+            </div>
+            <div class="field" style="margin-bottom:12px">
+              <label for="distancia">Distancia de aproximación \(\delta\)</label>
+              <input id="distancia" type="range" min="0.1" max="2" step="0.05" value="1.0">
+              <span id="distanciaVal">1.00</span>
+            </div>
+            <div class="trayectorias">
+              <button class="btn sm ghost" data-trayectoria="eje_x">Eje X</button>
+              <button class="btn sm ghost" data-trayectoria="eje_y">Eje Y</button>
+              <button class="btn sm ghost" data-trayectoria="diagonal">Diagonal \(y=x\)</button>
+              <button class="btn sm ghost" data-trayectoria="parabola">Parábola \(y=x^2\)</button>
+              <button class="btn sm ghost" data-trayectoria="todas">Todas las trayectorias</button>
+            </div>
+            <button class="btn" id="btnLimite"><i data-lucide="play"></i>Animar aproximación</button>
+            <button class="btn ghost" id="btnLimiteReset"><i data-lucide="rotate-ccw"></i>Reiniciar</button>
+            
+            <div class="limite-info" id="limiteInfo">
+              <div><strong>Límite:</strong> <span id="limiteResultado" class="valor">—</span></div>
+              <div style="font-size:13px;color:var(--muted);margin-top:4px" id="limiteDetalle">Selecciona una trayectoria para comenzar</div>
+            </div>
+            
+            <div class="legend-3d">
+              <span><span class="dot" style="background:#1e4636;"></span>Superficie \(f(x,y)\)</span>
+              <span><span class="dot" style="background:#c2542f;"></span>Trayectoria de aproximación</span>
+              <span><span class="dot" style="background:#8a6d10;"></span>Punto límite</span>
+            </div>
+          </div>
+
+          <p class="note">Arrastra con el mouse para rotar. Usa la rueda para acercar/alejar. Observa cómo la trayectoria afecta al valor del límite.</p>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head"><i data-lucide="box"></i>Visualización 3D</div>
+        <div class="sim-3d-container" id="threeContainer"></div>
+        <div class="graph-cap" id="graphCap3D">Selecciona una función y una trayectoria para visualizar el límite.</div>
+        <div id="equationDisplay" style="padding:10px 16px;background:#ecf1ea;border-top:1px solid var(--line);font-family:'Fraunces',serif;font-size:1.1rem;text-align:center;color:var(--pine);min-height:40px;">
+          <span id="eqText">\(f(x,y)=\frac{x^2 y}{x^2+y^2}\)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== ACTIVIDADES ==================== -->
+<section class="view" id="v-actividades" hidden>
+  <div class="wrap">
+    <div class="view-head">
+      <p class="overline">Zona de evaluación</p>
+      <h2>Actividades de la Unidad 3</h2>
+      <p class="sub">Ejercicios guiados, redacción con LaTeX, quiz y problemas del Marsden-Tromba.</p>
+    </div>
+
+    <!-- Rúbrica -->
+    <div class="act-block">
+      <h3>Rúbrica de evaluación</h3>
+      <p class="act-desc">Ponderación de cada instrumento sobre la calificación de la unidad (nota final sobre 10).</p>
+      <div class="rub-row"><span class="rub-name">Prácticas en el simulador 3D</span><div class="rub-bar"><div style="width:15%"></div></div><span class="rub-pct">15%</span></div>
+      <div class="rub-row"><span class="rub-name">Ejercicios guiados (solución detallada)</span><div class="rub-bar"><div style="width:25%"></div></div><span class="rub-pct">25%</span></div>
+      <div class="rub-row"><span class="rub-name">Quiz de autoevaluación</span><div class="rub-bar"><div style="width:30%"></div></div><span class="rub-pct">30%</span></div>
+      <div class="rub-row"><span class="rub-name">Tarea: problemas del Marsden-Tromba</span><div class="rub-bar"><div style="width:30%"></div></div><span class="rub-pct">30%</span></div>
+    </div>
+
+    <!-- Ejercicios guiados -->
+    <div class="act-block" id="ejBlock">
+      <h3>Ejercicios guiados con solución</h3>
+      <p class="act-desc">Intenta resolverlos por escrito antes de desplegar la solución.</p>
+
+      <details class="sol">
+        <summary><span class="sol-marker">+</span><span><span class="prob-tag">Ejercicio 1 · Límite por trayectorias</span>Calcula \(\lim_{(x,y)\to(0,0)} \frac{xy}{x^2+y^2}\) usando dos trayectorias diferentes.</span></summary>
+        <div class="sol-body">
+          <p><strong>Solución:</strong></p>
+          <p>A lo largo del eje \(x\) (\(y=0\)): \(\frac{x\cdot0}{x^2+0} = 0\).</p>
+          <p>A lo largo de la diagonal \(y=x\): \(\frac{x^2}{x^2+x^2} = \frac{1}{2}\).</p>
+          <p>Como los valores son diferentes, el <strong>límite no existe</strong>.</p>
+          <label class="chk chk-ej" style="margin-top:14px"><input type="checkbox" data-ej="e1"><span>Ya resolví este ejercicio</span></label>
+        </div>
+      </details>
+
+      <details class="sol">
+        <summary><span class="sol-marker">+</span><span><span class="prob-tag">Ejercicio 2 · Límite en coordenadas polares</span>Usa coordenadas polares para calcular \(\lim_{(x,y)\to(0,0)} \frac{x^2 y}{x^2+y^2}\).</span></summary>
+        <div class="sol-body">
+          <p><strong>Solución:</strong></p>
+          <p>Sea \(x = r\cos\theta\), \(y = r\sin\theta\). Entonces:</p>
+          <p>\(\frac{x^2 y}{x^2+y^2} = \frac{r^3\cos^2\theta\sin\theta}{r^2} = r\cos^2\theta\sin\theta\)</p>
+          <p>Como \(r \to 0\), \(r\cos^2\theta\sin\theta \to 0\) independientemente de \(\theta\).</p>
+          <p>Por lo tanto, el <strong>límite es 0</strong>.</p>
+          <label class="chk chk-ej" style="margin-top:14px"><input type="checkbox" data-ej="e2"><span>Ya resolví este ejercicio</span></label>
+        </div>
+      </details>
+
+      <details class="sol">
+        <summary><span class="sol-marker">+</span><span><span class="prob-tag">Ejercicio 3 · Continuidad</span>Determina si \(f(x,y)=\frac{xy}{x^2+y^2}\) puede extenderse continuamente al origen.</span></summary>
+        <div class="sol-body">
+          <p><strong>Solución:</strong></p>
+          <p>Del ejercicio 1, el límite no existe (da 0 por el eje \(x\) y \(1/2\) por \(y=x\)).</p>
+          <p>Por lo tanto, <strong>no se puede extender continuamente</strong> al origen.</p>
+          <p>La función tiene una <strong>discontinuidad esencial</strong> en \((0,0)\).</p>
+          <label class="chk chk-ej" style="margin-top:14px"><input type="checkbox" data-ej="e3"><span>Ya resolví este ejercicio</span></label>
+        </div>
+      </details>
+
+      <details class="sol">
+        <summary><span class="sol-marker">+</span><span><span class="prob-tag">Ejercicio 4 · Gradiente</span>Calcula \(\nabla f(1,2)\) para \(f(x,y)=x^2+3xy+y^3\).</span></summary>
+        <div class="sol-body">
+          <p><strong>Solución:</strong></p>
+          <p>\(\frac{\partial f}{\partial x} = 2x + 3y\), \(\frac{\partial f}{\partial y} = 3x + 3y^2\)</p>
+          <p>Evaluando en \((1,2)\):</p>
+          <p>\(\frac{\partial f}{\partial x}(1,2) = 2(1)+3(2) = 8\)</p>
+          <p>\(\frac{\partial f}{\partial y}(1,2) = 3(1)+3(4) = 15\)</p>
+          <p>\(\nabla f(1,2) = (8, 15)\)</p>
+          <label class="chk chk-ej" style="margin-top:14px"><input type="checkbox" data-ej="e4"><span>Ya resolví este ejercicio</span></label>
+        </div>
+      </details>
+    </div>
+
+    <!-- Refuerzo con redacción -->
+    <div class="act-block" id="redBlock">
+      <h3>Refuerzo: redacta tu solución</h3>
+      <p class="act-desc">Cuatro problemas adicionales sin solución visible.</p>
+
+      <details class="sol">
+        <summary><span class="sol-marker">+</span><span><span class="prob-tag">Ejercicio 5 · Límite con parábola</span>Calcula \(\lim_{(x,y)\to(0,0)} \frac{x^2 y}{x^4+y^2}\) a lo largo de \(y=x^2\).</span></summary>
+        <div class="sol-body">
+          <div class="ed-box" data-ed="e5"></div>
+          <details class="mini-check">
+            <summary>Ayuda: estructura sugerida</summary>
+            <div class="sol-body">
+              <p>Sustituye \(y=x^2\): \(\frac{x^2(x^2)}{x^4+(x^2)^2} = \frac{x^4}{x^4+x^4} = \frac{1}{2}\).</p>
+              <p>A lo largo del eje \(x\) da 0, por lo que el límite no existe.</p>
+            </div>
+          </details>
+        </div>
+      </details>
+
+      <details class="sol">
+        <summary><span class="sol-marker">+</span><span><span class="prob-tag">Ejercicio 6 · Continuidad a trozos</span>Define \(f(0,0)\) para que \(f(x,y)=\frac{\sin(x^2+y^2)}{x^2+y^2}\) sea continua.</span></summary>
+        <div class="sol-body">
+          <div class="ed-box" data-ed="e6"></div>
+          <details class="mini-check">
+            <summary>Ayuda: estructura sugerida</summary>
+            <div class="sol-body">
+              <p>Usa el límite \(\lim_{t\to0} \frac{\sin t}{t} = 1\) con \(t=x^2+y^2\).</p>
+              <p>El límite es 1, por lo que debe definirse \(f(0,0)=1\).</p>
+            </div>
+          </details>
+        </div>
+      </details>
+
+      <details class="sol">
+        <summary><span class="sol-marker">+</span><span><span class="prob-tag">Ejercicio 7 · Gradiente y plano tangente</span>Encuentra el gradiente de \(f(x,y)=e^{xy}\) en \((1,0)\).</span></summary>
+        <div class="sol-body">
+          <div class="ed-box" data-ed="e7"></div>
+          <details class="mini-check">
+            <summary>Resultado de control</summary>
+            <div class="sol-body">
+              <p>\(\frac{\partial f}{\partial x} = y e^{xy}\), \(\frac{\partial f}{\partial y} = x e^{xy}\)</p>
+              <p>\(\nabla f(1,0) = (0, 1)\)</p>
+            </div>
+          </details>
+        </div>
+      </details>
+
+      <details class="sol">
+        <summary><span class="sol-marker">+</span><span><span class="prob-tag">Ejercicio 8 · Límite en coordenadas polares</span>Usa coordenadas polares para calcular \(\lim_{(x,y)\to(0,0)} \frac{x^2-y^2}{x^2+y^2}\).</span></summary>
+        <div class="sol-body">
+          <div class="ed-box" data-ed="e8"></div>
+          <details class="mini-check">
+            <summary>Resultado de control</summary>
+            <div class="sol-body">
+              <p>\(\frac{x^2-y^2}{x^2+y^2} = \frac{r^2(\cos^2\theta-\sin^2\theta)}{r^2} = \cos^2\theta-\sin^2\theta = \cos 2\theta\)</p>
+              <p>Depende de \(\theta\), por lo que el <strong>límite no existe</strong>.</p>
+            </div>
+          </details>
+        </div>
+      </details>
+    </div>
+
+    <!-- Quiz -->
+    <div class="act-block">
+      <h3>Quiz de autoevaluación</h3>
+      <p class="act-desc">Seis preguntas de opción múltiple.</p>
+      <div id="quizList"></div>
+      <div class="quiz-foot">
+        <button class="btn" id="btnGrade"><i data-lucide="check-check"></i>Calificar quiz</button>
+        <button class="btn ghost" id="btnQuizReset"><i data-lucide="rotate-ccw"></i>Reintentar</button>
+        <div class="quiz-result" id="quizResult"></div>
+      </div>
+    </div>
+
+    <!-- Tarea -->
+    <div class="act-block" style="margin-bottom:0">
+      <h3>Tarea — problemas del Marsden-Tromba</h3>
+      <p class="act-desc">Resuelve los ejercicios seleccionados del Capítulo 3. Fecha límite: <strong id="taskDeadline"></strong>.</p>
+      <div class="task-panel">
+        <div class="panel">
+          <div class="panel-head"><i data-lucide="list-checks"></i>Avance de la tarea</div>
+          <div class="panel-body">
+            <div style="display:flex;justify-content:space-between;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:8px">
+              <span>Progreso</span><span id="taskPct">0 / 8 · 0%</span>
+            </div>
+            <div class="conv-bar" style="margin-bottom:18px"><div id="taskBar" style="background:var(--pine)"></div></div>
+            <div id="taskList"></div>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="panel-head"><i data-lucide="file-text"></i>Instrucciones de entrega</div>
+          <div class="panel-body">
+            <ol style="margin-left:20px;font-size:14.5px">
+              <li style="margin-bottom:9px">Resuelve a mano o en LaTeX, justificando cada paso.</li>
+              <li style="margin-bottom:9px">Identifica: trayectorias usadas, tipo de discontinuidad.</li>
+              <li style="margin-bottom:9px">Marca aquí cada problema terminado.</li>
+              <li>Entrega el PDF en la plataforma el día de la sesión 4.</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== MI BOLETA ==================== -->
+<section class="view" id="v-boleta" hidden>
+  <div class="wrap">
+    <div class="view-head">
+      <p class="overline">Expediente individual</p>
+      <h2>Mi boleta de resultados</h2>
+      <p class="sub">Regístrate una sola vez: tu progreso y tu nota final quedan a tu nombre.</p>
+    </div>
+
+    <div class="panel" id="regEmpty" style="max-width:560px">
+      <div class="panel-head"><i data-lucide="user-plus"></i>Ficha de registro individual</div>
+      <div class="panel-body">
+        <form id="formEst" style="display:grid;gap:14px" novalidate>
+          <div class="field">
+            <label for="alNombre">Nombre completo</label>
+            <input id="alNombre" type="text" placeholder="Ej. Ana Sofía Delgado Ruiz" autocomplete="off">
+          </div>
+          <div class="field">
+            <label for="alMat">Matrícula</label>
+            <input id="alMat" type="text" placeholder="Ej. 20240315" autocomplete="off">
+          </div>
+          <div class="field">
+            <label for="alMail">Correo electrónico</label>
+            <input id="alMail" type="email" placeholder="nombre@universidad.edu.mx" autocomplete="off">
+          </div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap">
+            <button class="btn" type="submit" id="btnEstSave"><i data-lucide="user-plus"></i><span>Registrarme</span></button>
+            <button class="btn ghost" type="button" id="btnEstCancel" hidden>Cancelar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div id="boletaWrap" hidden>
+      <div class="boleta-card" id="boletaCard">
+        <div class="b-head">
+          <span class="avatar" id="bAvatar">··</span>
+          <div>
+            <div class="b-title">Boleta de evaluación · Unidad 3 — Límites, continuidad y diferenciabilidad</div>
+            <div class="b-name" id="bName">—</div>
+            <div class="b-meta" id="bMeta">—</div>
+          </div>
+          <div class="b-seal"><span>Cálculo<br>II</span><strong>Unidad 3</strong></div>
+        </div>
+        <div class="b-body" id="bRows"></div>
+        <div class="b-total">
+          <div>
+            <div class="b-total-lbl">Nota final de la unidad</div>
+            <div class="b-total-det">Simulador 15% · Ejercicios 25% · Quiz 30% · Tarea 30%</div>
+          </div>
+          <div class="b-score"><span class="big" id="bNota">0.0</span><span class="den">/ 10</span></div>
+        </div>
+        <div class="b-foot">
+          <span>Emitida: <strong id="bEmit">—</strong></span>
+          <span>Registro desde: <strong id="bSince">—</strong></span>
+          <span>Cálculo II · Dr. Adrián Cerda</span>
+        </div>
+      </div>
+
+      <div class="boleta-actions">
+        <button class="btn" id="btnBoletaPng"><i data-lucide="download"></i>Descargar boleta (PNG)</button>
+        <button class="btn ghost" id="btnEstEdit"><i data-lucide="pencil"></i>Editar datos</button>
+        <button class="del-btn" id="btnEstDel"><i data-lucide="trash-2"></i><span>Borrar registro y avance</span></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap foot-row">
+    <div><strong>Referencia:</strong> Marsden, J. E. &amp; Tromba, A. J. — <em>Cálculo Vectorial</em>, 6.ª ed., Capítulo 3.</div>
+    <div>Aula interactiva de Cálculo II · uso educativo · los datos se guardan solo en este navegador.</div>
+  </div>
+</footer>
+
+<div id="toasts"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+
+<script>
+/* ============================================================
+   UTILIDADES
+============================================================ */
+const $  = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+const INK='#1c2b25', PINE='#1e4636', TERRA='#c2542f', PAPER='#fffdf8';
+
+function esc(s){ return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function toast(msg, type='ok'){
+  const box=$('#toasts'), t=document.createElement('div');
+  t.className='toast '+type;
+  t.innerHTML = `<i data-lucide="${type==='ok'?'check-circle-2':'alert-circle'}"></i><span>${msg}</span>`;
+  box.appendChild(t); lucide.createIcons();
+  setTimeout(()=>{ t.classList.add('out'); setTimeout(()=>t.remove(), 320); }, 3200);
+}
+function refreshIcons(){ if(window.lucide) lucide.createIcons(); }
+
+/* ============================================================
+   PERSISTENCIA
+============================================================ */
+const LS_EST='aula_estudiante';
+const LS_ACT='aula_actividades';
+const CURSO='unidad3';
+
+function loadEst(){ try{ return JSON.parse(localStorage.getItem(LS_EST)); }catch(e){ return null; } }
+function saveEst(e){ localStorage.setItem(LS_EST, JSON.stringify(e)); }
+function loadAct(){ try{ return JSON.parse(localStorage.getItem(LS_ACT)||'{}'); }catch(e){ return {}; } }
+function act(){
+  const a=loadAct();
+  a[CURSO]=a[CURSO]||{ sim:{}, ej:{}, quiz:null, tarea:{}, red:{} };
+  a[CURSO].sim=a[CURSO].sim||{};
+  a[CURSO].ej=a[CURSO].ej||{};
+  a[CURSO].tarea=a[CURSO].tarea||{};
+  a[CURSO].red=a[CURSO].red||{};
+  return a;
+}
+function saveAct(a){ localStorage.setItem(LS_ACT, JSON.stringify(a)); }
+
+/* ============================================================
+   NAVEGACIÓN
+============================================================ */
+function showView(v){
+  $$('.view').forEach(s => s.hidden = true);
+  $('#v-'+v).hidden = false;
+  $$('.nav-btn').forEach(b => b.classList.toggle('active', b.dataset.view === v));
+  window.scrollTo({top:0, behavior:'smooth'});
+  if(v==='inicio') drawHero();
+  if(v==='simulador') setTimeout(()=>initThree(), 200);
+}
+$$('[data-view]').forEach(el => el.addEventListener('click', e => {
+  if(el.tagName==='A'){ e.preventDefault(); }
+  showView(el.dataset.view);
+}));
+
+/* ============================================================
+   HERO CANVAS
+============================================================ */
+function drawHero(){
+  const cv=$('#heroCanvas'); if(!cv || cv.offsetParent===null) return;
+  const dpr = window.devicePixelRatio||1;
+  const r = cv.getBoundingClientRect();
+  cv.width = Math.max(10, r.width*dpr); cv.height = Math.max(10, r.height*dpr);
+  const ctx = cv.getContext('2d'); ctx.setTransform(dpr,0,0,dpr,0,0);
+  const w=r.width, h=r.height;
+  ctx.clearRect(0,0,w,h);
+  const cx=w/2, cy=h/2, scale=50;
+  
+  // Ejes
+  ctx.strokeStyle='rgba(28,43,37,.3)'; ctx.lineWidth=1;
+  ctx.beginPath(); ctx.moveTo(30, cy); ctx.lineTo(w-30, cy); ctx.moveTo(cx, 20); ctx.lineTo(cx, h-20); ctx.stroke();
+  ctx.font='11px Instrument Sans'; ctx.fillStyle='rgba(28,43,37,.5)';
+  ctx.fillText('x', w-25, cy-5); ctx.fillText('y', cx+8, 24);
+  
+  // Superficie de ejemplo: aproximación al origen
+  const drawApproach = (color, label, xFn, yFn) => {
+    ctx.strokeStyle=color; ctx.lineWidth=2;
+    ctx.beginPath();
+    const steps=50;
+    for(let i=0; i<=steps; i++){
+      const t = i/steps;
+      const x = xFn(t), y = yFn(t);
+      const px = cx + x*scale, py = cy - y*scale;
+      if(i===0) ctx.moveTo(px,py);
+      else ctx.lineTo(px,py);
+    }
+    ctx.stroke();
+    ctx.fillStyle=color; ctx.font='10px Instrument Sans';
+    const lastX = xFn(1), lastY = yFn(1);
+    ctx.fillText(label, cx + lastX*scale + 8, cy - lastY*scale - 4);
+  };
+  
+  // Trayectorias de aproximación al origen
+  drawApproach(PINE, 'eje x', t=>t, t=>0);
+  drawApproach(TERRA, 'eje y', t=>0, t=>t);
+  drawApproach('#8a6d10', 'diagonal', t=>t, t=>t);
+  drawApproach('#6b4c8a', 'parábola', t=>t, t=>t*t);
+  
+  ctx.fillStyle=INK; ctx.font='11px Instrument Sans';
+  ctx.fillText('Aproximación al origen por diferentes trayectorias', 20, h-12);
+}
+
+/* ============================================================
+   THREE.JS - SIMULADOR DE LÍMITES
+============================================================ */
+let threeScene = null;
+let threeCamera = null;
+let threeRenderer = null;
+let threeControls = null;
+let threeObjects = [];
+let animationId = null;
+let animationProgress = 0;
+let isAnimating = false;
+let currentTrayectoria = 'todas';
+let trayectoriaPoints = [];
+
+function initThree(){
+  const container = document.getElementById('threeContainer');
+  if(!container) return;
+  const w = container.clientWidth || 600;
+  const h = container.clientHeight || 420;
+  
+  if(!threeScene){
+    threeScene = new THREE.Scene();
+    threeScene.background = new THREE.Color(0xfaf8f4);
+    
+    threeCamera = new THREE.PerspectiveCamera(45, w/h, 0.1, 50);
+    threeCamera.position.set(3, 3, 5);
+    threeCamera.lookAt(0, 0, 0);
+    
+    threeRenderer = new THREE.WebGLRenderer({antialias: true});
+    threeRenderer.setSize(w, h);
+    threeRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    container.appendChild(threeRenderer.domElement);
+    
+    threeControls = new THREE.OrbitControls(threeCamera, threeRenderer.domElement);
+    threeControls.enableDamping = true;
+    threeControls.dampingFactor = 0.08;
+    threeControls.target.set(0, 0, 0);
+    threeControls.update();
+    
+    // Luces
+    const ambientLight = new THREE.AmbientLight(0x404060, 0.5);
+    threeScene.add(ambientLight);
+    const dirLight = new THREE.DirectionalLight(0xffffff, 0.9);
+    dirLight.position.set(2, 3, 2);
+    threeScene.add(dirLight);
+    const dirLight2 = new THREE.DirectionalLight(0xffffff, 0.4);
+    dirLight2.position.set(-2, -1, -2);
+    threeScene.add(dirLight2);
+    
+    // Grid
+    const gridHelper = new THREE.GridHelper(6, 6, 0x888888, 0xcccccc);
+    gridHelper.position.y = -0.01;
+    threeScene.add(gridHelper);
+    
+    // Ejes etiquetados
+    createAxesWithLabels();
+    
+    window.addEventListener('resize', ()=>{
+      const w2 = container.clientWidth || 600;
+      const h2 = container.clientHeight || 420;
+      threeCamera.aspect = w2/h2;
+      threeCamera.updateProjectionMatrix();
+      threeRenderer.setSize(w2, h2);
+    });
+  }
+  
+  // Limpiar objetos anteriores (excepto ejes y grid)
+  const keepObjects = [];
+  threeScene.children.forEach(child => {
+    if(child.type === 'GridHelper' || child.type === 'AxesHelper' || 
+       child.userData?.isAxis || child.userData?.isLabel) {
+      keepObjects.push(child);
+    }
+  });
+  threeScene.children = keepObjects;
+  threeObjects = [];
+  
+  // Mostrar límite por defecto
+  drawLimite();
+  
+  function animate(){
+    requestAnimationFrame(animate);
+    if(threeControls) threeControls.update();
+    if(threeRenderer && threeScene && threeCamera){
+      threeRenderer.render(threeScene, threeCamera);
+    }
+  }
+  animate();
+}
+
+function createAxesWithLabels() {
+  const axisLength = 3.5;
+  const colors = [0xff3333, 0x33ff33, 0x3333ff];
+  const labels = ['X', 'Y', 'Z'];
+  const dirs = [
+    new THREE.Vector3(1, 0, 0),
+    new THREE.Vector3(0, 1, 0),
+    new THREE.Vector3(0, 0, 1)
+  ];
+  
+  dirs.forEach((dir, i) => {
+    const end = dir.clone().multiplyScalar(axisLength);
+    const geometry = new THREE.BufferGeometry().setFromPoints([
+      new THREE.Vector3(0, 0, 0),
+      end
+    ]);
+    const material = new THREE.LineBasicMaterial({ color: colors[i], linewidth: 2 });
+    const line = new THREE.Line(geometry, material);
+    line.userData.isAxis = true;
+    threeScene.add(line);
+    
+    const cone = new THREE.ConeGeometry(0.1, 0.25, 8);
+    const coneMat = new THREE.MeshBasicMaterial({ color: colors[i] });
+    const coneMesh = new THREE.Mesh(cone, coneMat);
+    const pos = end.clone();
+    coneMesh.position.copy(pos);
+    const up = new THREE.Vector3(0, 1, 0);
+    const quat = new THREE.Quaternion().setFromUnitVectors(up, dir);
+    coneMesh.quaternion.copy(quat);
+    coneMesh.userData.isAxis = true;
+    threeScene.add(coneMesh);
+    
+    // Etiqueta
+    const canvas = document.createElement('canvas');
+    canvas.width = 64; canvas.height = 64;
+    const ctx = canvas.getContext('2d');
+    ctx.fillStyle = 'rgba(0,0,0,0)';
+    ctx.fillRect(0, 0, 64, 64);
+    ctx.font = 'Bold 40px Arial';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillStyle = '#' + colors[i].toString(16).padStart(6, '0');
+    ctx.fillText(labels[i], 32, 34);
+    
+    const texture = new THREE.CanvasTexture(canvas);
+    const spriteMat = new THREE.SpriteMaterial({ map: texture, transparent: true });
+    const sprite = new THREE.Sprite(spriteMat);
+    const labelPos = end.clone().multiplyScalar(1.15);
+    sprite.position.copy(labelPos);
+    sprite.scale.set(0.6, 0.6, 1);
+    sprite.userData.isLabel = true;
+    threeScene.add(sprite);
+  });
+}
+
+function addObject(obj){ threeObjects.push(obj); threeScene.add(obj); }
+
+function updateEquation(text){
+  const el = document.getElementById('eqText');
+  if(el){
+    try {
+      el.innerHTML = text;
+      if(typeof renderMathInElement === 'function'){
+        renderMathInElement(el, {delimiters: [
+          {left: '\\(', right: '\\)', display: false},
+          {left: '$$', right: '$$', display: true}
+        ], throwOnError: false});
+      }
+    } catch(e) {
+      el.textContent = text;
+    }
+  }
+}
+
+/* --- FUNCIONES PARA LÍMITES --- */
+const FUNCIONES = {
+  'continua': {
+    f: (x,y) => (x*x + y*y === 0) ? 0 : x*x*y/(x*x+y*y),
+    eq: 'f(x,y)=\\frac{x^2 y}{x^2+y^2}',
+    limite: 0,
+    tipo: 'Continua'
+  },
+  'pellizco': {
+    f: (x,y) => (x*x + y*y === 0) ? 0 : x*x/(x*x+y*y),
+    eq: 'f(x,y)=\\frac{x^2}{x^2+y^2}',
+    limite: 'No existe',
+    tipo: 'Discontinua (pellizco)'
+  },
+  'xy': {
+    f: (x,y) => x*y,
+    eq: 'f(x,y)=xy',
+    limite: 0,
+    tipo: 'Continua'
+  },
+  'seno': {
+    f: (x,y) => (x*x + y*y === 0) ? 1 : Math.sin(x*x+y*y)/(x*x+y*y),
+    eq: 'f(x,y)=\\frac{\\sin(x^2+y^2)}{x^2+y^2}',
+    limite: 1,
+    tipo: 'Continua'
+  },
+  'discontinua': {
+    f: (x,y) => (x*x*x*x + y*y === 0) ? 0 : x*x*y/(x*x*x*x+y*y),
+    eq: 'f(x,y)=\\frac{x^2 y}{x^4+y^2}',
+    limite: 'No existe (diferente por trayectorias)',
+    tipo: 'Discontinua'
+  }
+};
+
+function getTrayectoria(t, tipo){
+  const r = 2 * t;
+  switch(tipo){
+    case 'eje_x': return {x: r, y: 0};
+    case 'eje_y': return {x: 0, y: r};
+    case 'diagonal': return {x: r, y: r};
+    case 'parabola': return {x: r, y: r*r};
+    case 'todas': {
+      // Generar múltiples trayectorias
+      const angle = t * 2 * Math.PI;
+      const dist = 2 * (1 - t/2);
+      return {x: dist * Math.cos(angle), y: dist * Math.sin(angle)};
+    }
+    default: return {x: r, y: 0};
+  }
+}
+
+function drawLimite(){
+  const funcName = document.getElementById('funcLimite').value;
+  const x0 = parseFloat(document.getElementById('puntoX').value) || 0;
+  const y0 = parseFloat(document.getElementById('puntoY').value) || 0;
+  const delta = parseFloat(document.getElementById('distancia').value) || 1;
+  const trayectoria = currentTrayectoria;
+  
+  const data = FUNCIONES[funcName] || FUNCIONES['continua'];
+  const f = data.f;
+  updateEquation(data.eq);
+  
+  // Mostrar información del límite
+  const limResult = document.getElementById('limiteResultado');
+  const limDetalle = document.getElementById('limiteDetalle');
+  
+  if(data.limite === 'No existe' || typeof data.limite === 'string'){
+    limResult.textContent = 'No existe';
+    limResult.style.color = TERRA;
+    limDetalle.textContent = `La función ${data.tipo}. Diferentes trayectorias dan diferentes valores.`;
+  } else {
+    limResult.textContent = data.limite;
+    limResult.style.color = PINE;
+    limDetalle.textContent = `La función ${data.tipo}. El límite existe y es ${data.limite}.`;
+  }
+  
+  // Dibujar superficie (malla)
+  const range = 2.5;
+  const steps = 40;
+  const surfacePoints = [];
+  
+  for(let i=0; i<=steps; i++){
+    for(let j=0; j<=steps; j++){
+      const x = -range + 2*range*i/steps;
+      const y = -range + 2*range*j/steps;
+      const z = f(x - x0, y - y0);
+      surfacePoints.push({x, y, z});
+    }
+  }
+  
+  // Crear malla de la superficie
+  const geo = new THREE.BufferGeometry();
+  const positions = [];
+  const indices = [];
+  
+  for(let i=0; i<=steps; i++){
+    for(let j=0; j<=steps; j++){
+      const idx = i*(steps+1) + j;
+      const p = surfacePoints[idx];
+      positions.push(p.x, p.y, p.z);
+    }
+  }
+  
+  for(let i=0; i<steps; i++){
+    for(let j=0; j<steps; j++){
+      const a = i*(steps+1) + j;
+      const b = (i+1)*(steps+1) + j;
+      const c = i*(steps+1) + (j+1);
+      const d = (i+1)*(steps+1) + (j+1);
+      indices.push(a, b, c);
+      indices.push(b, d, c);
+    }
+  }
+  
+  geo.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+  geo.setIndex(indices);
+  geo.computeVertexNormals();
+  
+  const mat = new THREE.MeshPhongMaterial({
+    color: 0x1e4636,
+    transparent: true,
+    opacity: 0.6,
+    wireframe: false,
+    side: THREE.DoubleSide,
+    shininess: 30
+  });
+  const mesh = new THREE.Mesh(geo, mat);
+  addObject(mesh);
+  
+  // Wireframe superpuesto
+  const wireMat = new THREE.MeshBasicMaterial({
+    color: 0x2c5e49,
+    wireframe: true,
+    transparent: true,
+    opacity: 0.15
+  });
+  const wireMesh = new THREE.Mesh(geo.clone(), wireMat);
+  addObject(wireMesh);
+  
+  // Punto límite (x0, y0, f(x0,y0))
+  const limZ = f(0, 0);
+  const sphereGeo = new THREE.SphereGeometry(0.08, 16, 16);
+  const sphereMat = new THREE.MeshBasicMaterial({ color: 0x8a6d10 });
+  const sphere = new THREE.Mesh(sphereGeo, sphereMat);
+  sphere.position.set(x0, y0, limZ);
+  addObject(sphere);
+  
+  // Línea vertical desde el punto hasta el plano z=0
+  const lineGeo = new THREE.BufferGeometry().setFromPoints([
+    new THREE.Vector3(x0, y0, 0),
+    new THREE.Vector3(x0, y0, limZ)
+  ]);
+  const lineMat = new THREE.LineBasicMaterial({ color: 0x8a6d10, transparent: true, opacity: 0.5, dashed: true });
+  const line = new THREE.Line(lineGeo, lineMat);
+  line.computeLineDistances();
+  addObject(line);
+  
+  // TRAYECTORIAS DE APROXIMACIÓN
+  const numTrayectorias = (trayectoria === 'todas') ? 12 : 1;
+  const trayectorias = [];
+  
+  if(trayectoria === 'todas'){
+    for(let k=0; k<numTrayectorias; k++){
+      const angle = (k / numTrayectorias) * 2 * Math.PI;
+      trayectorias.push({
+        x: (t) => delta * t * Math.cos(angle) + x0,
+        y: (t) => delta * t * Math.sin(angle) + y0,
+        color: new THREE.Color().setHSL(k/numTrayectorias, 0.8, 0.5)
+      });
+    }
+  } else {
+    const traj = (t) => {
+      const p = getTrayectoria(t * delta, trayectoria);
+      return {x: p.x + x0, y: p.y + y0};
+    };
+    trayectorias.push({
+      x: (t) => traj(t).x,
+      y: (t) => traj(t).y,
+      color: new THREE.Color(TERRA)
+    });
+  }
+  
+  // Guardar puntos de trayectoria para animación
+  trayectoriaPoints = [];
+  
+  trayectorias.forEach((traj, idx) => {
+    const pts = [];
+    const stepsT = 60;
+    for(let i=0; i<=stepsT; i++){
+      const t = i / stepsT;
+      const x = traj.x(t);
+      const y = traj.y(t);
+      const z = f(x - x0, y - y0);
+      pts.push(new THREE.Vector3(x, y, z));
+    }
+    trayectoriaPoints.push(pts);
+    
+    // Dibujar trayectoria completa (opaca)
+    const trajGeo = new THREE.BufferGeometry().setFromPoints(pts);
+    const trajMat = new THREE.LineBasicMaterial({ 
+      color: traj.color, 
+      linewidth: 2,
+      transparent: true,
+      opacity: 0.4
+    });
+    const trajLine = new THREE.Line(trajGeo, trajMat);
+    addObject(trajLine);
+    
+    // Puntos de muestreo en la trayectoria
+    const samplePoints = [];
+    for(let i=0; i<=10; i++){
+      const t = i/10;
+      const p = pts[Math.floor(t * stepsT)];
+      if(p) samplePoints.push(p);
+    }
+    const ptsGeo = new THREE.BufferGeometry().setFromPoints(samplePoints);
+    const ptsMat = new THREE.PointsMaterial({ color: traj.color, size: 0.06 });
+    const ptsMesh = new THREE.Points(ptsGeo, ptsMat);
+    addObject(ptsMesh);
+  });
+  
+  // Punto del origen (0,0,0) como referencia
+  const origGeo = new THREE.SphereGeometry(0.05, 8, 8);
+  const origMat = new THREE.MeshBasicMaterial({ color: 0x333333 });
+  const origMesh = new THREE.Mesh(origGeo, origMat);
+  origMesh.position.set(0, 0, 0);
+  addObject(origMesh);
+  
+  document.getElementById('graphCap3D').textContent = `Función: ${data.eq} | Punto: (${x0},${y0}) | Límite: ${data.limite}`;
+}
+
+/* --- ANIMACIÓN DE APROXIMACIÓN --- */
+function animateApproximation(){
+  if(isAnimating) {
+    cancelAnimationFrame(animationId);
+    isAnimating = false;
+  }
+  
+  isAnimating = true;
+  animationProgress = 0;
+  const startTime = Date.now();
+  const duration = 3000; // 3 segundos
+  
+  // Limpiar objetos de animación anteriores
+  const toRemove = [];
+  threeObjects.forEach(obj => {
+    if(obj.userData?.isAnimation) toRemove.push(obj);
+  });
+  toRemove.forEach(obj => {
+    threeScene.remove(obj);
+    const idx = threeObjects.indexOf(obj);
+    if(idx > -1) threeObjects.splice(idx, 1);
+  });
+  
+  function step(){
+    const elapsed = Date.now() - startTime;
+    animationProgress = Math.min(1, elapsed / duration);
+    
+    // Dibujar puntos en la trayectoria según el progreso
+    const numPts = Math.floor(animationProgress * 30);
+    
+    // Eliminar puntos de animación anteriores
+    const oldAnim = [];
+    threeObjects.forEach(obj => {
+      if(obj.userData?.isAnimation) oldAnim.push(obj);
+    });
+    oldAnim.forEach(obj => {
+      threeScene.remove(obj);
+      const idx = threeObjects.indexOf(obj);
+      if(idx > -1) threeObjects.splice(idx, 1);
+    });
+    
+    // Dibujar nuevos puntos
+    trayectoriaPoints.forEach(pts => {
+      const count = Math.min(numPts, pts.length);
+      const points = pts.slice(0, count);
+      if(points.length > 0){
+        const geo = new THREE.BufferGeometry().setFromPoints(points);
+        const mat = new THREE.PointsMaterial({ 
+          color: TERRA, 
+          size: 0.08,
+          transparent: true,
+          opacity: 0.9
+        });
+        const mesh = new THREE.Points(geo, mat);
+        mesh.userData.isAnimation = true;
+        addObject(mesh);
+        
+        // Último punto más grande
+        if(points.length > 0){
+          const last = points[points.length-1];
+          const sphereGeo = new THREE.SphereGeometry(0.1, 12, 12);
+          const sphereMat = new THREE.MeshBasicMaterial({ color: 0xff6600 });
+          const sphere = new THREE.Mesh(sphereGeo, sphereMat);
+          sphere.position.copy(last);
+          sphere.userData.isAnimation = true;
+          addObject(sphere);
+        }
+      }
+    });
+    
+    if(animationProgress < 1){
+      animationId = requestAnimationFrame(step);
+    } else {
+      isAnimating = false;
+      toast('Aproximación completada.');
+    }
+  }
+  
+  step();
+}
+
+/* ============================================================
+   EVENTOS DEL SIMULADOR
+============================================================ */
+// Actualizar distancia
+document.getElementById('distancia').addEventListener('input', function(){
+  document.getElementById('distanciaVal').textContent = parseFloat(this.value).toFixed(2);
+});
+
+// Trayectorias
+$$('[data-trayectoria]').forEach(b=>{
+  b.addEventListener('click', ()=>{
+    $$('[data-trayectoria]').forEach(bb=>bb.style.borderColor='transparent');
+    b.style.borderColor=PINE;
+    currentTrayectoria = b.dataset.trayectoria;
+    if(threeScene){
+      const keepObjects = [];
+      threeScene.children.forEach(child => {
+        if(child.userData?.isAxis || child.userData?.isLabel || 
+           child.type === 'GridHelper' || child.type === 'AxesHelper') {
+          keepObjects.push(child);
+        }
+      });
+      threeScene.children = keepObjects;
+      threeObjects = [];
+      drawLimite();
+    }
+    toast(`Trayectoria: ${b.textContent.trim()}`);
+  });
+});
+
+// Botón de límite (animar)
+document.getElementById('btnLimite').addEventListener('click', ()=>{
+  if(threeScene){
+    // Asegurar que la trayectoria está dibujada
+    if(trayectoriaPoints.length === 0){
+      const keepObjects = [];
+      threeScene.children.forEach(child => {
+        if(child.userData?.isAxis || child.userData?.isLabel || 
+           child.type === 'GridHelper' || child.type === 'AxesHelper') {
+          keepObjects.push(child);
+        }
+      });
+      threeScene.children = keepObjects;
+      threeObjects = [];
+      drawLimite();
+    }
+    animateApproximation();
+  }
+});
+
+// Botón de reset
+document.getElementById('btnLimiteReset').addEventListener('click', ()=>{
+  if(isAnimating){
+    cancelAnimationFrame(animationId);
+    isAnimating = false;
+  }
+  if(threeScene){
+    const keepObjects = [];
+    threeScene.children.forEach(child => {
+      if(child.userData?.isAxis || child.userData?.isLabel || 
+         child.type === 'GridHelper' || child.type === 'AxesHelper') {
+        keepObjects.push(child);
+      }
+    });
+    threeScene.children = keepObjects;
+    threeObjects = [];
+    drawLimite();
+    toast('Visualización reiniciada.');
+  }
+});
+
+// Cambio de función
+document.getElementById('funcLimite').addEventListener('change', ()=>{
+  if(threeScene){
+    const keepObjects = [];
+    threeScene.children.forEach(child => {
+      if(child.userData?.isAxis || child.userData?.isLabel || 
+         child.type === 'GridHelper' || child.type === 'AxesHelper') {
+        keepObjects.push(child);
+      }
+    });
+    threeScene.children = keepObjects;
+    threeObjects = [];
+    drawLimite();
+  }
+});
+
+// Botón de actualizar
+document.getElementById('puntoX').addEventListener('change', ()=>{
+  if(threeScene){
+    const keepObjects = [];
+    threeScene.children.forEach(child => {
+      if(child.userData?.isAxis || child.userData?.isLabel || 
+         child.type === 'GridHelper' || child.type === 'AxesHelper') {
+        keepObjects.push(child);
+      }
+    });
+    threeScene.children = keepObjects;
+    threeObjects = [];
+    drawLimite();
+  }
+});
+
+document.getElementById('puntoY').addEventListener('change', ()=>{
+  if(threeScene){
+    const keepObjects = [];
+    threeScene.children.forEach(child => {
+      if(child.userData?.isAxis || child.userData?.isLabel || 
+         child.type === 'GridHelper' || child.type === 'AxesHelper') {
+        keepObjects.push(child);
+      }
+    });
+    threeScene.children = keepObjects;
+    threeObjects = [];
+    drawLimite();
+  }
+});
+
+/* ============================================================
+   QUIZ (Unidad 3)
+============================================================ */
+const QUIZ = [
+ {q:'¿Cuál es la condición necesaria para que \(\lim_{(x,y)\to(a,b)} f(x,y)\) exista?',
+  opts:['Que \(f(a,b)\) esté definida','Que el límite sea el mismo por todas las trayectorias','Que \(f\) sea continua','Que las derivadas parciales existan'],
+  ans:1, why:'El límite existe si el valor es el mismo independientemente de la trayectoria de aproximación.'},
+ {q:'Si \(\lim_{(x,y)\to(0,0)} f(x,y) = L\) y \(f(0,0)=L\), entonces \(f\) es:',
+  opts:['Diferenciable','Continua','Discontinua','Integrable'],
+  ans:1, why:'La continuidad en un punto requiere que el límite exista y sea igual al valor de la función en ese punto.'},
+ {q:'¿Qué ocurre si al evaluar un límite por dos trayectorias diferentes se obtienen valores distintos?',
+  opts:['El límite existe y es el promedio','El límite no existe','El límite es el menor de los dos','La función es continua'],
+  ans:1, why:'Si dos trayectorias dan valores diferentes, el límite no existe.'},
+ {q:'El gradiente de \(f(x,y)=x^2+y^2\) en \((1,1)\) es:',
+  opts:['(2,2)','(1,1)','(0,0)','(4,4)'],
+  ans:0, why:'\(\nabla f = (2x, 2y)\). Evaluando en \((1,1)\): \((2,2)\).'},
+ {q:'Una función \(f\) es diferenciable en un punto si:',
+  opts:['Existen sus derivadas parciales','Es continua','Existe una aproximación lineal que la representa bien','Todas las anteriores'],
+  ans:2, why:'La diferenciabilidad exige que exista una transformación lineal que aproxime a la función.'},
+ {q:'¿Cuál de las siguientes funciones es continua en \((0,0)\)?',
+  opts:['\(f(x,y)=\frac{x}{y}\)','\(f(x,y)=\frac{x^2}{x^2+y^2}\)','\(f(x,y)=\frac{x^2 y}{x^2+y^2}\)','\(f(x,y)=\frac{xy}{x^2+y^2}\)'],
+  ans:2, why:'La función \(\frac{x^2 y}{x^2+y^2}\) tiende a 0 independientemente de la trayectoria.'}
+];
+
+function renderQuiz(){
+  $('#quizList').innerHTML = QUIZ.map((it,i)=>`
+    <article class="quiz-q">
+      <header><span class="qnum">P${i+1}</span><p class="q-text">${it.q}</p></header>
+      <div class="opts">${it.opts.map((o,j)=>`
+        <label class="opt"><input type="radio" name="q${i}" value="${j}">
+        <span class="opt-key">${'ABCD'[j]}</span><span>${o}</span></label>`).join('')}
+      </div>
+      <p class="explain" hidden><strong>Retroalimentación:</strong> ${it.why}</p>
+    </article>`).join('');
+  $('#quizResult').innerHTML='';
+  try{ renderMathInElement($('#quizList'),{delimiters:[{left:'\\(',right:'\\)',display:false}],throwOnError:false}); }catch(e){}
+}
+renderQuiz();
+
+$('#btnGrade').addEventListener('click', ()=>{
+  const unanswered = QUIZ.some((_,i)=>!document.querySelector(`input[name="q${i}"]:checked`));
+  if(unanswered){ toast('Responde todas las preguntas.','err'); return; }
+  let score=0;
+  $$('#quizList .quiz-q').forEach((art,i)=>{
+    const sel=document.querySelector(`input[name="q${i}"]:checked`);
+    if(+sel.value===QUIZ[i].ans) score++;
+    art.querySelectorAll('.opt').forEach(l=>{
+      const inp=l.querySelector('input'); inp.disabled=true; l.classList.add('locked');
+      if(+inp.value===QUIZ[i].ans) l.classList.add('is-correct');
+      else if(+inp.value===+sel.value) l.classList.add('is-wrong');
+    });
+    art.querySelector('.explain').hidden=false;
+  });
+  const a=act(), prev=(a[CURSO].quiz && a[CURSO].quiz.score!=null)? a[CURSO].quiz.score : -1;
+  if(score>prev){ a[CURSO].quiz={score, total:QUIZ.length, ts:Date.now()}; saveAct(a); renderBoleta(); }
+  const msg = score===6?'¡Excelente! Dominas el concepto de límite y continuidad.':score>=4?'Muy bien: revisa los ejercicios de trayectorias.':score>=2?'Repasa la teoría de límites.':'Comienza por la teoría y reintenta.';
+  $('#quizResult').innerHTML=`<strong>${score} / ${QUIZ.length}</strong> ${msg}`;
+  toast(`Quiz calificado: ${score} de ${QUIZ.length}.`);
+});
+$('#btnQuizReset').addEventListener('click', ()=>{ renderQuiz(); toast('Quiz reiniciado.'); });
+
+/* ============================================================
+   EJERCICIOS Y TAREA
+============================================================ */
+const PROBLEMAS = ['3.2','3.7','3.11','3.15','3.19','3.23','3.27','3.31'];
+const dl = new Date(Date.now()+7*864e5);
+$('#taskDeadline').textContent = dl.toLocaleDateString('es-MX',{weekday:'long',day:'numeric',month:'long'});
+
+function renderTaskList(){
+  const T=act()[CURSO].tarea;
+  $('#taskList').innerHTML = PROBLEMAS.map(p=>`
+    <label class="chk ${T[p]?'done':''}">
+      <input type="checkbox" data-p="${p}" ${T[p]?'checked':''}>
+      <span>Problema <strong>${p}</strong> del Capítulo 3</span>
+    </label>`).join('');
+  updateTaskBar();
+}
+function updateTaskBar(){
+  const T=act()[CURSO].tarea;
+  const done=PROBLEMAS.filter(p=>T[p]).length, pct=Math.round(done/PROBLEMAS.length*100);
+  $('#taskBar').style.width=pct+'%';
+  $('#taskPct').textContent=`${done} / ${PROBLEMAS.length} · ${pct}%`;
+}
+$('#taskList').addEventListener('change', e=>{
+  const cb=e.target.closest('input[data-p]'); if(!cb) return;
+  const p=cb.dataset.p;
+  const a=act(); a[CURSO].tarea[p]=cb.checked; saveAct(a);
+  cb.closest('.chk').classList.toggle('done', cb.checked);
+  updateTaskBar(); renderBoleta();
+});
+
+function syncEjChecks(){
+  const EJ=act()[CURSO].ej;
+  $$('#ejBlock .chk-ej input').forEach(cb=>{
+    cb.checked=!!EJ[cb.dataset.ej];
+    cb.closest('.chk').classList.toggle('done', cb.checked);
+  });
+}
+$('#ejBlock').addEventListener('change', e=>{
+  const cb=e.target.closest('input[data-ej]'); if(!cb) return;
+  const a=act(); a[CURSO].ej[cb.dataset.ej]=cb.checked; saveAct(a);
+  cb.closest('.chk').classList.toggle('done', cb.checked);
+  renderBoleta();
+});
+
+/* ============================================================
+   EDITOR DE REDACCIÓN
+============================================================ */
+const REDACS = ['e5','e6','e7','e8'];
+const redTimers = {};
+const MANUAL = [
+  {code:'\\( … \\)', help:'Fórmula en línea', tex:'\\lim_{(x,y)\\to(0,0)}', snip:String.raw`\(|\)`},
+  {code:'\\lim_{(x,y)\\to(a,b)}', help:'Límite', tex:'\\lim_{(x,y)\\to(0,0)}', snip:String.raw`\lim_{(x,y)\to(0,0)}`},
+  {code:'\\frac{a}{b}', help:'Fracciones', tex:'\\frac{x^2}{x^2+y^2}', snip:String.raw`\frac{|}{}`},
+  {code:'\\nabla f', help:'Gradiente', tex:'\\nabla f = (2x,2y)', snip:String.raw`\nabla f = (|)`},
+  {code:'\\partial', help:'Derivada parcial', tex:'\\frac{\\partial f}{\\partial x}', snip:String.raw`\frac{\partial f}{\partial x}`},
+  {code:'\\to', help:'Tiende a', tex:'x\\to0', snip:String.raw`\to`},
+  {code:'\\in \\mathbb{R}^2', help:'Espacio', tex:'\\mathbb{R}^{2}', snip:String.raw`\mathbb{R}^{|}`},
+  {code:'\\boxed{…}', help:'Respuesta final', tex:'\\boxed{0}', snip:String.raw`\boxed{|}`}
+];
+
+function buildEditors(){
+  $$('.ed-box').forEach(box=>{
+    const k=box.dataset.ed;
+    box.innerHTML=`
+      <div class="ed-toolbar">
+        <span class="ed-title"><i data-lucide="pencil"></i>Tu procedimiento</span>
+        <span class="ed-status" id="st_${k}"><span class="dot"></span>Sin guardar</span>
+      </div>
+      <div class="ed-grid">
+        <div class="ed-main">
+          <textarea id="ta_${k}" class="ed-ta" spellcheck="false"
+            placeholder="Escribe tu solución aquí. Usa LaTeX entre \( ... \)."></textarea>
+          <div class="ed-preview-wrap">
+            <div class="ed-preview-head">Vista previa</div>
+            <div class="ed-preview" id="pv_${k}"><em class="ed-ph">La vista previa aparecerá aquí.</em></div>
+          </div>
+        </div>
+        <aside class="ed-manual" data-for="${k}"></aside>
+      </div>
+      <div class="ed-foot">
+        <span class="ed-count" id="cn_${k}">0 palabras</span>
+        <div style="display:flex;gap:8px">
+          <button type="button" class="btn ghost sm" data-redclear="${k}">Limpiar</button>
+          <button type="button" class="btn sm" data-redsave="${k}"><i data-lucide="save"></i>Guardar</button>
+        </div>
+      </div>`;
+  });
+  buildManuals();
+  refreshIcons();
+}
+
+function buildManuals(){
+  $$('.ed-manual').forEach(box=>{
+    const views=[];
+    const rows=MANUAL.map((m,i)=>{
+      views.push(m);
+      return `
+      <div class="cmd-row">
+        <div><span class="cmd-code">${esc(m.code)}</span><span class="cmd-help">${m.help}</span></div>
+        <span class="cmd-view"></span>
+        <button type="button" class="cmd-add" data-snip="${esc(m.snip)}">+</button>
+      </div>`;
+    }).join('');
+    box.innerHTML=`<p class="ed-note"><strong>Fórmulas:</strong> usa \( ... \) o $ ... $.</p>
+      <p class="ed-cmd-title">Comandos útiles</p>
+      ${rows}
+      <p class="ed-note"><strong>Estructura:</strong> define el problema, desarrolla paso a paso, responde con \(\boxed{}\).</p>`;
+    box.querySelectorAll('.cmd-view').forEach((el,i)=>{
+      try{ katex.render(views[i].tex, el, {throwOnError:false}); }catch(e){ el.textContent=views[i].code; }
+    });
+  });
+}
+
+function insertSnippet(ta, snip){
+  const s=ta.selectionStart ?? ta.value.length, e=ta.selectionEnd ?? s;
+  const before=ta.value.slice(0,s), sel=ta.value.slice(s,e), after=ta.value.slice(e);
+  const caret=snip.indexOf('|');
+  let text, pos;
+  if(caret>=0){
+    const clean=snip.replace('|','');
+    if(sel){ text=clean.slice(0,caret)+sel+clean.slice(caret); pos=s+caret+sel.length; }
+    else   { text=clean; pos=s+caret; }
+  }else{
+    text=snip+(sel||''); pos=s+snip.length;
+  }
+  ta.value=before+text+after;
+  ta.selectionStart=ta.selectionEnd=pos;
+  ta.focus();
+  ta.dispatchEvent(new Event('input'));
+}
+
+function setStatus(k, txt, saved){
+  const st=$('#st_'+k); if(!st) return;
+  st.classList.toggle('saved', !!saved);
+  st.innerHTML='<span class="dot"></span>'+txt;
+}
+
+function redPreview(k){
+  const ta=$('#ta_'+k), pv=$('#pv_'+k);
+  const raw=ta.value;
+  $('#cn_'+k).textContent=(raw.trim()? raw.trim().split(/\s+/).length:0)+' palabras';
+  if(!raw.trim()){
+    pv.innerHTML='<em class="ed-ph">La vista previa aparecerá aquí.</em>';
+    return;
+  }
+  pv.innerHTML=esc(raw).replace(/\n/g,'<br>');
+  if(typeof renderMathInElement==='function'){
+    try{
+      renderMathInElement(pv,{delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'$',right:'$',display:false}],throwOnError:false});
+    }catch(e){}
+  }
+}
+
+function redSave(k, announce){
+  const a=act(); a[CURSO].red[k]=$('#ta_'+k).value; saveAct(a);
+  setStatus(k,'Guardado '+new Date().toLocaleTimeString('es-MX',{hour:'2-digit',minute:'2-digit'}), true);
+  if(announce) toast('Redacción guardada.');
+}
+
+function redInput(k){
+  setStatus(k,'Escribiendo…', false);
+  clearTimeout(redTimers[k+'p']);
+  redTimers[k+'p']=setTimeout(()=>redPreview(k),250);
+  clearTimeout(redTimers[k+'s']);
+  redTimers[k+'s']=setTimeout(()=>redSave(k,false),1100);
+}
+
+function initRedacs(){
+  const R=act()[CURSO].red||{};
+  REDACS.forEach(k=>{
+    const ta=$('#ta_'+k); if(!ta) return;
+    if(R[k]){ ta.value=R[k]; setStatus(k,'Guardado', true); redPreview(k); }
+    ta.addEventListener('input',()=>redInput(k));
+  });
+  $$('.ed-manual').forEach(m=>m.addEventListener('click',e=>{
+    const b=e.target.closest('.cmd-add'); if(!b) return;
+    insertSnippet($('#ta_'+m.dataset.for), b.dataset.snip);
+  }));
+  $$('[data-redsave]').forEach(b=>b.addEventListener('click',()=>{
+    const k=b.dataset.redsave; redSave(k,true); redPreview(k);
+  }));
+  $$('[data-redclear]').forEach(b=>b.addEventListener('click',()=>{
+    const k=b.dataset.redclear;
+    if(!b.classList.contains('confirm')){
+      b.classList.add('confirm'); b.textContent='¿Borrar todo?';
+      setTimeout(()=>{ if(b.isConnected){ b.classList.remove('confirm'); b.textContent='Limpiar'; } },2800);
+      return;
+    }
+    b.classList.remove('confirm'); b.textContent='Limpiar';
+    $('#ta_'+k).value=''; redPreview(k); setStatus(k,'Sin guardar',false);
+    const a=act(); a[CURSO].red[k]=''; saveAct(a);
+    toast('Redacción borrada.');
+  }));
+}
+
+/* ============================================================
+   BOLETA
+============================================================ */
+const AV_COLORS=[['#e4ecdf','#1e4636'],['#f3e0d6','#8a3d1e'],['#f2e8c9','#7a6210'],
+                 ['#e2e8dd','#3c5a3c'],['#ead9e0','#7a3550'],['#dde7ea','#22505c']];
+function initials(name){
+  const p=name.trim().split(/\s+/);
+  return ((p[0]?.[0]||'')+(p[1]?.[0]||p[0]?.[1]||'')).toUpperCase();
+}
+function avColor(name){ return AV_COLORS[[...name].reduce((a,c)=>a+c.charCodeAt(0),0)%AV_COLORS.length]; }
+
+function progresoUnidad(){
+  const c=act()[CURSO];
+  const ejOk=['e1','e2','e3','e4'].filter(k=>c.ej[k]).length;
+  const tOk=PROBLEMAS.filter(p=>c.tarea[p]).length;
+  return {
+    sim: 100,
+    ej: ejOk/4*100,
+    ejOk,
+    quiz: (c.quiz && c.quiz.score!=null)? c.quiz.score/c.quiz.total*100 : 0,
+    quizScore: (c.quiz && c.quiz.score!=null)? c.quiz.score : null,
+    tarea: tOk/PROBLEMAS.length*100,
+    tOk
+  };
+}
+function notaFinal(){
+  const p=progresoUnidad();
+  return (p.sim*0.15 + p.ej*0.25 + p.quiz*0.30 + p.tarea*0.30)/10;
+}
+function updateHomeStat(){
+  const est=loadEst();
+  $('#statNota').textContent = est? notaFinal().toFixed(1) : '—';
+}
+function renderBoleta(){
+  const est=loadEst();
+  $('#regEmpty').hidden = !!est;
+  $('#boletaWrap').hidden = !est;
+  updateHomeStat();
+  if(!est) return;
+  const [bg,fg]=avColor(est.nombre);
+  const av=$('#bAvatar'); av.textContent=initials(est.nombre); av.style.background=bg; av.style.color=fg;
+  $('#bName').textContent=est.nombre;
+  $('#bMeta').textContent=`Matrícula ${est.matricula} · ${est.correo}`;
+  $('#bSince').textContent=new Date(est.ts).toLocaleDateString('es-MX',{day:'numeric',month:'long',year:'numeric'});
+  const p=progresoUnidad();
+  const defs=[
+    {nombre:'Simulador 3D — límites', pct:p.sim, w:1.5, det:'Uso de herramientas completado'},
+    {nombre:'Ejercicios guiados resueltos', pct:p.ej, w:2.5, det:`${p.ejOk} de 4 marcados`},
+    {nombre:'Quiz de autoevaluación', pct:p.quiz, w:3.0, det: p.quizScore==null?'Sin intento':`${p.quizScore} de 6 aciertos`},
+    {nombre:'Tarea — problemas del Marsden-Tromba', pct:p.tarea, w:3.0, det:`${p.tOk} de ${PROBLEMAS.length} problemas`}
+  ];
+  $('#bRows').innerHTML=defs.map(d=>`
+    <div class="b-row">
+      <div><div class="b-rubname">${d.nombre}</div><div class="b-rubdet">${d.det}</div></div>
+      <div class="b-bar"><div style="width:${d.pct.toFixed(0)}%"></div></div>
+      <div class="b-pts mono">${(d.pct/100*d.w).toFixed(2)} <small>/ ${d.w.toFixed(1)}</small></div>
+    </div>`).join('');
+  $('#bNota').textContent=notaFinal().toFixed(1);
+  $('#bEmit').textContent=new Date().toLocaleDateString('es-MX',{day:'numeric',month:'long',year:'numeric'});
+}
+
+// Registro
+let editMode=false;
+function setFormMode(edit){
+  editMode=edit;
+  $('#btnEstSave').innerHTML = edit? '<i data-lucide="save"></i><span>Guardar cambios</span>'
+                                   : '<i data-lucide="user-plus"></i><span>Registrarme</span>';
+  $('#btnEstCancel').hidden=!edit;
+  refreshIcons();
+}
+$('#formEst').addEventListener('submit', e=>{
+  e.preventDefault();
+  const nombre=$('#alNombre').value.trim(), mat=$('#alMat').value.trim(), correo=$('#alMail').value.trim();
+  if(nombre.length<3){ toast('Escribe el nombre completo.','err'); return; }
+  if(mat.length<4){ toast('La matrícula debe tener al menos 4 caracteres.','err'); return; }
+  if(!/^\S+@\S+\.\S+$/.test(correo)){ toast('Escribe un correo válido.','err'); return; }
+  const prev=loadEst();
+  saveEst({nombre, matricula:mat, correo, ts: prev? prev.ts : Date.now()});
+  e.target.reset(); setFormMode(false);
+  renderBoleta(); syncEjChecks(); renderTaskList();
+  toast(prev? 'Datos actualizados.' : `¡Listo, ${nombre.split(' ')[0]}!`);
+});
+$('#btnEstEdit').addEventListener('click', ()=>{
+  const est=loadEst(); if(!est) return;
+  $('#alNombre').value=est.nombre; $('#alMat').value=est.matricula; $('#alMail').value=est.correo;
+  $('#regEmpty').hidden=false; $('#boletaWrap').hidden=true;
+  setFormMode(true); $('#alNombre').focus();
+});
+$('#btnEstCancel').addEventListener('click', ()=>{ $('#formEst').reset(); setFormMode(false); renderBoleta(); });
+$('#btnEstDel').addEventListener('click', ()=>{
+  const b=$('#btnEstDel');
+  if(!b.classList.contains('confirm')){
+    b.classList.add('confirm'); b.innerHTML='<i data-lucide="alert-triangle"></i><span>¿Borrar todo?</span>'; refreshIcons();
+    setTimeout(()=>{ if(b.isConnected){ b.classList.remove('confirm');
+      b.innerHTML='<i data-lucide="trash-2"></i><span>Borrar registro</span>'; refreshIcons(); } },3000);
+    return;
+  }
+  localStorage.removeItem(LS_EST); localStorage.removeItem(LS_ACT);
+  $('#formEst').reset(); setFormMode(false);
+  renderBoleta(); syncEjChecks(); renderTaskList();
+  toast('Registro y avance borrados.');
+});
+$('#btnBoletaPng').addEventListener('click', ()=>{
+  if(typeof html2canvas!=='function'){ toast('No se pudo generar la imagen.','err'); return; }
+  toast('Generando imagen…');
+  html2canvas($('#boletaCard'),{scale:2, backgroundColor:null, useCORS:true}).then(cv=>{
+    const est=loadEst();
+    const a=document.createElement('a');
+    a.download=`boleta-unidad3-${est? est.matricula : 'alumno'}.png`;
+    a.href=cv.toDataURL('image/png'); a.click();
+    toast('Boleta descargada.');
+  }).catch(()=>toast('No se pudo generar la imagen.','err'));
+});
+
+/* ============================================================
+   ARRANQUE
+============================================================ */
+function init(){
+  refreshIcons();
+  buildEditors();
+  initRedacs();
+  renderTaskList();
+  syncEjChecks();
+  renderBoleta();
+  drawHero();
+  if(typeof renderMathInElement==='function'){
+    renderMathInElement(document.body,{delimiters:[
+      {left:'$$',right:'$$',display:true},{left:'\\(',right:'\\)',display:false}],throwOnError:false});
+  }
+}
+window.addEventListener('resize', ()=>{ drawHero(); });
+init();
+</script>
+</body>
+</html>
+  
