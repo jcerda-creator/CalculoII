@@ -612,13 +612,13 @@ footer{border-top:2px solid var(--ink);padding:30px 0 40px;margin-top:20px}
             <div class="field" style="margin-bottom:12px">
               <label for="funcContorno">Función \(f(x,y)\)</label>
               <select id="funcContorno">
-                <option value="x2+y2">\(x^2 + y^2\) (paraboloide)</option>
-                <option value="cos(x2+y2)" selected>\(\cos(x^2+y^2)\)</option>
-                <option value="sin(x)*cos(y)">\(\sin(x)\cos(y)\)</option>
-                <option value="x2-y2">\(x^2 - y^2\) (silla)</option>
-                <option value="exp(-x2-y2)">\(e^{-(x^2+y^2)}\) (campana)</option>
-                <option value="x*y">\(xy\) (silla hiperbólica)</option>
-                <option value="x3-y3">\(x^3 - y^3\)</option>
+                <option value="x2+y2">x² + y² (paraboloide)</option>
+                <option value="cos(x2+y2)" selected>cos(x² + y²)</option>
+                <option value="sin(x)*cos(y)">sin(x)·cos(y)</option>
+                <option value="x2-y2">x² − y² (silla)</option>
+                <option value="exp(-x2-y2)">e^(−(x²+y²)) (campana)</option>
+                <option value="x*y">xy (silla hiperbólica)</option>
+                <option value="x3-y3">x³ − y³</option>
               </select>
             </div>
             <div class="sim-presets">
@@ -637,23 +637,23 @@ footer{border-top:2px solid var(--ink);padding:30px 0 40px;margin-top:20px}
           <!-- Pestaña: Superficies de nivel MEJORADA -->
           <div class="sim-panel" id="st-superficie">
             <div class="field" style="margin-bottom:12px">
-              <label for="funcSuperficie">Función \(f(x,y,z)\)</label>
+              <label for="funcSuperficie">Función f(x,y,z)</label>
               <select id="funcSuperficie">
-                <option value="x2+y2+z2">\(x^2+y^2+z^2\) (esferas)</option>
-                <option value="x2+y2-z2" selected>\(x^2+y^2-z^2\) (hiperboloide)</option>
-                <option value="x2-y2+z2">\(x^2-y^2+z^2\)</option>
-                <option value="x2+y2+z">\(x^2+y^2+z\) (paraboloides)</option>
-                <option value="x2-y2">\(x^2-y^2\) (cilindro parabólico)</option>
-                <option value="x2+y2">\(x^2+y^2\) (cilindro circular)</option>
+                <option value="x2+y2+z2">x² + y² + z² (esferas)</option>
+                <option value="x2+y2-z2" selected>x² + y² − z² (hiperboloide)</option>
+                <option value="x2-y2+z2">x² − y² + z²</option>
+                <option value="x2+y2+z">x² + y² + z (paraboloides)</option>
+                <option value="x2-y2">x² − y² (cilindro parabólico)</option>
+                <option value="x2+y2">x² + y² (cilindro circular)</option>
               </select>
             </div>
             <div class="field" style="margin-bottom:12px">
-              <label for="nivelValor">Valor de nivel \(k\)</label>
+              <label for="nivelValor">Valor de nivel k</label>
               <input id="nivelValor" type="number" value="1" step="0.5">
             </div>
             <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px">
-              <button class="btn sm ghost" id="btnMostrarTraza">Mostrar traza con \(z=0\)</button>
-              <button class="btn sm ghost" id="btnMostrarTrazaXY">Traza con \(z=k\)</button>
+              <button class="btn sm ghost" id="btnMostrarTraza">Mostrar traza con z = 0</button>
+              <button class="btn sm ghost" id="btnMostrarTrazaXY">Traza con z = k</button>
             </div>
             <button class="btn" id="btnSuperficie"><i data-lucide="box"></i>Mostrar superficie de nivel</button>
             <div class="legend-3d">
@@ -666,19 +666,19 @@ footer{border-top:2px solid var(--ink);padding:30px 0 40px;margin-top:20px}
           <!-- Pestaña: Curvas en el espacio MEJORADA -->
           <div class="sim-panel" id="st-curva">
             <div class="field" style="margin-bottom:12px">
-              <label for="funcCurva">Curva paramétrica \(\mathbf{r}(t)\)</label>
+              <label for="funcCurva">Curva paramétrica r(t)</label>
               <select id="funcCurva">
-                <option value="helice" selected>Hélice: \((\cos t, \sin t, t)\)</option>
-                <option value="elipse">Elipse en 3D: \((\cos t, \sin t, 0.5\sin(2t))\)</option>
-                <option value="lissajous">Lissajous 3D: \((\sin 2t, \cos 3t, \sin t)\)</option>
-                <option value="viviani">Viviani: \((\cos^2 t, \sin t\cos t, \sin t)\)</option>
-                <option value="tornillo">Tornillo: \((t\cos t, t\sin t, t)\)</option>
-                <option value="curvaC">Curva C: \((\cos t, \sin t, \cos 2t)\)</option>
+                <option value="helice" selected>Hélice: (cos t, sin t, t)</option>
+                <option value="elipse">Elipse en 3D: (cos t, sin t, 0.5 sin 2t)</option>
+                <option value="lissajous">Lissajous 3D: (sin 2t, cos 3t, sin t)</option>
+                <option value="viviani">Viviani: (cos² t, sin t cos t, sin t)</option>
+                <option value="tornillo">Tornillo: (t cos t, t sin t, t)</option>
+                <option value="curvaC">Curva C: (cos t, sin t, cos 2t)</option>
               </select>
             </div>
             <div class="sim-controls-3d">
-              <div class="field"><label>\(t_{\min}\)</label><input id="tmin" type="number" value="0" step="0.1"></div>
-              <div class="field"><label>\(t_{\max}\)</label><input id="tmax" type="number" value="6.28" step="0.1"></div>
+              <div class="field"><label>t mín</label><input id="tmin" type="number" value="0" step="0.1"></div>
+              <div class="field"><label>t máx</label><input id="tmax" type="number" value="6.28" step="0.1"></div>
             </div>
             <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px">
               <button class="btn sm ghost" id="btnMostrarPuntos">Mostrar puntos de muestreo</button>
@@ -686,7 +686,7 @@ footer{border-top:2px solid var(--ink);padding:30px 0 40px;margin-top:20px}
             </div>
             <button class="btn" id="btnCurva"><i data-lucide="activity"></i>Dibujar curva</button>
             <div class="legend-3d">
-              <span><span class="dot" style="background:#1e4636;"></span>Curva \(\mathbf{r}(t)\)</span>
+              <span><span class="dot" style="background:#1e4636;"></span>Curva r(t)</span>
               <span><span class="dot" style="background:#c2542f;"></span>Puntos de muestreo</span>
               <span><span class="dot" style="background:#8a6d10;"></span>Vector tangente</span>
             </div>
@@ -701,7 +701,7 @@ footer{border-top:2px solid var(--ink);padding:30px 0 40px;margin-top:20px}
         <div class="sim-3d-container" id="threeContainer"></div>
         <div class="graph-cap" id="graphCap3D">Selecciona una visualización. La ecuación se muestra arriba.</div>
         <div id="equationDisplay" style="padding:10px 16px;background:#ecf1ea;border-top:1px solid var(--line);font-family:'Fraunces',serif;font-size:1.1rem;text-align:center;color:var(--pine);min-height:40px;">
-          <span id="eqText">\(f(x,y)=\cos(x^2+y^2)\)</span>
+          <span id="eqText">f(x,y) = cos(x²+y²)</span>
         </div>
       </div>
     </div>
@@ -992,6 +992,25 @@ function toast(msg, type='ok'){
 function refreshIcons(){ if(window.lucide) lucide.createIcons(); }
 
 /* ============================================================
+   RENDERIZADO KATEX CENTRALIZADO
+============================================================ */
+function renderMathIn(el){
+  if(!el) return;
+  if(typeof renderMathInElement !== 'function') return;
+  try{
+    renderMathInElement(el, {
+      delimiters:[
+        {left:'$$', right:'$$', display:true},
+        {left:'\\[', right:'\\]', display:true},
+        {left:'\\(', right:'\\)', display:false},
+        {left:'$',  right:'$',  display:false}
+      ],
+      throwOnError:false
+    });
+  }catch(e){ /* noop */ }
+}
+
+/* ============================================================
    PERSISTENCIA
 ============================================================ */
 const LS_EST='aula_estudiante';
@@ -1030,25 +1049,6 @@ $$('[data-view]').forEach(el => el.addEventListener('click', e => {
 }));
 
 /* ============================================================
-   RENDERIZADO KATEX (centralizado)
-============================================================ */
-function renderMathIn(el){
-  if(!el) return;
-  if(typeof renderMathInElement !== 'function') return;
-  try{
-    renderMathInElement(el, {
-      delimiters:[
-        {left:'$$', right:'$$', display:true},
-        {left:'\\[', right:'\\]', display:true},
-        {left:'\\(', right:'\\)', display:false},
-        {left:'$', right:'$', display:false}
-      ],
-      throwOnError:false
-    });
-  }catch(e){ /* noop */ }
-}
-
-/* ============================================================
    HERO CANVAS (Curvas de nivel)
 ============================================================ */
 function drawHero(){
@@ -1060,12 +1060,10 @@ function drawHero(){
   const w=r.width, h=r.height;
   ctx.clearRect(0,0,w,h);
   const cx=w/2, cy=h/2, scale=60;
-  // Ejes
   ctx.strokeStyle='rgba(28,43,37,.3)'; ctx.lineWidth=1;
   ctx.beginPath(); ctx.moveTo(30, cy); ctx.lineTo(w-30, cy); ctx.moveTo(cx, 20); ctx.lineTo(cx, h-20); ctx.stroke();
   ctx.font='11px Instrument Sans'; ctx.fillStyle='rgba(28,43,37,.5)';
   ctx.fillText('x', w-25, cy-5); ctx.fillText('y', cx+8, 24);
-  // Curvas de nivel de x^2+y^2
   const colors = ['#1e4636','#2c5e49','#3a7a5c','#4a9670','#5ab284'];
   for(let k=1; k<=8; k++){
     const radius = Math.sqrt(k)*0.8*scale;
@@ -1113,7 +1111,6 @@ function initThree(){
     threeControls.dampingFactor = 0.08;
     threeControls.target.set(0, 0, 0);
     
-    // Luz
     const ambientLight = new THREE.AmbientLight(0x404060, 0.5);
     threeScene.add(ambientLight);
     const dirLight = new THREE.DirectionalLight(0xffffff, 0.8);
@@ -1123,12 +1120,10 @@ function initThree(){
     dirLight2.position.set(-1, -0.5, -1);
     threeScene.add(dirLight2);
     
-    // Grid
     const gridHelper = new THREE.GridHelper(8, 8, 0x888888, 0xcccccc);
     gridHelper.position.y = -0.01;
     threeScene.add(gridHelper);
     
-    // Ejes
     const axesHelper = new THREE.AxesHelper(4);
     threeScene.add(axesHelper);
     
@@ -1141,14 +1136,11 @@ function initThree(){
     });
   }
   
-  // Limpiar objetos anteriores
   threeObjects.forEach(obj => threeScene.remove(obj));
   threeObjects = [];
   
-  // Mostrar algo por defecto: curvas de nivel
   drawContorno();
   
-  // Animación
   function animate(){
     requestAnimationFrame(animate);
     if(threeControls) threeControls.update();
@@ -1162,88 +1154,85 @@ function initThree(){
 function addObject(obj){ threeObjects.push(obj); threeScene.add(obj); }
 
 /* --- Curvas de nivel en 3D --- */
+let nCurvesActual = 10;
 function drawContorno(){
   const func = document.getElementById('funcContorno').value;
-  const nCurves = parseInt(document.querySelector('[data-contorno]')?.dataset?.contorno) || 10;
+  const nCurves = nCurvesActual;
   
   const funcs = {
     'x2+y2': (x,y) => x*x + y*y,
     'cos(x2+y2)': (x,y) => Math.cos(x*x + y*y),
     'sin(x)*cos(y)': (x,y) => Math.sin(x)*Math.cos(y),
     'x2-y2': (x,y) => x*x - y*y,
-    'exp(-x2-y2)': (x,y) => Math.exp(-(x*x + y*y))
+    'exp(-x2-y2)': (x,y) => Math.exp(-(x*x + y*y)),
+    'x*y': (x,y) => x*y,
+    'x3-y3': (x,y) => x*x*x - y*y*y
   };
   const f = funcs[func] || funcs['cos(x2+y2)'];
   
-  // Rango
   const range = 3;
-  const steps = 80;
-  const points = [];
+  const steps = 60;
   const values = [];
   
   for(let i=0; i<=steps; i++){
     for(let j=0; j<=steps; j++){
       const x = -range + 2*range*i/steps;
       const y = -range + 2*range*j/steps;
-      const z = f(x,y);
-      points.push({x,y,z});
-      values.push(z);
+      values.push({x, y, v: f(x,y)});
     }
   }
   
-  // Encontrar min/max
   let minV = Infinity, maxV = -Infinity;
-  values.forEach(v => { if(v < minV) minV = v; if(v > maxV) maxV = v; });
+  values.forEach(p => { if(p.v < minV) minV = p.v; if(p.v > maxV) maxV = p.v; });
   const delta = maxV - minV || 1;
   
-  // Generar curvas de nivel
   const levels = [];
   for(let k=1; k<=nCurves; k++){
     levels.push(minV + k*delta/(nCurves+1));
   }
   
-  // Crear líneas de contorno usando marching squares simplificado
   const color = new THREE.Color(PINE);
+  const dx = 2*range/steps;
   
   levels.forEach(level => {
-    const pts = [];
+    const positions = [];
     for(let i=0; i<steps; i++){
       for(let j=0; j<steps; j++){
         const idx = i*(steps+1) + j;
-        const idxR = (i+1)*(steps+1) + j;
-        const idxU = i*(steps+1) + (j+1);
-        const idxRU = (i+1)*(steps+1) + (j+1);
-        const v1 = values[idx], v2 = values[idxR], v3 = values[idxU], v4 = values[idxRU];
+        const v1 = values[idx].v;
+        const v2 = values[idx + (steps+1)].v;
+        const v3 = values[idx + 1].v;
+        const v4 = values[idx + (steps+1) + 1].v;
         const x = -range + 2*range*i/steps;
         const y = -range + 2*range*j/steps;
-        const dx = 2*range/steps;
-        const dy = 2*range/steps;
-        const vals = [v1,v2,v3,v4];
-        const above = vals.map(v => v >= level);
-        const count = above.filter(Boolean).length;
-        if(count > 0 && count < 4){
-          const interps = [];
-          const x1=x, x2=x+dx, y1=y, y2=y+dy;
-          const pairs = [[v1,v2, x1,y1, x2,y1], [v3,v4, x1,y2, x2,y2], [v1,v3, x1,y1, x1,y2], [v2,v4, x2,y1, x2,y2]];
-          pairs.forEach(([a,b, px1,py1, px2,py2]) => {
-            if((a>=level && b<level) || (a<level && b>=level)){
-              const t = (level-a)/(b-a);
-              interps.push([px1 + t*(px2-px1), py1 + t*(py2-py1)]);
-            }
-          });
-          if(interps.length >= 2){
-            pts.push({x: interps[0][0], y: interps[0][1], z: level});
-            pts.push({x: interps[1][0], y: interps[1][1], z: level});
+        const crossings = [];
+        const segs = [
+          [v1, v2, x, y, x+dx, y],
+          [v3, v4, x, y+dx, x+dx, y+dx],
+          [v1, v3, x, y, x, y+dx],
+          [v2, v4, x+dx, y, x+dx, y+dx]
+        ];
+        segs.forEach(([a,b,px1,py1,px2,py2])=>{
+          if((a-level)*(b-level) < 0){
+            const t = (level - a)/(b - a);
+            crossings.push([px1 + t*(px2-px1), py1 + t*(py2-py1)]);
           }
+        });
+        if(crossings.length === 2){
+          positions.push(crossings[0][0], crossings[0][1], level);
+          positions.push(crossings[1][0], crossings[1][1], level);
+        } else if(crossings.length === 4){
+          positions.push(crossings[0][0], crossings[0][1], level);
+          positions.push(crossings[1][0], crossings[1][1], level);
+          positions.push(crossings[2][0], crossings[2][1], level);
+          positions.push(crossings[3][0], crossings[3][1], level);
         }
       }
     }
-    if(pts.length > 0){
+    if(positions.length > 0){
       const geometry = new THREE.BufferGeometry();
-      const positions = [];
-      pts.forEach(p => { positions.push(p.x, p.y, p.z); });
       geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
-      const material = new THREE.LineBasicMaterial({ color: color, linewidth: 1 });
+      const material = new THREE.LineBasicMaterial({ color: color });
       const line = new THREE.LineSegments(geometry, material);
       addObject(line);
     }
@@ -1262,7 +1251,9 @@ function drawSuperficie(){
     'x2+y2+z2': (x,y,z) => x*x + y*y + z*z,
     'x2+y2-z2': (x,y,z) => x*x + y*y - z*z,
     'x2-y2+z2': (x,y,z) => x*x - y*y + z*z,
-    'x2+y2+z': (x,y,z) => x*x + y*y + z
+    'x2+y2+z': (x,y,z) => x*x + y*y + z,
+    'x2-y2': (x,y,z) => x*x - y*y,
+    'x2+y2': (x,y,z) => x*x + y*y
   };
   const f = funcs[func] || funcs['x2+y2-z2'];
   
@@ -1277,8 +1268,8 @@ function drawSuperficie(){
         const y = -range + 2*range*j/steps;
         const z = -range + 2*range*l/steps;
         const val = f(x,y,z);
-        const dx = 2*range/steps;
-        if(Math.abs(val - k) < dx*1.5){
+        const dd = 2*range/steps;
+        if(Math.abs(val - k) < dd*1.5){
           pts.push({x,y,z});
         }
       }
@@ -1315,7 +1306,8 @@ function drawCurva(){
     'elipse': (t) => [Math.cos(t), Math.sin(t), 0.5*Math.sin(2*t)],
     'lissajous': (t) => [Math.sin(2*t), Math.cos(3*t), Math.sin(t)],
     'viviani': (t) => [Math.cos(t)*Math.cos(t), Math.sin(t)*Math.cos(t), Math.sin(t)],
-    'tornillo': (t) => [t*Math.cos(t)/3, t*Math.sin(t)/3, t/3]
+    'tornillo': (t) => [t*Math.cos(t)/3, t*Math.sin(t)/3, t/3],
+    'curvaC': (t) => [Math.cos(t), Math.sin(t), Math.cos(2*t)]
   };
   const r = funcs[func] || funcs['helice'];
   
@@ -1328,11 +1320,10 @@ function drawCurva(){
   }
   
   const geometry = new THREE.BufferGeometry().setFromPoints(pts);
-  const material = new THREE.LineBasicMaterial({ color: PINE, linewidth: 2 });
+  const material = new THREE.LineBasicMaterial({ color: PINE });
   const curve = new THREE.Line(geometry, material);
   addObject(curve);
   
-  // Puntos de muestreo
   const ptsGeo = new THREE.BufferGeometry();
   const pos = [];
   for(let i=0; i<=Math.min(n, 30); i++){
@@ -1352,7 +1343,6 @@ function drawCurva(){
 /* ============================================================
    EVENTOS DEL SIMULADOR 3D
 ============================================================ */
-// Pestañas
 $$('.sim-tab').forEach(tab=>{
   tab.addEventListener('click', ()=>{
     $$('.sim-tab').forEach(t=>t.classList.remove('active'));
@@ -1360,7 +1350,6 @@ $$('.sim-tab').forEach(tab=>{
     tab.classList.add('active');
     const id = tab.dataset.stab;
     document.getElementById('st-'+id).classList.add('active');
-    // Limpiar y mostrar el panel correspondiente
     setTimeout(()=>{
       if(threeScene){
         threeObjects.forEach(obj => threeScene.remove(obj));
@@ -1373,7 +1362,6 @@ $$('.sim-tab').forEach(tab=>{
   });
 });
 
-// Botones
 document.getElementById('btnContorno').addEventListener('click', ()=>{
   if(threeScene){
     threeObjects.forEach(obj => threeScene.remove(obj));
@@ -1398,13 +1386,11 @@ document.getElementById('btnCurva').addEventListener('click', ()=>{
   }
 });
 
-// Presets de curvas de nivel
 $$('[data-contorno]').forEach(b=>{
   b.addEventListener('click', ()=>{
     $$('[data-contorno]').forEach(bb=>bb.classList.remove('active'));
     b.classList.add('active');
-    document.querySelectorAll('[data-contorno]').forEach(bb=>bb.style.borderColor='transparent');
-    b.style.borderColor=PINE;
+    nCurvesActual = parseInt(b.dataset.contorno);
     if(threeScene){
       threeObjects.forEach(obj => threeScene.remove(obj));
       threeObjects = [];
@@ -1414,7 +1400,7 @@ $$('[data-contorno]').forEach(b=>{
 });
 
 /* ============================================================
-   QUIZ (Unidad 2) — CON RENDERIZADO KATEX CORREGIDO
+   QUIZ
 ============================================================ */
 const QUIZ = [
  {q:'¿Qué es una curva de nivel de $f(x,y)$?',
@@ -1453,7 +1439,6 @@ function renderQuiz(){
       <p class="explain" hidden><strong>Retroalimentación:</strong> ${it.why}</p>
     </article>`).join('');
   $('#quizResult').innerHTML='';
-  // Renderizar KaTeX DESPUÉS de insertar el HTML en el DOM
   renderMathIn($('#quizList'));
 }
 renderQuiz();
@@ -1736,7 +1721,6 @@ function renderBoleta(){
   $('#bEmit').textContent=new Date().toLocaleDateString('es-MX',{day:'numeric',month:'long',year:'numeric'});
 }
 
-// Registro
 let editMode=false;
 function setFormMode(edit){
   editMode=edit;
@@ -1804,7 +1788,6 @@ function init(){
 }
 window.addEventListener('resize', ()=>{ drawHero(); });
 
-/* Esperar a que KaTeX auto-render esté disponible antes de inicializar */
 function waitForKaTeX(cb){
   if(typeof renderMathInElement === 'function') return cb();
   setTimeout(()=>waitForKaTeX(cb), 100);
