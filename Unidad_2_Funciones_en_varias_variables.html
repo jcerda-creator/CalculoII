@@ -1406,7 +1406,7 @@ $$('[data-contorno]').forEach(b=>{
    QUIZ (Unidad 2)
 ============================================================ */
 const QUIZ = [
- {q:'¿Qué es una curva de nivel de \(f(x,y)\)?',
+ {q:'¿Qué es una curva de nivel de $f(x,y)$?',
   opts:['El conjunto de puntos donde \(f\) es máxima','El conjunto de puntos donde \(f\) es constante','La gráfica de \(f\) en 3D','La derivada de \(f\)'],
   ans:1, why:'Una curva de nivel es el conjunto de puntos donde \(f(x,y)=k\), es decir, todos los puntos con el mismo valor de la función.'},
  {q:'¿Cuál es el dominio de \(f(x,y)=\ln(x+y)\)?',
@@ -1536,7 +1536,7 @@ function buildEditors(){
       <div class="ed-grid">
         <div class="ed-main">
           <textarea id="ta_${k}" class="ed-ta" spellcheck="false"
-            placeholder="Escribe tu solución aquí. Usa LaTeX entre \\( ... \\)."></textarea>
+            placeholder="Escribe tu solución aquí. Usa LaTeX entre $ ... $."></textarea>
           <div class="ed-preview-wrap">
             <div class="ed-preview-head">Vista previa</div>
             <div class="ed-preview" id="pv_${k}"><em class="ed-ph">La vista previa aparecerá aquí.</em></div>
@@ -1568,7 +1568,7 @@ function buildManuals(){
         <button type="button" class="cmd-add" data-snip="${esc(m.snip)}">+</button>
       </div>`;
     }).join('');
-    box.innerHTML=`<p class="ed-note"><strong>Fórmulas:</strong> usa \( ... \) o $ ... $.</p>
+    box.innerHTML=`<p class="ed-note"><strong>Fórmulas:</strong> usa $ ... $.</p>
       <p class="ed-cmd-title">Comandos útiles</p>
       ${rows}
       <p class="ed-note"><strong>Estructura:</strong> define el problema, desarrolla paso a paso, responde con \(\boxed{}\).</p>`;
