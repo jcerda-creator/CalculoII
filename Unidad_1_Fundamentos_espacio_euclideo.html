@@ -1523,20 +1523,30 @@ const QUIZ=[
  {q:String.raw`¿Qué es \(\mathbb{R}^n\)?`,
   opts:['El conjunto de todos los números reales','El conjunto de todas las n-tuplas ordenadas de números reales','El conjunto de los números complejos','El conjunto de los números enteros'],
   ans:1, why:String.raw`\(\mathbb{R}^n\) es el producto cartesiano de \(n\) copias de \(\mathbb{R}\), es decir, todas las n-tuplas ordenadas de números reales.`},
+
  {q:String.raw`¿Cuál de las siguientes operaciones NO está definida para vectores en \(\mathbb{R}^n\)?`,
-  opts:['Suma de vectores','Producto escalar','Producto vectorial (para \(n=3\))','División de vectores'],
+  opts:['Suma de vectores','Producto escalar',String.raw`Producto vectorial (para \(n=3\))`,'División de vectores'],
   ans:3, why:String.raw`La división de vectores no está definida en \(\mathbb{R}^n\). Existen suma, resta, producto escalar y producto por escalar.`},
+
  {q:String.raw`La norma euclidiana de \(\mathbf{x}=(3,-4)\) en \(\mathbb{R}^2\) es:`,
   opts:['1','5','7','25'],
   ans:1, why:String.raw`\(\|\mathbf{x}\| = \sqrt{3^2+(-4)^2} = \sqrt{25} = 5\).`},
+
  {q:String.raw`Un conjunto \(A\) es abierto si:`,
-  opts:['Contiene todos sus puntos frontera','Todo punto tiene una vecindad contenida en \(A\)','Su complemento es vacío','Es un intervalo cerrado'],
+  opts:[String.raw`Contiene todos sus puntos frontera`,String.raw`Todo punto tiene una vecindad contenida en \(A\)`,'Su complemento es vacío','Es un intervalo cerrado'],
   ans:1, why:String.raw`Un conjunto es abierto si para cada punto existe una vecindad (bola abierta) completamente contenida en el conjunto.`},
+
  {q:String.raw`La distancia entre los puntos \((1,2)\) y \((4,6)\) en \(\mathbb{R}^2\) es:`,
   opts:['3','4','5','6'],
   ans:2, why:String.raw`\(d = \sqrt{(4-1)^2+(6-2)^2} = \sqrt{9+16} = \sqrt{25} = 5\).`},
+
  {q:String.raw`¿Cuál de los siguientes conjuntos es cerrado en \(\mathbb{R}^2\)?`,
-  opts:['El disco abierto \(x^2+y^2<1\)','El disco cerrado \(x^2+y^2\leq 1\)','El conjunto \(x^2+y^2<1\) con \(y>0\)','La circunferencia \(x^2+y^2=1\) sola'],
+  opts:[
+    String.raw`El disco abierto \(x^2+y^2<1\)`,
+    String.raw`El disco cerrado \(x^2+y^2\leq 1\)`,
+    String.raw`El conjunto \(x^2+y^2<1\) con \(y>0\)`,
+    String.raw`La circunferencia \(x^2+y^2=1\) sola`
+  ],
   ans:1, why:String.raw`El disco cerrado incluye su frontera, por lo que su complemento es abierto. (Nota: la circunferencia sola también es cerrada; la opción esperada del curso es el disco cerrado, el ejemplo canónico de la sección 1.5.)`}
 ];
 function renderQuiz(){
