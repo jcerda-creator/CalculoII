@@ -1588,24 +1588,39 @@ document.getElementById('puntoY').addEventListener('change', ()=>{
    QUIZ (Unidad 3)
 ============================================================ */
 const QUIZ = [
- {q:'¿Cuál es la condición necesaria para que \(\lim_{(x,y)\to(a,b)} f(x,y)\) exista?',
-  opts:['Que \(f(a,b)\) esté definida','Que el límite sea el mismo por todas las trayectorias','Que \(f\) sea continua','Que las derivadas parciales existan'],
+ {q:String.raw`¿Cuál es la condición necesaria para que \(\lim_{(x,y)\to(a,b)} f(x,y)\) exista?`,
+  opts:[
+    String.raw`Que \(f(a,b)\) esté definida`,
+    'Que el límite sea el mismo por todas las trayectorias',
+    String.raw`Que \(f\) sea continua`,
+    'Que las derivadas parciales existan'
+  ],
   ans:1, why:'El límite existe si el valor es el mismo independientemente de la trayectoria de aproximación.'},
- {q:'Si \(\lim_{(x,y)\to(0,0)} f(x,y) = L\) y \(f(0,0)=L\), entonces \(f\) es:',
+
+ {q:String.raw`Si \(\lim_{(x,y)\to(0,0)} f(x,y) = L\) y \(f(0,0)=L\), entonces \(f\) es:`,
   opts:['Diferenciable','Continua','Discontinua','Integrable'],
   ans:1, why:'La continuidad en un punto requiere que el límite exista y sea igual al valor de la función en ese punto.'},
+
  {q:'¿Qué ocurre si al evaluar un límite por dos trayectorias diferentes se obtienen valores distintos?',
   opts:['El límite existe y es el promedio','El límite no existe','El límite es el menor de los dos','La función es continua'],
   ans:1, why:'Si dos trayectorias dan valores diferentes, el límite no existe.'},
- {q:'El gradiente de \(f(x,y)=x^2+y^2\) en \((1,1)\) es:',
+
+ {q:String.raw`El gradiente de \(f(x,y)=x^2+y^2\) en \((1,1)\) es:`,
   opts:['(2,2)','(1,1)','(0,0)','(4,4)'],
-  ans:0, why:'\(\nabla f = (2x, 2y)\). Evaluando en \((1,1)\): \((2,2)\).'},
- {q:'Una función \(f\) es diferenciable en un punto si:',
+  ans:0, why:String.raw`\(\nabla f = (2x, 2y)\). Evaluando en \((1,1)\): \((2,2)\).`},
+
+ {q:String.raw`Una función \(f\) es diferenciable en un punto si:`,
   opts:['Existen sus derivadas parciales','Es continua','Existe una aproximación lineal que la representa bien','Todas las anteriores'],
   ans:2, why:'La diferenciabilidad exige que exista una transformación lineal que aproxime a la función.'},
- {q:'¿Cuál de las siguientes funciones es continua en \((0,0)\)?',
-  opts:['\(f(x,y)=\frac{x}{y}\)','\(f(x,y)=\frac{x^2}{x^2+y^2}\)','\(f(x,y)=\frac{x^2 y}{x^2+y^2}\)','\(f(x,y)=\frac{xy}{x^2+y^2}\)'],
-  ans:2, why:'La función \(\frac{x^2 y}{x^2+y^2}\) tiende a 0 independientemente de la trayectoria.'}
+
+ {q:String.raw`¿Cuál de las siguientes funciones es continua en \((0,0)\)?`,
+  opts:[
+    String.raw`\(f(x,y)=\dfrac{x}{y}\)`,
+    String.raw`\(f(x,y)=\dfrac{x^2}{x^2+y^2}\)`,
+    String.raw`\(f(x,y)=\dfrac{x^2 y}{x^2+y^2}\)`,
+    String.raw`\(f(x,y)=\dfrac{xy}{x^2+y^2}\)`
+  ],
+  ans:2, why:String.raw`La función \(\dfrac{x^2 y}{x^2+y^2}\) tiende a 0 independientemente de la trayectoria.`}
 ];
 
 function renderQuiz(){
