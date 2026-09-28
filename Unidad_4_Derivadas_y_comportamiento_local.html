@@ -1696,24 +1696,39 @@ $$('[data-lagrange]').forEach(b=>{
    QUIZ (Unidad 4)
 ============================================================ */
 const QUIZ = [
- {q:'¿Qué condición se cumple en un punto crítico de \(f(x,y)\)?',
-  opts:['\(f(x,y)=0\)','\(\nabla f(x,y)=0\)','\(f_{xx}=0\)','\(f_{xy}=0\)'],
-  ans:1, why:'En un punto crítico, todas las derivadas parciales se anulan: \(\nabla f=(0,0)\).'},
- {q:'Si \(\det(H)>0\) y \(f_{xx}<0\) en un punto crítico, entonces:',
+ {q:String.raw`¿Qué condición se cumple en un punto crítico de \(f(x,y)\)?`,
+  opts:[
+    String.raw`\(f(x,y)=0\)`,
+    String.raw`\(\nabla f(x,y)=0\)`,
+    String.raw`\(f_{xx}=0\)`,
+    String.raw`\(f_{xy}=0\)`
+  ],
+  ans:1, why:String.raw`En un punto crítico, todas las derivadas parciales se anulan: \(\nabla f=(0,0)\).`},
+
+ {q:String.raw`Si \(\det(H)>0\) y \(f_{xx}<0\) en un punto crítico, entonces:`,
   opts:['Es un mínimo local','Es un máximo local','Es un punto silla','El criterio no decide'],
-  ans:1, why:'\(\det(H)>0\) y \(f_{xx}<0\) indican un máximo local. La superficie es cóncava hacia abajo.'},
+  ans:1, why:String.raw`\(\det(H)>0\) y \(f_{xx}<0\) indican un máximo local. La superficie es cóncava hacia abajo.`},
+
  {q:'En un punto silla, el determinante de la Hessiana es:',
   opts:['Positivo','Negativo','Cero','Indefinido'],
-  ans:1, why:'En un punto silla, \(\det(H)<0\), lo que indica que la superficie tiene curvatura en direcciones opuestas.'},
+  ans:1, why:String.raw`En un punto silla, \(\det(H)<0\), lo que indica que la superficie tiene curvatura en direcciones opuestas.`},
+
  {q:'En el método de multiplicadores de Lagrange, la condición para extremos es:',
-  opts:['\(\nabla f=0\)','\(\nabla g=0\)','\(\nabla f=\lambda\nabla g\)','\(f=g\)'],
-  ans:2, why:'La condición de Lagrange es que los gradientes sean paralelos: \(\nabla f=\lambda\nabla g\).'},
+  opts:[
+    String.raw`\(\nabla f=0\)`,
+    String.raw`\(\nabla g=0\)`,
+    String.raw`\(\nabla f=\lambda\nabla g\)`,
+    String.raw`\(f=g\)`
+  ],
+  ans:2, why:String.raw`La condición de Lagrange es que los gradientes sean paralelos: \(\nabla f=\lambda\nabla g\).`},
+
  {q:'La matriz Hessiana está formada por:',
   opts:['Derivadas primeras','Derivadas segundas','Derivadas mixtas','Integrales'],
-  ans:1, why:'La Hessiana es la matriz de segundas derivadas parciales: \(f_{xx}, f_{xy}, f_{yx}, f_{yy}\).'},
- {q:'¿Qué ocurre si \(\det(H)=0\) en un punto crítico?',
+  ans:1, why:String.raw`La Hessiana es la matriz de segundas derivadas parciales: \(f_{xx}, f_{xy}, f_{yx}, f_{yy}\).`},
+
+ {q:String.raw`¿Qué ocurre si \(\det(H)=0\) en un punto crítico?`,
   opts:['Es un mínimo','Es un máximo','Es un punto silla','El criterio de la Hessiana no decide'],
-  ans:3, why:'Cuando \(\det(H)=0\), el criterio de la Hessiana no proporciona información; se necesitan otros métodos.'}
+  ans:3, why:String.raw`Cuando \(\det(H)=0\), el criterio de la Hessiana no proporciona información; se necesitan otros métodos.`}
 ];
 
 function renderQuiz(){
